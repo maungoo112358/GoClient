@@ -22,20 +22,21 @@ public class GoClient : MonoBehaviour
 		_client.Send(data, data.Length, _remoteEndPoint);
 	}
 
-	private void SendMessage(string message, uint seq)
+	private void SendMessage(string message, uint seq, string clientId)
 	{
 		var packet = new GamePacket()
 		{
 			Seq = seq,
 			ChatMessage = new ChatMessage
 			{
+				ClientId = clientId,
 				Message = message,
 			}
 		};
 
 		byte[] data = MessageExtensions.ToByteArray(packet);
-
 		_client.Send(data, data.Length, _remoteEndPoint);
-		Debug.Log($"Send packet to go server=> SeqID: {seq} <:::> Message: {message}");
+		Debug.Log($"Send packet => SeqID: {seq}, ClientID: {clientId}, Message: {message}");
 	}
+
 }
