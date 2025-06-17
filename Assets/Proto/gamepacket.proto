@@ -11,8 +11,10 @@ message GamePacket {
     LobbyJoinBroadcast lobbyJoinBroadcast = 4;
     ChatMessage chatMessage = 5;
     ClientPosition clientPosition = 6;
+    Heartbeat heartbeat = 7;
   }
 }
+
 
 message HandshakeRequest {
   string clientName = 1; // optional nickname from client
@@ -38,5 +40,9 @@ message ClientPosition {
 message ChatMessage {
   string clientId = 1; // who said it
   string message = 2;
+}
+
+message Heartbeat {
+  string clientId = 1;
 }
 

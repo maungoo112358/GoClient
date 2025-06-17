@@ -24,30 +24,33 @@ namespace Gamepacket {
     static GamepacketReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBnYW1lcGFja2V0LnByb3RvEgpnYW1lcGFja2V0Ir4CCgpHYW1lUGFja2V0",
+            "ChBnYW1lcGFja2V0LnByb3RvEgpnYW1lcGFja2V0IuoCCgpHYW1lUGFja2V0",
             "EgsKA3NlcRgBIAEoDRI4ChBoYW5kc2hha2VSZXF1ZXN0GAIgASgLMhwuZ2Ft",
             "ZXBhY2tldC5IYW5kc2hha2VSZXF1ZXN0SAASOgoRaGFuZHNoYWtlUmVzcG9u",
             "c2UYAyABKAsyHS5nYW1lcGFja2V0LkhhbmRzaGFrZVJlc3BvbnNlSAASPAoS",
             "bG9iYnlKb2luQnJvYWRjYXN0GAQgASgLMh4uZ2FtZXBhY2tldC5Mb2JieUpv",
             "aW5Ccm9hZGNhc3RIABIuCgtjaGF0TWVzc2FnZRgFIAEoCzIXLmdhbWVwYWNr",
             "ZXQuQ2hhdE1lc3NhZ2VIABI0Cg5jbGllbnRQb3NpdGlvbhgGIAEoCzIaLmdh",
-            "bWVwYWNrZXQuQ2xpZW50UG9zaXRpb25IAEIJCgdwYXlsb2FkIiYKEEhhbmRz",
-            "aGFrZVJlcXVlc3QSEgoKY2xpZW50TmFtZRgBIAEoCSI4ChFIYW5kc2hha2VS",
-            "ZXNwb25zZRIRCglwcml2YXRlSWQYASABKAkSEAoIcHVibGljSWQYAiABKAki",
-            "OAoSTG9iYnlKb2luQnJvYWRjYXN0EhAKCHB1YmxpY0lkGAEgASgJEhAKCGNv",
-            "bG9ySGV4GAIgASgJIkMKDkNsaWVudFBvc2l0aW9uEhAKCGNsaWVudElkGAEg",
-            "ASgJEgkKAXgYAiABKAISCQoBeRgDIAEoAhIJCgF6GAQgASgCIjAKC0NoYXRN",
-            "ZXNzYWdlEhAKCGNsaWVudElkGAEgASgJEg8KB21lc3NhZ2UYAiABKAlCFVoT",
-            "Z29zb2NrZXQvZ2FtZXBhY2tldGIGcHJvdG8z"));
+            "bWVwYWNrZXQuQ2xpZW50UG9zaXRpb25IABIqCgloZWFydGJlYXQYByABKAsy",
+            "FS5nYW1lcGFja2V0LkhlYXJ0YmVhdEgAQgkKB3BheWxvYWQiJgoQSGFuZHNo",
+            "YWtlUmVxdWVzdBISCgpjbGllbnROYW1lGAEgASgJIjgKEUhhbmRzaGFrZVJl",
+            "c3BvbnNlEhEKCXByaXZhdGVJZBgBIAEoCRIQCghwdWJsaWNJZBgCIAEoCSI4",
+            "ChJMb2JieUpvaW5Ccm9hZGNhc3QSEAoIcHVibGljSWQYASABKAkSEAoIY29s",
+            "b3JIZXgYAiABKAkiQwoOQ2xpZW50UG9zaXRpb24SEAoIY2xpZW50SWQYASAB",
+            "KAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCEgkKAXoYBCABKAIiMAoLQ2hhdE1l",
+            "c3NhZ2USEAoIY2xpZW50SWQYASABKAkSDwoHbWVzc2FnZRgCIAEoCSIdCglI",
+            "ZWFydGJlYXQSEAoIY2xpZW50SWQYASABKAlCFVoTZ29zb2NrZXQvZ2FtZXBh",
+            "Y2tldGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.GamePacket), global::Gamepacket.GamePacket.Parser, new[]{ "Seq", "HandshakeRequest", "HandshakeResponse", "LobbyJoinBroadcast", "ChatMessage", "ClientPosition" }, new[]{ "Payload" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.GamePacket), global::Gamepacket.GamePacket.Parser, new[]{ "Seq", "HandshakeRequest", "HandshakeResponse", "LobbyJoinBroadcast", "ChatMessage", "ClientPosition", "Heartbeat" }, new[]{ "Payload" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HandshakeRequest), global::Gamepacket.HandshakeRequest.Parser, new[]{ "ClientName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HandshakeResponse), global::Gamepacket.HandshakeResponse.Parser, new[]{ "PrivateId", "PublicId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.LobbyJoinBroadcast), global::Gamepacket.LobbyJoinBroadcast.Parser, new[]{ "PublicId", "ColorHex" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ClientPosition), global::Gamepacket.ClientPosition.Parser, new[]{ "ClientId", "X", "Y", "Z" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ChatMessage), global::Gamepacket.ChatMessage.Parser, new[]{ "ClientId", "Message" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ChatMessage), global::Gamepacket.ChatMessage.Parser, new[]{ "ClientId", "Message" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.Heartbeat), global::Gamepacket.Heartbeat.Parser, new[]{ "ClientId" }, null, null, null, null)
           }));
     }
     #endregion
@@ -105,6 +108,9 @@ namespace Gamepacket {
           break;
         case PayloadOneofCase.ClientPosition:
           ClientPosition = other.ClientPosition.Clone();
+          break;
+        case PayloadOneofCase.Heartbeat:
+          Heartbeat = other.Heartbeat.Clone();
           break;
       }
 
@@ -189,6 +195,18 @@ namespace Gamepacket {
       }
     }
 
+    /// <summary>Field number for the "heartbeat" field.</summary>
+    public const int HeartbeatFieldNumber = 7;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Gamepacket.Heartbeat Heartbeat {
+      get { return payloadCase_ == PayloadOneofCase.Heartbeat ? (global::Gamepacket.Heartbeat) payload_ : null; }
+      set {
+        payload_ = value;
+        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.Heartbeat;
+      }
+    }
+
     private object payload_;
     /// <summary>Enum of possible cases for the "payload" oneof.</summary>
     public enum PayloadOneofCase {
@@ -198,6 +216,7 @@ namespace Gamepacket {
       LobbyJoinBroadcast = 4,
       ChatMessage = 5,
       ClientPosition = 6,
+      Heartbeat = 7,
     }
     private PayloadOneofCase payloadCase_ = PayloadOneofCase.None;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -234,6 +253,7 @@ namespace Gamepacket {
       if (!object.Equals(LobbyJoinBroadcast, other.LobbyJoinBroadcast)) return false;
       if (!object.Equals(ChatMessage, other.ChatMessage)) return false;
       if (!object.Equals(ClientPosition, other.ClientPosition)) return false;
+      if (!object.Equals(Heartbeat, other.Heartbeat)) return false;
       if (PayloadCase != other.PayloadCase) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -248,6 +268,7 @@ namespace Gamepacket {
       if (payloadCase_ == PayloadOneofCase.LobbyJoinBroadcast) hash ^= LobbyJoinBroadcast.GetHashCode();
       if (payloadCase_ == PayloadOneofCase.ChatMessage) hash ^= ChatMessage.GetHashCode();
       if (payloadCase_ == PayloadOneofCase.ClientPosition) hash ^= ClientPosition.GetHashCode();
+      if (payloadCase_ == PayloadOneofCase.Heartbeat) hash ^= Heartbeat.GetHashCode();
       hash ^= (int) payloadCase_;
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -291,6 +312,10 @@ namespace Gamepacket {
         output.WriteRawTag(50);
         output.WriteMessage(ClientPosition);
       }
+      if (payloadCase_ == PayloadOneofCase.Heartbeat) {
+        output.WriteRawTag(58);
+        output.WriteMessage(Heartbeat);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -325,6 +350,10 @@ namespace Gamepacket {
         output.WriteRawTag(50);
         output.WriteMessage(ClientPosition);
       }
+      if (payloadCase_ == PayloadOneofCase.Heartbeat) {
+        output.WriteRawTag(58);
+        output.WriteMessage(Heartbeat);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -352,6 +381,9 @@ namespace Gamepacket {
       }
       if (payloadCase_ == PayloadOneofCase.ClientPosition) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ClientPosition);
+      }
+      if (payloadCase_ == PayloadOneofCase.Heartbeat) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Heartbeat);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -398,6 +430,12 @@ namespace Gamepacket {
             ClientPosition = new global::Gamepacket.ClientPosition();
           }
           ClientPosition.MergeFrom(other.ClientPosition);
+          break;
+        case PayloadOneofCase.Heartbeat:
+          if (Heartbeat == null) {
+            Heartbeat = new global::Gamepacket.Heartbeat();
+          }
+          Heartbeat.MergeFrom(other.Heartbeat);
           break;
       }
 
@@ -469,6 +507,15 @@ namespace Gamepacket {
             ClientPosition = subBuilder;
             break;
           }
+          case 58: {
+            global::Gamepacket.Heartbeat subBuilder = new global::Gamepacket.Heartbeat();
+            if (payloadCase_ == PayloadOneofCase.Heartbeat) {
+              subBuilder.MergeFrom(Heartbeat);
+            }
+            input.ReadMessage(subBuilder);
+            Heartbeat = subBuilder;
+            break;
+          }
         }
       }
     #endif
@@ -535,6 +582,15 @@ namespace Gamepacket {
             }
             input.ReadMessage(subBuilder);
             ClientPosition = subBuilder;
+            break;
+          }
+          case 58: {
+            global::Gamepacket.Heartbeat subBuilder = new global::Gamepacket.Heartbeat();
+            if (payloadCase_ == PayloadOneofCase.Heartbeat) {
+              subBuilder.MergeFrom(Heartbeat);
+            }
+            input.ReadMessage(subBuilder);
+            Heartbeat = subBuilder;
             break;
           }
         }
@@ -1756,6 +1812,204 @@ namespace Gamepacket {
           }
           case 18: {
             Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class Heartbeat : pb::IMessage<Heartbeat>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<Heartbeat> _parser = new pb::MessageParser<Heartbeat>(() => new Heartbeat());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<Heartbeat> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Gamepacket.GamepacketReflection.Descriptor.MessageTypes[6]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Heartbeat() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Heartbeat(Heartbeat other) : this() {
+      clientId_ = other.clientId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Heartbeat Clone() {
+      return new Heartbeat(this);
+    }
+
+    /// <summary>Field number for the "clientId" field.</summary>
+    public const int ClientIdFieldNumber = 1;
+    private string clientId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ClientId {
+      get { return clientId_; }
+      set {
+        clientId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as Heartbeat);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(Heartbeat other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ClientId != other.ClientId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ClientId.Length != 0) hash ^= ClientId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ClientId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ClientId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ClientId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ClientId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ClientId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ClientId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(Heartbeat other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ClientId.Length != 0) {
+        ClientId = other.ClientId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            ClientId = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            ClientId = input.ReadString();
             break;
           }
         }
