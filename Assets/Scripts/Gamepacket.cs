@@ -24,33 +24,38 @@ namespace Gamepacket {
     static GamepacketReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBnYW1lcGFja2V0LnByb3RvEgpnYW1lcGFja2V0IuoCCgpHYW1lUGFja2V0",
-            "EgsKA3NlcRgBIAEoDRI4ChBoYW5kc2hha2VSZXF1ZXN0GAIgASgLMhwuZ2Ft",
-            "ZXBhY2tldC5IYW5kc2hha2VSZXF1ZXN0SAASOgoRaGFuZHNoYWtlUmVzcG9u",
-            "c2UYAyABKAsyHS5nYW1lcGFja2V0LkhhbmRzaGFrZVJlc3BvbnNlSAASPAoS",
-            "bG9iYnlKb2luQnJvYWRjYXN0GAQgASgLMh4uZ2FtZXBhY2tldC5Mb2JieUpv",
-            "aW5Ccm9hZGNhc3RIABIuCgtjaGF0TWVzc2FnZRgFIAEoCzIXLmdhbWVwYWNr",
-            "ZXQuQ2hhdE1lc3NhZ2VIABI0Cg5jbGllbnRQb3NpdGlvbhgGIAEoCzIaLmdh",
-            "bWVwYWNrZXQuQ2xpZW50UG9zaXRpb25IABIqCgloZWFydGJlYXQYByABKAsy",
-            "FS5nYW1lcGFja2V0LkhlYXJ0YmVhdEgAQgkKB3BheWxvYWQiJgoQSGFuZHNo",
-            "YWtlUmVxdWVzdBISCgpjbGllbnROYW1lGAEgASgJIjgKEUhhbmRzaGFrZVJl",
-            "c3BvbnNlEhEKCXByaXZhdGVJZBgBIAEoCRIQCghwdWJsaWNJZBgCIAEoCSI4",
-            "ChJMb2JieUpvaW5Ccm9hZGNhc3QSEAoIcHVibGljSWQYASABKAkSEAoIY29s",
-            "b3JIZXgYAiABKAkiQwoOQ2xpZW50UG9zaXRpb24SEAoIY2xpZW50SWQYASAB",
-            "KAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCEgkKAXoYBCABKAIiMAoLQ2hhdE1l",
-            "c3NhZ2USEAoIY2xpZW50SWQYASABKAkSDwoHbWVzc2FnZRgCIAEoCSIdCglI",
-            "ZWFydGJlYXQSEAoIY2xpZW50SWQYASABKAlCFVoTZ29zb2NrZXQvZ2FtZXBh",
-            "Y2tldGIGcHJvdG8z"));
+            "ChBnYW1lcGFja2V0LnByb3RvEgpnYW1lcGFja2V0IroDCgpHYW1lUGFja2V0",
+            "EgsKA3NlcRgBIAEoDRI3ChFoYW5kc2hha2VfcmVxdWVzdBgCIAEoCzIcLmdh",
+            "bWVwYWNrZXQuSGFuZHNoYWtlUmVxdWVzdBI5ChJoYW5kc2hha2VfcmVzcG9u",
+            "c2UYAyABKAsyHS5nYW1lcGFja2V0LkhhbmRzaGFrZVJlc3BvbnNlEigKCWhl",
+            "YXJ0YmVhdBgEIAEoCzIVLmdhbWVwYWNrZXQuSGVhcnRiZWF0Ei8KDWhlYXJ0",
+            "YmVhdF9hY2sYBSABKAsyGC5nYW1lcGFja2V0LkhlYXJ0YmVhdEFjaxIyCg5D",
+            "bGllbnRQb3NpdGlvbhgGIAEoCzIaLmdhbWVwYWNrZXQuQ2xpZW50UG9zaXRp",
+            "b24SLQoMY2hhdF9tZXNzYWdlGAcgASgLMhcuZ2FtZXBhY2tldC5DaGF0TWVz",
+            "c2FnZRI8ChRsb2JieV9qb2luX2Jyb2FkY2FzdBgIIAEoCzIeLmdhbWVwYWNr",
+            "ZXQuTG9iYnlKb2luQnJvYWRjYXN0Ei8KDXNlcnZlcl9zdGF0dXMYYyABKAsy",
+            "GC5nYW1lcGFja2V0LlNlcnZlclN0YXR1cyImChBIYW5kc2hha2VSZXF1ZXN0",
+            "EhIKCmNsaWVudE5hbWUYASABKAkiOAoRSGFuZHNoYWtlUmVzcG9uc2USEQoJ",
+            "cHJpdmF0ZUlkGAEgASgJEhAKCHB1YmxpY0lkGAIgASgJIjgKEkxvYmJ5Sm9p",
+            "bkJyb2FkY2FzdBIQCghwdWJsaWNJZBgBIAEoCRIQCghjb2xvckhleBgCIAEo",
+            "CSJDCg5DbGllbnRQb3NpdGlvbhIQCghjbGllbnRJZBgBIAEoCRIJCgF4GAIg",
+            "ASgCEgkKAXkYAyABKAISCQoBehgEIAEoAiIwCgtDaGF0TWVzc2FnZRIQCghj",
+            "bGllbnRJZBgBIAEoCRIPCgdtZXNzYWdlGAIgASgJIh0KCUhlYXJ0YmVhdBIQ",
+            "CghjbGllbnRJZBgBIAEoCSIhCgxIZWFydGJlYXRBY2sSEQoJY2xpZW50X2lk",
+            "GAEgASgJIh8KDFNlcnZlclN0YXR1cxIPCgdtZXNzYWdlGAEgASgJQhVaE2dv",
+            "c29ja2V0L2dhbWVwYWNrZXRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.GamePacket), global::Gamepacket.GamePacket.Parser, new[]{ "Seq", "HandshakeRequest", "HandshakeResponse", "LobbyJoinBroadcast", "ChatMessage", "ClientPosition", "Heartbeat" }, new[]{ "Payload" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.GamePacket), global::Gamepacket.GamePacket.Parser, new[]{ "Seq", "HandshakeRequest", "HandshakeResponse", "Heartbeat", "HeartbeatAck", "ClientPosition", "ChatMessage", "LobbyJoinBroadcast", "ServerStatus" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HandshakeRequest), global::Gamepacket.HandshakeRequest.Parser, new[]{ "ClientName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HandshakeResponse), global::Gamepacket.HandshakeResponse.Parser, new[]{ "PrivateId", "PublicId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.LobbyJoinBroadcast), global::Gamepacket.LobbyJoinBroadcast.Parser, new[]{ "PublicId", "ColorHex" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ClientPosition), global::Gamepacket.ClientPosition.Parser, new[]{ "ClientId", "X", "Y", "Z" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ChatMessage), global::Gamepacket.ChatMessage.Parser, new[]{ "ClientId", "Message" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.Heartbeat), global::Gamepacket.Heartbeat.Parser, new[]{ "ClientId" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.Heartbeat), global::Gamepacket.Heartbeat.Parser, new[]{ "ClientId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HeartbeatAck), global::Gamepacket.HeartbeatAck.Parser, new[]{ "ClientId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ServerStatus), global::Gamepacket.ServerStatus.Parser, new[]{ "Message" }, null, null, null, null)
           }));
     }
     #endregion
@@ -93,27 +98,14 @@ namespace Gamepacket {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GamePacket(GamePacket other) : this() {
       seq_ = other.seq_;
-      switch (other.PayloadCase) {
-        case PayloadOneofCase.HandshakeRequest:
-          HandshakeRequest = other.HandshakeRequest.Clone();
-          break;
-        case PayloadOneofCase.HandshakeResponse:
-          HandshakeResponse = other.HandshakeResponse.Clone();
-          break;
-        case PayloadOneofCase.LobbyJoinBroadcast:
-          LobbyJoinBroadcast = other.LobbyJoinBroadcast.Clone();
-          break;
-        case PayloadOneofCase.ChatMessage:
-          ChatMessage = other.ChatMessage.Clone();
-          break;
-        case PayloadOneofCase.ClientPosition:
-          ClientPosition = other.ClientPosition.Clone();
-          break;
-        case PayloadOneofCase.Heartbeat:
-          Heartbeat = other.Heartbeat.Clone();
-          break;
-      }
-
+      handshakeRequest_ = other.handshakeRequest_ != null ? other.handshakeRequest_.Clone() : null;
+      handshakeResponse_ = other.handshakeResponse_ != null ? other.handshakeResponse_.Clone() : null;
+      heartbeat_ = other.heartbeat_ != null ? other.heartbeat_.Clone() : null;
+      heartbeatAck_ = other.heartbeatAck_ != null ? other.heartbeatAck_.Clone() : null;
+      clientPosition_ = other.clientPosition_ != null ? other.clientPosition_.Clone() : null;
+      chatMessage_ = other.chatMessage_ != null ? other.chatMessage_.Clone() : null;
+      lobbyJoinBroadcast_ = other.lobbyJoinBroadcast_ != null ? other.lobbyJoinBroadcast_.Clone() : null;
+      serverStatus_ = other.serverStatus_ != null ? other.serverStatus_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -135,101 +127,100 @@ namespace Gamepacket {
       }
     }
 
-    /// <summary>Field number for the "handshakeRequest" field.</summary>
+    /// <summary>Field number for the "handshake_request" field.</summary>
     public const int HandshakeRequestFieldNumber = 2;
+    private global::Gamepacket.HandshakeRequest handshakeRequest_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Gamepacket.HandshakeRequest HandshakeRequest {
-      get { return payloadCase_ == PayloadOneofCase.HandshakeRequest ? (global::Gamepacket.HandshakeRequest) payload_ : null; }
+      get { return handshakeRequest_; }
       set {
-        payload_ = value;
-        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.HandshakeRequest;
+        handshakeRequest_ = value;
       }
     }
 
-    /// <summary>Field number for the "handshakeResponse" field.</summary>
+    /// <summary>Field number for the "handshake_response" field.</summary>
     public const int HandshakeResponseFieldNumber = 3;
+    private global::Gamepacket.HandshakeResponse handshakeResponse_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Gamepacket.HandshakeResponse HandshakeResponse {
-      get { return payloadCase_ == PayloadOneofCase.HandshakeResponse ? (global::Gamepacket.HandshakeResponse) payload_ : null; }
+      get { return handshakeResponse_; }
       set {
-        payload_ = value;
-        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.HandshakeResponse;
-      }
-    }
-
-    /// <summary>Field number for the "lobbyJoinBroadcast" field.</summary>
-    public const int LobbyJoinBroadcastFieldNumber = 4;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Gamepacket.LobbyJoinBroadcast LobbyJoinBroadcast {
-      get { return payloadCase_ == PayloadOneofCase.LobbyJoinBroadcast ? (global::Gamepacket.LobbyJoinBroadcast) payload_ : null; }
-      set {
-        payload_ = value;
-        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.LobbyJoinBroadcast;
-      }
-    }
-
-    /// <summary>Field number for the "chatMessage" field.</summary>
-    public const int ChatMessageFieldNumber = 5;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Gamepacket.ChatMessage ChatMessage {
-      get { return payloadCase_ == PayloadOneofCase.ChatMessage ? (global::Gamepacket.ChatMessage) payload_ : null; }
-      set {
-        payload_ = value;
-        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.ChatMessage;
-      }
-    }
-
-    /// <summary>Field number for the "clientPosition" field.</summary>
-    public const int ClientPositionFieldNumber = 6;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Gamepacket.ClientPosition ClientPosition {
-      get { return payloadCase_ == PayloadOneofCase.ClientPosition ? (global::Gamepacket.ClientPosition) payload_ : null; }
-      set {
-        payload_ = value;
-        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.ClientPosition;
+        handshakeResponse_ = value;
       }
     }
 
     /// <summary>Field number for the "heartbeat" field.</summary>
-    public const int HeartbeatFieldNumber = 7;
+    public const int HeartbeatFieldNumber = 4;
+    private global::Gamepacket.Heartbeat heartbeat_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Gamepacket.Heartbeat Heartbeat {
-      get { return payloadCase_ == PayloadOneofCase.Heartbeat ? (global::Gamepacket.Heartbeat) payload_ : null; }
+      get { return heartbeat_; }
       set {
-        payload_ = value;
-        payloadCase_ = value == null ? PayloadOneofCase.None : PayloadOneofCase.Heartbeat;
+        heartbeat_ = value;
       }
     }
 
-    private object payload_;
-    /// <summary>Enum of possible cases for the "payload" oneof.</summary>
-    public enum PayloadOneofCase {
-      None = 0,
-      HandshakeRequest = 2,
-      HandshakeResponse = 3,
-      LobbyJoinBroadcast = 4,
-      ChatMessage = 5,
-      ClientPosition = 6,
-      Heartbeat = 7,
-    }
-    private PayloadOneofCase payloadCase_ = PayloadOneofCase.None;
+    /// <summary>Field number for the "heartbeat_ack" field.</summary>
+    public const int HeartbeatAckFieldNumber = 5;
+    private global::Gamepacket.HeartbeatAck heartbeatAck_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public PayloadOneofCase PayloadCase {
-      get { return payloadCase_; }
+    public global::Gamepacket.HeartbeatAck HeartbeatAck {
+      get { return heartbeatAck_; }
+      set {
+        heartbeatAck_ = value;
+      }
     }
 
+    /// <summary>Field number for the "ClientPosition" field.</summary>
+    public const int ClientPositionFieldNumber = 6;
+    private global::Gamepacket.ClientPosition clientPosition_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void ClearPayload() {
-      payloadCase_ = PayloadOneofCase.None;
-      payload_ = null;
+    public global::Gamepacket.ClientPosition ClientPosition {
+      get { return clientPosition_; }
+      set {
+        clientPosition_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "chat_message" field.</summary>
+    public const int ChatMessageFieldNumber = 7;
+    private global::Gamepacket.ChatMessage chatMessage_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Gamepacket.ChatMessage ChatMessage {
+      get { return chatMessage_; }
+      set {
+        chatMessage_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "lobby_join_broadcast" field.</summary>
+    public const int LobbyJoinBroadcastFieldNumber = 8;
+    private global::Gamepacket.LobbyJoinBroadcast lobbyJoinBroadcast_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Gamepacket.LobbyJoinBroadcast LobbyJoinBroadcast {
+      get { return lobbyJoinBroadcast_; }
+      set {
+        lobbyJoinBroadcast_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "server_status" field.</summary>
+    public const int ServerStatusFieldNumber = 99;
+    private global::Gamepacket.ServerStatus serverStatus_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Gamepacket.ServerStatus ServerStatus {
+      get { return serverStatus_; }
+      set {
+        serverStatus_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -250,11 +241,12 @@ namespace Gamepacket {
       if (Seq != other.Seq) return false;
       if (!object.Equals(HandshakeRequest, other.HandshakeRequest)) return false;
       if (!object.Equals(HandshakeResponse, other.HandshakeResponse)) return false;
-      if (!object.Equals(LobbyJoinBroadcast, other.LobbyJoinBroadcast)) return false;
-      if (!object.Equals(ChatMessage, other.ChatMessage)) return false;
-      if (!object.Equals(ClientPosition, other.ClientPosition)) return false;
       if (!object.Equals(Heartbeat, other.Heartbeat)) return false;
-      if (PayloadCase != other.PayloadCase) return false;
+      if (!object.Equals(HeartbeatAck, other.HeartbeatAck)) return false;
+      if (!object.Equals(ClientPosition, other.ClientPosition)) return false;
+      if (!object.Equals(ChatMessage, other.ChatMessage)) return false;
+      if (!object.Equals(LobbyJoinBroadcast, other.LobbyJoinBroadcast)) return false;
+      if (!object.Equals(ServerStatus, other.ServerStatus)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -263,13 +255,14 @@ namespace Gamepacket {
     public override int GetHashCode() {
       int hash = 1;
       if (Seq != 0) hash ^= Seq.GetHashCode();
-      if (payloadCase_ == PayloadOneofCase.HandshakeRequest) hash ^= HandshakeRequest.GetHashCode();
-      if (payloadCase_ == PayloadOneofCase.HandshakeResponse) hash ^= HandshakeResponse.GetHashCode();
-      if (payloadCase_ == PayloadOneofCase.LobbyJoinBroadcast) hash ^= LobbyJoinBroadcast.GetHashCode();
-      if (payloadCase_ == PayloadOneofCase.ChatMessage) hash ^= ChatMessage.GetHashCode();
-      if (payloadCase_ == PayloadOneofCase.ClientPosition) hash ^= ClientPosition.GetHashCode();
-      if (payloadCase_ == PayloadOneofCase.Heartbeat) hash ^= Heartbeat.GetHashCode();
-      hash ^= (int) payloadCase_;
+      if (handshakeRequest_ != null) hash ^= HandshakeRequest.GetHashCode();
+      if (handshakeResponse_ != null) hash ^= HandshakeResponse.GetHashCode();
+      if (heartbeat_ != null) hash ^= Heartbeat.GetHashCode();
+      if (heartbeatAck_ != null) hash ^= HeartbeatAck.GetHashCode();
+      if (clientPosition_ != null) hash ^= ClientPosition.GetHashCode();
+      if (chatMessage_ != null) hash ^= ChatMessage.GetHashCode();
+      if (lobbyJoinBroadcast_ != null) hash ^= LobbyJoinBroadcast.GetHashCode();
+      if (serverStatus_ != null) hash ^= ServerStatus.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -292,29 +285,37 @@ namespace Gamepacket {
         output.WriteRawTag(8);
         output.WriteUInt32(Seq);
       }
-      if (payloadCase_ == PayloadOneofCase.HandshakeRequest) {
+      if (handshakeRequest_ != null) {
         output.WriteRawTag(18);
         output.WriteMessage(HandshakeRequest);
       }
-      if (payloadCase_ == PayloadOneofCase.HandshakeResponse) {
+      if (handshakeResponse_ != null) {
         output.WriteRawTag(26);
         output.WriteMessage(HandshakeResponse);
       }
-      if (payloadCase_ == PayloadOneofCase.LobbyJoinBroadcast) {
+      if (heartbeat_ != null) {
         output.WriteRawTag(34);
-        output.WriteMessage(LobbyJoinBroadcast);
+        output.WriteMessage(Heartbeat);
       }
-      if (payloadCase_ == PayloadOneofCase.ChatMessage) {
+      if (heartbeatAck_ != null) {
         output.WriteRawTag(42);
-        output.WriteMessage(ChatMessage);
+        output.WriteMessage(HeartbeatAck);
       }
-      if (payloadCase_ == PayloadOneofCase.ClientPosition) {
+      if (clientPosition_ != null) {
         output.WriteRawTag(50);
         output.WriteMessage(ClientPosition);
       }
-      if (payloadCase_ == PayloadOneofCase.Heartbeat) {
+      if (chatMessage_ != null) {
         output.WriteRawTag(58);
-        output.WriteMessage(Heartbeat);
+        output.WriteMessage(ChatMessage);
+      }
+      if (lobbyJoinBroadcast_ != null) {
+        output.WriteRawTag(66);
+        output.WriteMessage(LobbyJoinBroadcast);
+      }
+      if (serverStatus_ != null) {
+        output.WriteRawTag(154, 6);
+        output.WriteMessage(ServerStatus);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -330,29 +331,37 @@ namespace Gamepacket {
         output.WriteRawTag(8);
         output.WriteUInt32(Seq);
       }
-      if (payloadCase_ == PayloadOneofCase.HandshakeRequest) {
+      if (handshakeRequest_ != null) {
         output.WriteRawTag(18);
         output.WriteMessage(HandshakeRequest);
       }
-      if (payloadCase_ == PayloadOneofCase.HandshakeResponse) {
+      if (handshakeResponse_ != null) {
         output.WriteRawTag(26);
         output.WriteMessage(HandshakeResponse);
       }
-      if (payloadCase_ == PayloadOneofCase.LobbyJoinBroadcast) {
+      if (heartbeat_ != null) {
         output.WriteRawTag(34);
-        output.WriteMessage(LobbyJoinBroadcast);
+        output.WriteMessage(Heartbeat);
       }
-      if (payloadCase_ == PayloadOneofCase.ChatMessage) {
+      if (heartbeatAck_ != null) {
         output.WriteRawTag(42);
-        output.WriteMessage(ChatMessage);
+        output.WriteMessage(HeartbeatAck);
       }
-      if (payloadCase_ == PayloadOneofCase.ClientPosition) {
+      if (clientPosition_ != null) {
         output.WriteRawTag(50);
         output.WriteMessage(ClientPosition);
       }
-      if (payloadCase_ == PayloadOneofCase.Heartbeat) {
+      if (chatMessage_ != null) {
         output.WriteRawTag(58);
-        output.WriteMessage(Heartbeat);
+        output.WriteMessage(ChatMessage);
+      }
+      if (lobbyJoinBroadcast_ != null) {
+        output.WriteRawTag(66);
+        output.WriteMessage(LobbyJoinBroadcast);
+      }
+      if (serverStatus_ != null) {
+        output.WriteRawTag(154, 6);
+        output.WriteMessage(ServerStatus);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -367,23 +376,29 @@ namespace Gamepacket {
       if (Seq != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Seq);
       }
-      if (payloadCase_ == PayloadOneofCase.HandshakeRequest) {
+      if (handshakeRequest_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(HandshakeRequest);
       }
-      if (payloadCase_ == PayloadOneofCase.HandshakeResponse) {
+      if (handshakeResponse_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(HandshakeResponse);
       }
-      if (payloadCase_ == PayloadOneofCase.LobbyJoinBroadcast) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LobbyJoinBroadcast);
+      if (heartbeat_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Heartbeat);
       }
-      if (payloadCase_ == PayloadOneofCase.ChatMessage) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChatMessage);
+      if (heartbeatAck_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(HeartbeatAck);
       }
-      if (payloadCase_ == PayloadOneofCase.ClientPosition) {
+      if (clientPosition_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ClientPosition);
       }
-      if (payloadCase_ == PayloadOneofCase.Heartbeat) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Heartbeat);
+      if (chatMessage_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(ChatMessage);
+      }
+      if (lobbyJoinBroadcast_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LobbyJoinBroadcast);
+      }
+      if (serverStatus_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(ServerStatus);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -400,45 +415,54 @@ namespace Gamepacket {
       if (other.Seq != 0) {
         Seq = other.Seq;
       }
-      switch (other.PayloadCase) {
-        case PayloadOneofCase.HandshakeRequest:
-          if (HandshakeRequest == null) {
-            HandshakeRequest = new global::Gamepacket.HandshakeRequest();
-          }
-          HandshakeRequest.MergeFrom(other.HandshakeRequest);
-          break;
-        case PayloadOneofCase.HandshakeResponse:
-          if (HandshakeResponse == null) {
-            HandshakeResponse = new global::Gamepacket.HandshakeResponse();
-          }
-          HandshakeResponse.MergeFrom(other.HandshakeResponse);
-          break;
-        case PayloadOneofCase.LobbyJoinBroadcast:
-          if (LobbyJoinBroadcast == null) {
-            LobbyJoinBroadcast = new global::Gamepacket.LobbyJoinBroadcast();
-          }
-          LobbyJoinBroadcast.MergeFrom(other.LobbyJoinBroadcast);
-          break;
-        case PayloadOneofCase.ChatMessage:
-          if (ChatMessage == null) {
-            ChatMessage = new global::Gamepacket.ChatMessage();
-          }
-          ChatMessage.MergeFrom(other.ChatMessage);
-          break;
-        case PayloadOneofCase.ClientPosition:
-          if (ClientPosition == null) {
-            ClientPosition = new global::Gamepacket.ClientPosition();
-          }
-          ClientPosition.MergeFrom(other.ClientPosition);
-          break;
-        case PayloadOneofCase.Heartbeat:
-          if (Heartbeat == null) {
-            Heartbeat = new global::Gamepacket.Heartbeat();
-          }
-          Heartbeat.MergeFrom(other.Heartbeat);
-          break;
+      if (other.handshakeRequest_ != null) {
+        if (handshakeRequest_ == null) {
+          HandshakeRequest = new global::Gamepacket.HandshakeRequest();
+        }
+        HandshakeRequest.MergeFrom(other.HandshakeRequest);
       }
-
+      if (other.handshakeResponse_ != null) {
+        if (handshakeResponse_ == null) {
+          HandshakeResponse = new global::Gamepacket.HandshakeResponse();
+        }
+        HandshakeResponse.MergeFrom(other.HandshakeResponse);
+      }
+      if (other.heartbeat_ != null) {
+        if (heartbeat_ == null) {
+          Heartbeat = new global::Gamepacket.Heartbeat();
+        }
+        Heartbeat.MergeFrom(other.Heartbeat);
+      }
+      if (other.heartbeatAck_ != null) {
+        if (heartbeatAck_ == null) {
+          HeartbeatAck = new global::Gamepacket.HeartbeatAck();
+        }
+        HeartbeatAck.MergeFrom(other.HeartbeatAck);
+      }
+      if (other.clientPosition_ != null) {
+        if (clientPosition_ == null) {
+          ClientPosition = new global::Gamepacket.ClientPosition();
+        }
+        ClientPosition.MergeFrom(other.ClientPosition);
+      }
+      if (other.chatMessage_ != null) {
+        if (chatMessage_ == null) {
+          ChatMessage = new global::Gamepacket.ChatMessage();
+        }
+        ChatMessage.MergeFrom(other.ChatMessage);
+      }
+      if (other.lobbyJoinBroadcast_ != null) {
+        if (lobbyJoinBroadcast_ == null) {
+          LobbyJoinBroadcast = new global::Gamepacket.LobbyJoinBroadcast();
+        }
+        LobbyJoinBroadcast.MergeFrom(other.LobbyJoinBroadcast);
+      }
+      if (other.serverStatus_ != null) {
+        if (serverStatus_ == null) {
+          ServerStatus = new global::Gamepacket.ServerStatus();
+        }
+        ServerStatus.MergeFrom(other.ServerStatus);
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -463,57 +487,59 @@ namespace Gamepacket {
             break;
           }
           case 18: {
-            global::Gamepacket.HandshakeRequest subBuilder = new global::Gamepacket.HandshakeRequest();
-            if (payloadCase_ == PayloadOneofCase.HandshakeRequest) {
-              subBuilder.MergeFrom(HandshakeRequest);
+            if (handshakeRequest_ == null) {
+              HandshakeRequest = new global::Gamepacket.HandshakeRequest();
             }
-            input.ReadMessage(subBuilder);
-            HandshakeRequest = subBuilder;
+            input.ReadMessage(HandshakeRequest);
             break;
           }
           case 26: {
-            global::Gamepacket.HandshakeResponse subBuilder = new global::Gamepacket.HandshakeResponse();
-            if (payloadCase_ == PayloadOneofCase.HandshakeResponse) {
-              subBuilder.MergeFrom(HandshakeResponse);
+            if (handshakeResponse_ == null) {
+              HandshakeResponse = new global::Gamepacket.HandshakeResponse();
             }
-            input.ReadMessage(subBuilder);
-            HandshakeResponse = subBuilder;
+            input.ReadMessage(HandshakeResponse);
             break;
           }
           case 34: {
-            global::Gamepacket.LobbyJoinBroadcast subBuilder = new global::Gamepacket.LobbyJoinBroadcast();
-            if (payloadCase_ == PayloadOneofCase.LobbyJoinBroadcast) {
-              subBuilder.MergeFrom(LobbyJoinBroadcast);
+            if (heartbeat_ == null) {
+              Heartbeat = new global::Gamepacket.Heartbeat();
             }
-            input.ReadMessage(subBuilder);
-            LobbyJoinBroadcast = subBuilder;
+            input.ReadMessage(Heartbeat);
             break;
           }
           case 42: {
-            global::Gamepacket.ChatMessage subBuilder = new global::Gamepacket.ChatMessage();
-            if (payloadCase_ == PayloadOneofCase.ChatMessage) {
-              subBuilder.MergeFrom(ChatMessage);
+            if (heartbeatAck_ == null) {
+              HeartbeatAck = new global::Gamepacket.HeartbeatAck();
             }
-            input.ReadMessage(subBuilder);
-            ChatMessage = subBuilder;
+            input.ReadMessage(HeartbeatAck);
             break;
           }
           case 50: {
-            global::Gamepacket.ClientPosition subBuilder = new global::Gamepacket.ClientPosition();
-            if (payloadCase_ == PayloadOneofCase.ClientPosition) {
-              subBuilder.MergeFrom(ClientPosition);
+            if (clientPosition_ == null) {
+              ClientPosition = new global::Gamepacket.ClientPosition();
             }
-            input.ReadMessage(subBuilder);
-            ClientPosition = subBuilder;
+            input.ReadMessage(ClientPosition);
             break;
           }
           case 58: {
-            global::Gamepacket.Heartbeat subBuilder = new global::Gamepacket.Heartbeat();
-            if (payloadCase_ == PayloadOneofCase.Heartbeat) {
-              subBuilder.MergeFrom(Heartbeat);
+            if (chatMessage_ == null) {
+              ChatMessage = new global::Gamepacket.ChatMessage();
             }
-            input.ReadMessage(subBuilder);
-            Heartbeat = subBuilder;
+            input.ReadMessage(ChatMessage);
+            break;
+          }
+          case 66: {
+            if (lobbyJoinBroadcast_ == null) {
+              LobbyJoinBroadcast = new global::Gamepacket.LobbyJoinBroadcast();
+            }
+            input.ReadMessage(LobbyJoinBroadcast);
+            break;
+          }
+          case 794: {
+            if (serverStatus_ == null) {
+              ServerStatus = new global::Gamepacket.ServerStatus();
+            }
+            input.ReadMessage(ServerStatus);
             break;
           }
         }
@@ -540,57 +566,59 @@ namespace Gamepacket {
             break;
           }
           case 18: {
-            global::Gamepacket.HandshakeRequest subBuilder = new global::Gamepacket.HandshakeRequest();
-            if (payloadCase_ == PayloadOneofCase.HandshakeRequest) {
-              subBuilder.MergeFrom(HandshakeRequest);
+            if (handshakeRequest_ == null) {
+              HandshakeRequest = new global::Gamepacket.HandshakeRequest();
             }
-            input.ReadMessage(subBuilder);
-            HandshakeRequest = subBuilder;
+            input.ReadMessage(HandshakeRequest);
             break;
           }
           case 26: {
-            global::Gamepacket.HandshakeResponse subBuilder = new global::Gamepacket.HandshakeResponse();
-            if (payloadCase_ == PayloadOneofCase.HandshakeResponse) {
-              subBuilder.MergeFrom(HandshakeResponse);
+            if (handshakeResponse_ == null) {
+              HandshakeResponse = new global::Gamepacket.HandshakeResponse();
             }
-            input.ReadMessage(subBuilder);
-            HandshakeResponse = subBuilder;
+            input.ReadMessage(HandshakeResponse);
             break;
           }
           case 34: {
-            global::Gamepacket.LobbyJoinBroadcast subBuilder = new global::Gamepacket.LobbyJoinBroadcast();
-            if (payloadCase_ == PayloadOneofCase.LobbyJoinBroadcast) {
-              subBuilder.MergeFrom(LobbyJoinBroadcast);
+            if (heartbeat_ == null) {
+              Heartbeat = new global::Gamepacket.Heartbeat();
             }
-            input.ReadMessage(subBuilder);
-            LobbyJoinBroadcast = subBuilder;
+            input.ReadMessage(Heartbeat);
             break;
           }
           case 42: {
-            global::Gamepacket.ChatMessage subBuilder = new global::Gamepacket.ChatMessage();
-            if (payloadCase_ == PayloadOneofCase.ChatMessage) {
-              subBuilder.MergeFrom(ChatMessage);
+            if (heartbeatAck_ == null) {
+              HeartbeatAck = new global::Gamepacket.HeartbeatAck();
             }
-            input.ReadMessage(subBuilder);
-            ChatMessage = subBuilder;
+            input.ReadMessage(HeartbeatAck);
             break;
           }
           case 50: {
-            global::Gamepacket.ClientPosition subBuilder = new global::Gamepacket.ClientPosition();
-            if (payloadCase_ == PayloadOneofCase.ClientPosition) {
-              subBuilder.MergeFrom(ClientPosition);
+            if (clientPosition_ == null) {
+              ClientPosition = new global::Gamepacket.ClientPosition();
             }
-            input.ReadMessage(subBuilder);
-            ClientPosition = subBuilder;
+            input.ReadMessage(ClientPosition);
             break;
           }
           case 58: {
-            global::Gamepacket.Heartbeat subBuilder = new global::Gamepacket.Heartbeat();
-            if (payloadCase_ == PayloadOneofCase.Heartbeat) {
-              subBuilder.MergeFrom(Heartbeat);
+            if (chatMessage_ == null) {
+              ChatMessage = new global::Gamepacket.ChatMessage();
             }
-            input.ReadMessage(subBuilder);
-            Heartbeat = subBuilder;
+            input.ReadMessage(ChatMessage);
+            break;
+          }
+          case 66: {
+            if (lobbyJoinBroadcast_ == null) {
+              LobbyJoinBroadcast = new global::Gamepacket.LobbyJoinBroadcast();
+            }
+            input.ReadMessage(LobbyJoinBroadcast);
+            break;
+          }
+          case 794: {
+            if (serverStatus_ == null) {
+              ServerStatus = new global::Gamepacket.ServerStatus();
+            }
+            input.ReadMessage(ServerStatus);
             break;
           }
         }
@@ -2010,6 +2038,402 @@ namespace Gamepacket {
             break;
           case 10: {
             ClientId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class HeartbeatAck : pb::IMessage<HeartbeatAck>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<HeartbeatAck> _parser = new pb::MessageParser<HeartbeatAck>(() => new HeartbeatAck());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<HeartbeatAck> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Gamepacket.GamepacketReflection.Descriptor.MessageTypes[7]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public HeartbeatAck() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public HeartbeatAck(HeartbeatAck other) : this() {
+      clientId_ = other.clientId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public HeartbeatAck Clone() {
+      return new HeartbeatAck(this);
+    }
+
+    /// <summary>Field number for the "client_id" field.</summary>
+    public const int ClientIdFieldNumber = 1;
+    private string clientId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ClientId {
+      get { return clientId_; }
+      set {
+        clientId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as HeartbeatAck);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(HeartbeatAck other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (ClientId != other.ClientId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (ClientId.Length != 0) hash ^= ClientId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (ClientId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ClientId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (ClientId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(ClientId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (ClientId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ClientId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(HeartbeatAck other) {
+      if (other == null) {
+        return;
+      }
+      if (other.ClientId.Length != 0) {
+        ClientId = other.ClientId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            ClientId = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            ClientId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class ServerStatus : pb::IMessage<ServerStatus>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<ServerStatus> _parser = new pb::MessageParser<ServerStatus>(() => new ServerStatus());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<ServerStatus> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Gamepacket.GamepacketReflection.Descriptor.MessageTypes[8]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ServerStatus() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ServerStatus(ServerStatus other) : this() {
+      message_ = other.message_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ServerStatus Clone() {
+      return new ServerStatus(this);
+    }
+
+    /// <summary>Field number for the "message" field.</summary>
+    public const int MessageFieldNumber = 1;
+    private string message_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Message {
+      get { return message_; }
+      set {
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as ServerStatus);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(ServerStatus other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Message != other.Message) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Message.Length != 0) hash ^= Message.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Message.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Message);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Message.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Message);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Message.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(ServerStatus other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Message.Length != 0) {
+        Message = other.Message;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Message = input.ReadString();
             break;
           }
         }
