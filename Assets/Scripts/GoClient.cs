@@ -5,6 +5,7 @@ using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GoClient : MonoBehaviour
 {
@@ -174,6 +175,7 @@ public class GoClient : MonoBehaviour
 
 	private void HandleServerPacket(GamePacket packet)
 	{
+		OnPacketReceived?.Invoke(packet);
 		if (packet.ServerStatus != null)
 		{
 			Debug.LogWarning($"Server message: {packet.ServerStatus.Message}");
@@ -383,7 +385,7 @@ public class GoClient : MonoBehaviour
 		SendPacket(packet);
 	}
 
-	private void SendPacket(GamePacket packet)
+	public void SendPacket(GamePacket packet)
 	{
 		try
 		{
@@ -434,6 +436,7 @@ public class GoClient : MonoBehaviour
 	public string GetPrivateId() => _myPrivateId;
 	public string GetPublicId() => _myPublicId;
 	public ConnectionState GetConnectionState() => _connectionState;
+	public event Action<GamePacket> OnPacketReceived;
 
 	private void OnDestroy()
 	{
