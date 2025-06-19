@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 
-public class GoClient : MonoBehaviour
+public class NetworkClient : MonoBehaviour
 {
 	public enum ConnectionState
 	{
