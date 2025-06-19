@@ -5,7 +5,6 @@ using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class GoClient : MonoBehaviour
 {
@@ -19,6 +18,7 @@ public class GoClient : MonoBehaviour
 
 	[Header("Connection Settings")]
 	public string serverIP = "127.0.0.1";
+
 	public int serverPort = 9999;
 	public float handshakeTimeout = 3f;
 	public float heartbeatInterval = 5f;
@@ -26,6 +26,7 @@ public class GoClient : MonoBehaviour
 
 	[Header("Reconnection Settings")]
 	public float[] reconnectDelays = { 5f, 10f, 15f, 20f, 25f, 30f }; // Progressive delays
+
 	public bool enableAutoReconnect = true;
 
 	private int _currentReconnectIndex = 0;
@@ -49,6 +50,7 @@ public class GoClient : MonoBehaviour
 
 	// Events for other scripts to subscribe to
 	public System.Action<string, string> OnConnected; // privateId, publicId
+
 	public System.Action OnDisconnected;
 	public System.Action<string> OnServerMessage;
 
@@ -433,9 +435,13 @@ public class GoClient : MonoBehaviour
 
 	// Public getters
 	public bool IsConnected() => _connectionState == ConnectionState.Connected;
+
 	public string GetPrivateId() => _myPrivateId;
+
 	public string GetPublicId() => _myPublicId;
+
 	public ConnectionState GetConnectionState() => _connectionState;
+
 	public event Action<GamePacket> OnPacketReceived;
 
 	private void OnDestroy()
