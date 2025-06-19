@@ -2,7 +2,7 @@ using Gamepacket;
 using UnityEngine;
 
 /// <summary>
-/// Modular wrapper around GoClient
+/// Modular wrapper around NetworkClient
 /// </summary>
 public class ModularNetworkManager : MonoBehaviour
 {
@@ -10,14 +10,14 @@ public class ModularNetworkManager : MonoBehaviour
 	public bool enableModuleSystem = true;
 	public bool autoInitializeModules = true;
 
-	[Header("Connection Settings - Same as GoClient")]
+	[Header("Connection Settings - Same as NetworkClient")]
 	public string serverIP = "127.0.0.1";
 	public int serverPort = 9999;
 	public float handshakeTimeout = 3f;
 	public float heartbeatInterval = 5f;
 	public float connectionTimeout = 15f;
 
-	[Header("Reconnection Settings - Same as GoClient")]
+	[Header("Reconnection Settings - Same as NetworkClient")]
 	public float[] reconnectDelays = { 5f, 10f, 15f, 20f, 25f, 30f };
 	public bool enableAutoReconnect = true;
 
@@ -28,7 +28,7 @@ public class ModularNetworkManager : MonoBehaviour
 	private ModuleRegistry _moduleRegistry;
 	private bool _modulesInitialized = false;
 
-	// Events - same as GoClient but also publish to event system
+	// Events - same as NetworkClient but also publish to event system
 	public System.Action<string, string> OnConnected;
 	public System.Action OnDisconnected;
 	public System.Action<string> OnServerMessage;
@@ -44,18 +44,18 @@ public class ModularNetworkManager : MonoBehaviour
 		if (!enableModuleSystem) return;
 
 		_moduleRegistry = new ModuleRegistry();
-		Debug.Log("Module system initialized");
+		//Debug.Log("Module system initialized");
 	}
 
 	private void InitializeNetworkClient()
 	{
-		// Create GoClient as a child component
+		// Create NetworkClient as a child component
 		var networkClientObj = new GameObject("NetworkClient");
 		networkClientObj.transform.SetParent(transform);
 
 		_networkClient = networkClientObj.AddComponent<NetworkClient>();
 
-		// Copy all settings to GoClient
+		// Copy all settings to NetworkClient
 		_networkClient.serverIP = serverIP;
 		_networkClient.serverPort = serverPort;
 		_networkClient.handshakeTimeout = handshakeTimeout;
@@ -64,13 +64,13 @@ public class ModularNetworkManager : MonoBehaviour
 		_networkClient.reconnectDelays = reconnectDelays;
 		_networkClient.enableAutoReconnect = enableAutoReconnect;
 
-		// Subscribe to GoClient events and bridge to event system
-		_networkClient.OnConnected += HandleGoClientConnected;
-		_networkClient.OnDisconnected += HandleGoClientDisconnected;
-		_networkClient.OnServerMessage += HandleGoClientServerMessage;
-		_networkClient.OnPacketReceived += HandleGoClientPacketReceived;
+		// Subscribe to NetworkClient events and bridge to event system
+		_networkClient.OnConnected += HandleNetworkClientConnected;
+		_networkClient.OnDisconnected += HandleNetworkClientDisconnected;
+		_networkClient.OnServerMessage += HandleNetworkClientServerMessage;
+		_networkClient.OnPacketReceived += HandleNetworkClientPacketReceived;
 
-		Debug.Log("GoClient initialized and bridged to event system");
+		//Debug.Log("NetworkClient initialized and bridged to event system");
 	}
 
 	private void Start()
@@ -81,11 +81,11 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 	}
 
-	#region GoClient Event Bridging
+	#region NetworkClient Event Bridging
 
-	private void HandleGoClientConnected(string privateId, string publicId)
+	private void HandleNetworkClientConnected(string privateId, string publicId)
 	{
-		Debug.Log($"Connection established - bridging to event system: {publicId}");
+		//Debug.Log($"Connection established - bridging to event system: {publicId}");
 
 		// Maintain original callback behavior
 		OnConnected?.Invoke(privateId, publicId);
@@ -103,9 +103,9 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 	}
 
-	private void HandleGoClientDisconnected()
+	private void HandleNetworkClientDisconnected()
 	{
-		Debug.Log("Disconnected - bridging to event system");
+		//Debug.Log("Disconnected - bridging to event system");
 
 		// Maintain original callback behavior
 		OnDisconnected?.Invoke();
@@ -123,9 +123,9 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 	}
 
-	private void HandleGoClientServerMessage(string message)
+	private void HandleNetworkClientServerMessage(string message)
 	{
-		Debug.Log($"Server message - bridging to event system: {message}");
+		//Debug.Log($"Server message - bridging to event system: {message}");
 
 		// Maintain original callback behavior
 		OnServerMessage?.Invoke(message);
@@ -137,7 +137,7 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 	}
 
-	private void HandleGoClientPacketReceived(GamePacket packet)
+	private void HandleNetworkClientPacketReceived(GamePacket packet)
 	{
 		if (!enableModuleSystem) return;
 
@@ -240,9 +240,9 @@ public class ModularNetworkManager : MonoBehaviour
 
 	#endregion
 
-	#region GoClient Passthrough Methods
+	#region NetworkClient Passthrough Methods
 
-	// All public methods from GoClient are available here
+	// All public methods from NetworkClient are available here
 	public void SendChatMessage(string message) => _networkClient?.SendChatMessage(message);
 	public void SendLobbyJoin(string colorHex) => _networkClient?.SendLobbyJoin(colorHex);
 	public void SendPosition(Vector3 position) => _networkClient?.SendPosition(position);
@@ -268,7 +268,7 @@ public class ModularNetworkManager : MonoBehaviour
 
 	private void OnValidate()
 	{
-		// Sync settings to GoClient when changed in inspector
+		// Sync settings to NetworkClient when changed in inspector
 		if (_networkClient != null)
 		{
 			_networkClient.serverIP = serverIP;

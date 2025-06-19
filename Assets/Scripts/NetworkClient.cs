@@ -16,18 +16,16 @@ public class NetworkClient : MonoBehaviour
 		Reconnecting
 	}
 
-	[Header("Connection Settings")]
-	public string serverIP = "127.0.0.1";
+	[HideInInspector]public string serverIP = "127.0.0.1";
 
-	public int serverPort = 9999;
-	public float handshakeTimeout = 3f;
-	public float heartbeatInterval = 5f;
-	public float connectionTimeout = 15f; // Consider disconnected if no ack for this long
+	[HideInInspector] public int serverPort = 9999;
+	[HideInInspector] public float handshakeTimeout = 3f;
+	[HideInInspector] public float heartbeatInterval = 5f;
+	[HideInInspector] public float connectionTimeout = 15f; // Consider disconnected if no ack for this long
 
-	[Header("Reconnection Settings")]
-	public float[] reconnectDelays = { 5f, 10f, 15f, 20f, 25f, 30f }; // Progressive delays
+	[HideInInspector] public float[] reconnectDelays = { 5f, 10f, 15f, 20f, 25f, 30f }; // Progressive delays
 
-	public bool enableAutoReconnect = true;
+	[HideInInspector] public bool enableAutoReconnect = true;
 
 	private int _currentReconnectIndex = 0;
 	private float _nextReconnectTime = -1f;
