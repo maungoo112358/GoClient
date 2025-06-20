@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1629562660705509765}
   - component: {fileID: 268211142979280628}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,6 +286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clientPrefab: {fileID: 1292803221825989614}
+  prefabBody: {fileID: 7391185923721145073}
+  prefabHead: {fileID: 548931771611809246}
   label: {fileID: 3368565468540983924}
   offset: {x: 0, y: 2, z: 0}
   fixedRotation: {x: 0.38268346, y: 0, z: 0, w: 0.9238795}
@@ -302,7 +304,7 @@ GameObject:
   - component: {fileID: 3534861565069880311}
   - component: {fileID: 5292591208904612710}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

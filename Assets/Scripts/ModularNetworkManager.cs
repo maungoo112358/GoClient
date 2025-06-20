@@ -153,7 +153,8 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 		if (packet.LobbyJoinBroadcast != null)
 		{
-			GameEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(packet.LobbyJoinBroadcast.PublicId, packet.LobbyJoinBroadcast.Colorhex, packet.LobbyJoinBroadcast.Position.FormatPosToVector3()));
+			var data = packet.LobbyJoinBroadcast;
+			GameEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(data.PublicId, data.Colorhex,data.ColorhexHead, data.Position.FormatPosToVector3()));
 		}
 		if (packet.ClientPosition != null)
 		{

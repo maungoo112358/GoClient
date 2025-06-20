@@ -42,7 +42,6 @@ public class OtherPlayerMovedEvent : IGameEvent
 	}
 }
 
-
 // Connection-related events
 public class PlayerConnectedEvent : IGameEvent
 {
@@ -61,13 +60,12 @@ public class PlayerDisconnectedEvent : IGameEvent
 	public string ClientID { get; }
 	public string Reason { get; }
 
-	public PlayerDisconnectedEvent(string clientID,string reason = "")
+	public PlayerDisconnectedEvent(string clientID, string reason = "")
 	{
 		Reason = reason;
 		ClientID = clientID;
 	}
 }
-
 
 // Heartbeat-related events
 public class HeartbeatSentEvent : IGameEvent
@@ -95,12 +93,14 @@ public class PlayerJoinedLobbyEvent : IGameEvent
 {
 	public string PublicId { get; }
 	public string ColorHex { get; }
+	public string ColorHex_Head { get; }
 	public Vector3 Position { get; }
 
-	public PlayerJoinedLobbyEvent(string publicId, string colorHex, Vector3 position)
+	public PlayerJoinedLobbyEvent(string publicId, string colorHex, string colorHex_Head, Vector3 position)
 	{
 		PublicId = publicId;
 		ColorHex = colorHex;
+		ColorHex_Head = colorHex_Head;
 		Position = position;
 	}
 }
