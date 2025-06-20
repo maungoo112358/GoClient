@@ -61,10 +61,10 @@ public class PlayerDisconnectedEvent : IGameEvent
 	public string ClientID { get; }
 	public string Reason { get; }
 
-	public PlayerDisconnectedEvent(string ClientID,string reason = "")
+	public PlayerDisconnectedEvent(string clientID,string reason = "")
 	{
 		Reason = reason;
-		this.ClientID = ClientID;
+		ClientID = clientID;
 	}
 }
 
