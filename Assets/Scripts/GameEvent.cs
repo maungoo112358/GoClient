@@ -58,11 +58,13 @@ public class PlayerConnectedEvent : IGameEvent
 
 public class PlayerDisconnectedEvent : IGameEvent
 {
+	public string ClientID { get; }
 	public string Reason { get; }
 
-	public PlayerDisconnectedEvent(string reason = "")
+	public PlayerDisconnectedEvent(string ClientID,string reason = "")
 	{
 		Reason = reason;
+		this.ClientID = ClientID;
 	}
 }
 
@@ -93,11 +95,13 @@ public class PlayerJoinedLobbyEvent : IGameEvent
 {
 	public string PublicId { get; }
 	public string ColorHex { get; }
+	public Vector3 Position { get; }
 
-	public PlayerJoinedLobbyEvent(string publicId, string colorHex)
+	public PlayerJoinedLobbyEvent(string publicId, string colorHex, Vector3 position)
 	{
 		PublicId = publicId;
 		ColorHex = colorHex;
+		Position = position;
 	}
 }
 

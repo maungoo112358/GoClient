@@ -220,7 +220,7 @@ public class NetworkClient : MonoBehaviour
 
 		if (packet.LobbyJoinBroadcast != null)
 		{
-			Debug.Log($"Player {packet.LobbyJoinBroadcast.PublicId} joined with color {packet.LobbyJoinBroadcast.ColorHex}");
+			Debug.Log($"Player {packet.LobbyJoinBroadcast.PublicId} joined with color {packet.LobbyJoinBroadcast.Colorhex}");
 		}
 	}
 
@@ -359,7 +359,7 @@ public class NetworkClient : MonoBehaviour
 			LobbyJoinBroadcast = new LobbyJoinBroadcast
 			{
 				PublicId = _myPublicId,
-				ColorHex = colorHex
+				Colorhex = colorHex
 			}
 		};
 

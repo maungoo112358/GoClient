@@ -1,5 +1,6 @@
-using Gamepacket;
+﻿using Gamepacket;
 using UnityEngine;
+
 
 /// <summary>
 /// Modular wrapper around NetworkClient
@@ -94,6 +95,7 @@ public class ModularNetworkManager : MonoBehaviour
 		if (enableModuleSystem)
 		{
 			GameEventSystem.Instance.Publish(new PlayerConnectedEvent(privateId, publicId));
+			Debug.Log("HandleNetworkClientConnected");
 		}
 
 		// Enable modules after connection
@@ -140,28 +142,40 @@ public class ModularNetworkManager : MonoBehaviour
 	private void HandleNetworkClientPacketReceived(GamePacket packet)
 	{
 		if (!enableModuleSystem) return;
-
 		// Bridge specific packet types to events
 		if (packet.HeartbeatAck != null)
 		{
 			GameEventSystem.Instance.Publish(new HeartbeatAckReceivedEvent(packet.HeartbeatAck.ClientId));
 		}
-
 		if (packet.ChatMessage != null)
 		{
 			GameEventSystem.Instance.Publish(new ChatMessageReceivedEvent(packet.ChatMessage.ClientId, packet.ChatMessage.Message));
 		}
-
 		if (packet.LobbyJoinBroadcast != null)
 		{
-			GameEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(packet.LobbyJoinBroadcast.PublicId, packet.LobbyJoinBroadcast.ColorHex));
+			GameEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(packet.LobbyJoinBroadcast.PublicId, packet.LobbyJoinBroadcast.Colorhex, packet.LobbyJoinBroadcast.Position.FormatPosToVector3()));
 		}
-
 		if (packet.ClientPosition != null)
 		{
 			GameEventSystem.Instance.Publish(new OtherPlayerMovedEvent(packet.ClientPosition.ClientId,
 				new Vector3(packet.ClientPosition.X, packet.ClientPosition.Y, packet.ClientPosition.Z)));
 		}
+		if (packet.ServerStatus != null && packet.ServerStatus.Message.Contains("left the lobby"))
+		{
+			string playerWhoLeft = packet.ServerStatus.ClientId; // ← Use PublicId directly
+			if (!string.IsNullOrEmpty(playerWhoLeft))
+			{
+				GameEventSystem.Instance.Publish(new PlayerDisconnectedEvent(playerWhoLeft));
+			}
+		}
+	}
+
+	// Helper method to extract player ID from server message
+	private string ExtractPlayerIdFromMessage(string message)
+	{
+		// Message format: "Player {PublicId} left the lobby"
+		var match = System.Text.RegularExpressions.Regex.Match(message, @"Player (.+?) left the lobby");
+		return match.Success ? match.Groups[1].Value : string.Empty;
 	}
 
 	#endregion
