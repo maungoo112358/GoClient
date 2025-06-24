@@ -5,7 +5,6 @@ public class Client : MonoBehaviour
 {
 	public GameObject clientPrefab;
 	public GameObject prefabBody;
-	public GameObject prefabHead;
 	public TMP_Text label;
 	public Vector3 offset = new Vector3(0, 1, 0);
 	public Quaternion fixedRotation = Quaternion.identity;

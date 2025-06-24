@@ -1,8 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Base interface for all game events
-/// </summary>
 public interface IGameEvent
 {
 }
@@ -17,7 +14,6 @@ public class ServerMessageEvent : IGameEvent
 	}
 }
 
-// Movement-related events
 public class PlayerMovedEvent : IGameEvent
 {
 	public string PlayerId { get; }
@@ -42,7 +38,6 @@ public class OtherPlayerMovedEvent : IGameEvent
 	}
 }
 
-// Connection-related events
 public class PlayerConnectedEvent : IGameEvent
 {
 	public string PrivateId { get; }
@@ -67,7 +62,6 @@ public class PlayerDisconnectedEvent : IGameEvent
 	}
 }
 
-// Heartbeat-related events
 public class HeartbeatSentEvent : IGameEvent
 {
 	public string ClientId { get; }
@@ -88,24 +82,20 @@ public class HeartbeatAckReceivedEvent : IGameEvent
 	}
 }
 
-// Lobby-related events
 public class PlayerJoinedLobbyEvent : IGameEvent
 {
 	public string PublicId { get; }
 	public string ColorHex { get; }
-	public string ColorHex_Head { get; }
 	public Vector3 Position { get; }
 
-	public PlayerJoinedLobbyEvent(string publicId, string colorHex, string colorHex_Head, Vector3 position)
+	public PlayerJoinedLobbyEvent(string publicId, string colorHex, Vector3 position)
 	{
 		PublicId = publicId;
 		ColorHex = colorHex;
-		ColorHex_Head = colorHex_Head;
 		Position = position;
 	}
 }
 
-// Chat-related events (for future use)
 public class ChatMessageReceivedEvent : IGameEvent
 {
 	public string SenderId { get; }
@@ -118,7 +108,6 @@ public class ChatMessageReceivedEvent : IGameEvent
 	}
 }
 
-// Building-related events (for future use)
 public class BuildingSpawnedEvent : IGameEvent
 {
 	public string BuildingId { get; }

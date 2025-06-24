@@ -60,10 +60,7 @@ public class ClientSpawner : MonoBehaviour
 		client.label.text = evt.PublicId;
 		Color bodyColor;
 		ColorUtility.TryParseHtmlString(evt.ColorHex, out bodyColor);
-		Color headColor;
-		ColorUtility.TryParseHtmlString(evt.ColorHex_Head, out headColor);
 		client.prefabBody.GetComponent<Renderer>().materials[0].color = bodyColor;
-		client.prefabHead.GetComponent<Renderer>().materials[0].color = headColor;
 		go.SetActive(true);
 
 		spawnedClients[evt.PublicId] = go;

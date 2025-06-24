@@ -1,18 +1,16 @@
 ﻿using Gamepacket;
 using UnityEngine;
 
-
-/// <summary>
-/// Modular wrapper around NetworkClient
-/// </summary>
 public class ModularNetworkManager : MonoBehaviour
 {
 	[Header("Module Management")]
 	public bool enableModuleSystem = true;
+
 	public bool autoInitializeModules = true;
 
 	[Header("Connection Settings - Same as NetworkClient")]
 	public string serverIP = "127.0.0.1";
+
 	public int serverPort = 9999;
 	public float handshakeTimeout = 3f;
 	public float heartbeatInterval = 5f;
@@ -20,17 +18,17 @@ public class ModularNetworkManager : MonoBehaviour
 
 	[Header("Reconnection Settings - Same as NetworkClient")]
 	public float[] reconnectDelays = { 5f, 10f, 15f, 20f, 25f, 30f };
+
 	public bool enableAutoReconnect = true;
 
-	// Core NetworkClient instance - keeps all existing functionality
 	private NetworkClient _networkClient;
 
-	// Module management
 	private ModuleRegistry _moduleRegistry;
+
 	private bool _modulesInitialized = false;
 
-	// Events - same as NetworkClient but also publish to event system
 	public System.Action<string, string> OnConnected;
+
 	public System.Action OnDisconnected;
 	public System.Action<string> OnServerMessage;
 
@@ -45,18 +43,15 @@ public class ModularNetworkManager : MonoBehaviour
 		if (!enableModuleSystem) return;
 
 		_moduleRegistry = new ModuleRegistry();
-		//Debug.Log("Module system initialized");
 	}
 
 	private void InitializeNetworkClient()
 	{
-		// Create NetworkClient as a child component
 		var networkClientObj = new GameObject("NetworkClient");
 		networkClientObj.transform.SetParent(transform);
 
 		_networkClient = networkClientObj.AddComponent<NetworkClient>();
 
-		// Copy all settings to NetworkClient
 		_networkClient.serverIP = serverIP;
 		_networkClient.serverPort = serverPort;
 		_networkClient.handshakeTimeout = handshakeTimeout;
@@ -65,13 +60,11 @@ public class ModularNetworkManager : MonoBehaviour
 		_networkClient.reconnectDelays = reconnectDelays;
 		_networkClient.enableAutoReconnect = enableAutoReconnect;
 
-		// Subscribe to NetworkClient events and bridge to event system
 		_networkClient.OnConnected += HandleNetworkClientConnected;
 		_networkClient.OnDisconnected += HandleNetworkClientDisconnected;
 		_networkClient.OnServerMessage += HandleNetworkClientServerMessage;
 		_networkClient.OnPacketReceived += HandleNetworkClientPacketReceived;
 
-		//Debug.Log("NetworkClient initialized and bridged to event system");
 	}
 
 	private void Start()
@@ -88,17 +81,14 @@ public class ModularNetworkManager : MonoBehaviour
 	{
 		//Debug.Log($"Connection established - bridging to event system: {publicId}");
 
-		// Maintain original callback behavior
 		OnConnected?.Invoke(privateId, publicId);
 
-		// Publish to event system for modules
 		if (enableModuleSystem)
 		{
 			GameEventSystem.Instance.Publish(new PlayerConnectedEvent(privateId, publicId));
 			Debug.Log("HandleNetworkClientConnected");
 		}
 
-		// Enable modules after connection
 		if (enableModuleSystem && _modulesInitialized)
 		{
 			_moduleRegistry.EnableAllModules();
@@ -109,15 +99,12 @@ public class ModularNetworkManager : MonoBehaviour
 	{
 		//Debug.Log("Disconnected - bridging to event system");
 
-		// Maintain original callback behavior
 		OnDisconnected?.Invoke();
 
-		// Publish to event system for modules
 		if (enableModuleSystem)
 		{
 			GameEventSystem.Instance.Publish(new PlayerDisconnectedEvent("Connection lost"));
 
-			// Disable modules on disconnection
 			if (_modulesInitialized)
 			{
 				_moduleRegistry.DisableAllModules();
@@ -129,10 +116,8 @@ public class ModularNetworkManager : MonoBehaviour
 	{
 		//Debug.Log($"Server message - bridging to event system: {message}");
 
-		// Maintain original callback behavior
 		OnServerMessage?.Invoke(message);
 
-		// Publish to event system for modules
 		if (enableModuleSystem)
 		{
 			GameEventSystem.Instance.Publish(new ServerMessageEvent(message));
@@ -142,7 +127,7 @@ public class ModularNetworkManager : MonoBehaviour
 	private void HandleNetworkClientPacketReceived(GamePacket packet)
 	{
 		if (!enableModuleSystem) return;
-		// Bridge specific packet types to events
+
 		if (packet.HeartbeatAck != null)
 		{
 			GameEventSystem.Instance.Publish(new HeartbeatAckReceivedEvent(packet.HeartbeatAck.ClientId));
@@ -154,16 +139,15 @@ public class ModularNetworkManager : MonoBehaviour
 		if (packet.LobbyJoinBroadcast != null)
 		{
 			var data = packet.LobbyJoinBroadcast;
-			GameEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(data.PublicId, data.Colorhex,data.ColorhexHead, data.Position.FormatPosToVector3()));
+			GameEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(data.PublicId, data.Colorhex, data.Position.FormatPosToVector3()));
 		}
 		if (packet.ClientPosition != null)
 		{
-			GameEventSystem.Instance.Publish(new OtherPlayerMovedEvent(packet.ClientPosition.ClientId,
-				new Vector3(packet.ClientPosition.X, packet.ClientPosition.Y, packet.ClientPosition.Z)));
+			GameEventSystem.Instance.Publish(new OtherPlayerMovedEvent(packet.ClientPosition.ClientId,new Vector3(packet.ClientPosition.X, packet.ClientPosition.Y, packet.ClientPosition.Z)));
 		}
 		if (packet.ServerStatus != null && packet.ServerStatus.Message.Contains("left the lobby"))
 		{
-			string playerWhoLeft = packet.ServerStatus.ClientId; // ← Use PublicId directly
+			string playerWhoLeft = packet.ServerStatus.ClientId; 
 			if (!string.IsNullOrEmpty(playerWhoLeft))
 			{
 				GameEventSystem.Instance.Publish(new PlayerDisconnectedEvent(playerWhoLeft));
@@ -171,21 +155,16 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 	}
 
-	// Helper method to extract player ID from server message
 	private string ExtractPlayerIdFromMessage(string message)
 	{
-		// Message format: "Player {PublicId} left the lobby"
 		var match = System.Text.RegularExpressions.Regex.Match(message, @"Player (.+?) left the lobby");
 		return match.Success ? match.Groups[1].Value : string.Empty;
 	}
 
-	#endregion
+	#endregion NetworkClient Event Bridging
 
 	#region Module Management
 
-	/// <summary>
-	/// Initialize all registered modules
-	/// </summary>
 	public void InitializeModules()
 	{
 		if (!enableModuleSystem || _modulesInitialized)
@@ -197,16 +176,12 @@ public class ModularNetworkManager : MonoBehaviour
 		_moduleRegistry.InitializeAllModules();
 		_modulesInitialized = true;
 
-		// Enable modules if already connected
 		if (IsConnected())
 		{
 			_moduleRegistry.EnableAllModules();
 		}
 	}
 
-	/// <summary>
-	/// Register a new module
-	/// </summary>
 	public bool RegisterModule(INetworkModule module)
 	{
 		if (!enableModuleSystem)
@@ -218,60 +193,58 @@ public class ModularNetworkManager : MonoBehaviour
 		return _moduleRegistry.RegisterModule(module);
 	}
 
-	/// <summary>
-	/// Enable a specific module
-	/// </summary>
 	public bool EnableModule(string moduleId)
 	{
 		if (!enableModuleSystem) return false;
 		return _moduleRegistry.EnableModule(moduleId);
 	}
 
-	/// <summary>
-	/// Disable a specific module
-	/// </summary>
 	public bool DisableModule(string moduleId)
 	{
 		if (!enableModuleSystem) return false;
 		return _moduleRegistry.DisableModule(moduleId);
 	}
 
-	/// <summary>
-	/// Get a specific module
-	/// </summary>
 	public T GetModule<T>(string moduleId) where T : class, INetworkModule
 	{
 		if (!enableModuleSystem) return null;
 		return _moduleRegistry.GetModule(moduleId) as T;
 	}
 
-	/// <summary>
-	/// Check if module system is enabled
-	/// </summary>
 	public bool IsModuleSystemEnabled()
 	{
 		return enableModuleSystem;
 	}
 
-	#endregion
+	#endregion Module Management
 
 	#region NetworkClient Passthrough Methods
 
-	// All public methods from NetworkClient are available here
 	public void SendChatMessage(string message) => _networkClient?.SendChatMessage(message);
+
 	public void SendLobbyJoin(string colorHex) => _networkClient?.SendLobbyJoin(colorHex);
+
 	public void SendPosition(Vector3 position) => _networkClient?.SendPosition(position);
+
 	public void SendPacket(GamePacket packet) => _networkClient?.SendPacket(packet);
+
 	public void ManualConnect() => _networkClient?.ManualConnect();
+
 	public void ManualDisconnect() => _networkClient?.ManualDisconnect();
+
 	public void SetAutoReconnect(bool enabled) => _networkClient?.SetAutoReconnect(enabled);
+
 	public float GetNextReconnectTime() => _networkClient?.GetNextReconnectTime() ?? 0f;
+
 	public bool IsConnected() => _networkClient?.IsConnected() ?? false;
+
 	public string GetPrivateId() => _networkClient?.GetPrivateId();
+
 	public string GetPublicId() => _networkClient?.GetPublicId();
+
 	public NetworkClient.ConnectionState GetConnectionState() => _networkClient?.GetConnectionState() ?? NetworkClient.ConnectionState.Disconnected;
 
-	#endregion
+	#endregion NetworkClient Passthrough Methods
 
 	private void OnDestroy()
 	{
@@ -283,7 +256,6 @@ public class ModularNetworkManager : MonoBehaviour
 
 	private void OnValidate()
 	{
-		// Sync settings to NetworkClient when changed in inspector
 		if (_networkClient != null)
 		{
 			_networkClient.serverIP = serverIP;

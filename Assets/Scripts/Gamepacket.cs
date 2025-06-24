@@ -37,25 +37,24 @@ namespace Gamepacket {
             "Hy5nYW1lcGFja2V0LkNsaWVudExvYmJ5UG9zaXRpb24SLgoMU2VydmVyU3Rh",
             "dHVzGGMgASgLMhguZ2FtZXBhY2tldC5TZXJ2ZXJTdGF0dXMiJgoQSGFuZHNo",
             "YWtlUmVxdWVzdBISCgpjbGllbnROYW1lGAEgASgJIjgKEUhhbmRzaGFrZVJl",
-            "c3BvbnNlEhEKCXByaXZhdGVJZBgBIAEoCRIQCghwdWJsaWNJZBgCIAEoCSKC",
-            "AQoSTG9iYnlKb2luQnJvYWRjYXN0EhAKCHB1YmxpY0lkGAEgASgJEhAKCGNv",
-            "bG9yaGV4GAIgASgJEjEKCHBvc2l0aW9uGAMgASgLMh8uZ2FtZXBhY2tldC5D",
-            "bGllbnRMb2JieVBvc2l0aW9uEhUKDWNvbG9yaGV4X2hlYWQYBCABKAkiQwoO",
-            "Q2xpZW50UG9zaXRpb24SEAoIY2xpZW50SWQYASABKAkSCQoBeBgCIAEoAhIJ",
-            "CgF5GAMgASgCEgkKAXoYBCABKAIiNgoTQ2xpZW50TG9iYnlQb3NpdGlvbhIJ",
-            "CgF4GAEgASgBEgkKAXkYAiABKAESCQoBehgDIAEoASIwCgtDaGF0TWVzc2Fn",
-            "ZRIQCghjbGllbnRJZBgBIAEoCRIPCgdtZXNzYWdlGAIgASgJIh0KCUhlYXJ0",
-            "YmVhdBIQCghjbGllbnRJZBgBIAEoCSIgCgxIZWFydGJlYXRBY2sSEAoIY2xp",
-            "ZW50SWQYASABKAkiMQoMU2VydmVyU3RhdHVzEg8KB21lc3NhZ2UYASABKAkS",
-            "EAoIY2xpZW50SWQYAiABKAlCFVoTZ29zb2NrZXQvZ2FtZXBhY2tldGIGcHJv",
-            "dG8z"));
+            "c3BvbnNlEhEKCXByaXZhdGVJZBgBIAEoCRIQCghwdWJsaWNJZBgCIAEoCSJr",
+            "ChJMb2JieUpvaW5Ccm9hZGNhc3QSEAoIcHVibGljSWQYASABKAkSEAoIY29s",
+            "b3JoZXgYAiABKAkSMQoIcG9zaXRpb24YAyABKAsyHy5nYW1lcGFja2V0LkNs",
+            "aWVudExvYmJ5UG9zaXRpb24iQwoOQ2xpZW50UG9zaXRpb24SEAoIY2xpZW50",
+            "SWQYASABKAkSCQoBeBgCIAEoAhIJCgF5GAMgASgCEgkKAXoYBCABKAIiNgoT",
+            "Q2xpZW50TG9iYnlQb3NpdGlvbhIJCgF4GAEgASgBEgkKAXkYAiABKAESCQoB",
+            "ehgDIAEoASIwCgtDaGF0TWVzc2FnZRIQCghjbGllbnRJZBgBIAEoCRIPCgdt",
+            "ZXNzYWdlGAIgASgJIh0KCUhlYXJ0YmVhdBIQCghjbGllbnRJZBgBIAEoCSIg",
+            "CgxIZWFydGJlYXRBY2sSEAoIY2xpZW50SWQYASABKAkiMQoMU2VydmVyU3Rh",
+            "dHVzEg8KB21lc3NhZ2UYASABKAkSEAoIY2xpZW50SWQYAiABKAlCFVoTZ29z",
+            "b2NrZXQvZ2FtZXBhY2tldGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.GamePacket), global::Gamepacket.GamePacket.Parser, new[]{ "Seq", "HandshakeRequest", "HandshakeResponse", "Heartbeat", "HeartbeatAck", "ClientPosition", "ChatMessage", "LobbyJoinBroadcast", "ClientLobbyPosition", "ServerStatus" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HandshakeRequest), global::Gamepacket.HandshakeRequest.Parser, new[]{ "ClientName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HandshakeResponse), global::Gamepacket.HandshakeResponse.Parser, new[]{ "PrivateId", "PublicId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.LobbyJoinBroadcast), global::Gamepacket.LobbyJoinBroadcast.Parser, new[]{ "PublicId", "Colorhex", "Position", "ColorhexHead" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.LobbyJoinBroadcast), global::Gamepacket.LobbyJoinBroadcast.Parser, new[]{ "PublicId", "Colorhex", "Position" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ClientPosition), global::Gamepacket.ClientPosition.Parser, new[]{ "ClientId", "X", "Y", "Z" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ClientLobbyPosition), global::Gamepacket.ClientLobbyPosition.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ChatMessage), global::Gamepacket.ChatMessage.Parser, new[]{ "ClientId", "Message" }, null, null, null, null),
@@ -728,9 +727,6 @@ namespace Gamepacket {
     /// <summary>Field number for the "clientName" field.</summary>
     public const int ClientNameFieldNumber = 1;
     private string clientName_ = "";
-    /// <summary>
-    /// optional nickname from client
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string ClientName {
@@ -1154,7 +1150,6 @@ namespace Gamepacket {
       publicId_ = other.publicId_;
       colorhex_ = other.colorhex_;
       position_ = other.position_ != null ? other.position_.Clone() : null;
-      colorhexHead_ = other.colorhexHead_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1191,27 +1186,12 @@ namespace Gamepacket {
     /// <summary>Field number for the "position" field.</summary>
     public const int PositionFieldNumber = 3;
     private global::Gamepacket.ClientLobbyPosition position_;
-    /// <summary>
-    /// New field
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public global::Gamepacket.ClientLobbyPosition Position {
       get { return position_; }
       set {
         position_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "colorhex_head" field.</summary>
-    public const int ColorhexHeadFieldNumber = 4;
-    private string colorhexHead_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string ColorhexHead {
-      get { return colorhexHead_; }
-      set {
-        colorhexHead_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -1233,7 +1213,6 @@ namespace Gamepacket {
       if (PublicId != other.PublicId) return false;
       if (Colorhex != other.Colorhex) return false;
       if (!object.Equals(Position, other.Position)) return false;
-      if (ColorhexHead != other.ColorhexHead) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1244,7 +1223,6 @@ namespace Gamepacket {
       if (PublicId.Length != 0) hash ^= PublicId.GetHashCode();
       if (Colorhex.Length != 0) hash ^= Colorhex.GetHashCode();
       if (position_ != null) hash ^= Position.GetHashCode();
-      if (ColorhexHead.Length != 0) hash ^= ColorhexHead.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1275,10 +1253,6 @@ namespace Gamepacket {
         output.WriteRawTag(26);
         output.WriteMessage(Position);
       }
-      if (ColorhexHead.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(ColorhexHead);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1301,10 +1275,6 @@ namespace Gamepacket {
         output.WriteRawTag(26);
         output.WriteMessage(Position);
       }
-      if (ColorhexHead.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(ColorhexHead);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1323,9 +1293,6 @@ namespace Gamepacket {
       }
       if (position_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
-      }
-      if (ColorhexHead.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(ColorhexHead);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1350,9 +1317,6 @@ namespace Gamepacket {
           Position = new global::Gamepacket.ClientLobbyPosition();
         }
         Position.MergeFrom(other.Position);
-      }
-      if (other.ColorhexHead.Length != 0) {
-        ColorhexHead = other.ColorhexHead;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1388,10 +1352,6 @@ namespace Gamepacket {
             input.ReadMessage(Position);
             break;
           }
-          case 34: {
-            ColorhexHead = input.ReadString();
-            break;
-          }
         }
       }
     #endif
@@ -1424,10 +1384,6 @@ namespace Gamepacket {
               Position = new global::Gamepacket.ClientLobbyPosition();
             }
             input.ReadMessage(Position);
-            break;
-          }
-          case 34: {
-            ColorhexHead = input.ReadString();
             break;
           }
         }
