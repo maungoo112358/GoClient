@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ClientSpawner : MonoBehaviour
+public class ClientSpawnManager : MonoBehaviour
 {
 	public GameObject clientPrefab;
 	public Transform plane;

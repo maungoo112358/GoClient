@@ -61,20 +61,10 @@ public class LobbyManager : MonoBehaviour
 			Debug.Log($"LobbyManager: Successfully joined lobby with color {evt.ColorHex}");
 			_hasJoinedLobby = true;
 			_myColor = evt.ColorHex;
-
-			if (GUILogger.Instance != null)
-			{
-				GUILogger.Instance.LogLobby($"You joined the lobby with color {evt.ColorHex} and pos {evt.Position}");
-			}
 		}
 		else
 		{
 			Debug.Log($"LobbyManager: Player {evt.PublicID} joined lobby with color {evt.ColorHex}");
-
-			if (GUILogger.Instance != null)
-			{
-				GUILogger.Instance.LogLobby($"Player {evt.PublicID} joined with color {evt.ColorHex}");
-			}
 		}
 	}
 
@@ -107,11 +97,6 @@ public class LobbyManager : MonoBehaviour
 			Debug.Log("LobbyManager: Leaving lobby");
 			_hasJoinedLobby = false;
 			_myColor = null;
-
-			if (GUILogger.Instance != null)
-			{
-				GUILogger.Instance.LogLobby("You left the lobby");
-			}
 		}
 	}
 

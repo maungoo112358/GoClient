@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class NetworkMovementManager : MonoBehaviour
 {
-	private ClientSpawner clientSpawner; 
+	private ClientSpawnManager clientSpawnManager; 
 	private LocalMovementController cachedLocalMovementController;
 
 	[Header("Interpolation Settings")]
@@ -36,7 +36,7 @@ public class NetworkMovementManager : MonoBehaviour
 
 	private void Start()
 	{
-		clientSpawner = GetComponent<ClientSpawner>();
+		clientSpawnManager = GetComponent<ClientSpawnManager>();
 		ModularEventSystem.Instance.Subscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinedLobby);
 		ModularEventSystem.Instance.Subscribe<PlayerJoinedLobbyEvent>(OnLocalPlayerJoined);
 		ModularEventSystem.Instance.Subscribe<PlayerMovementEvent>(OnPlayerMovementUpdate);
@@ -64,7 +64,7 @@ public class NetworkMovementManager : MonoBehaviour
 	{
 		if (evt.IsLocalPlayer)
 		{
-			var localClientObject = clientSpawner?.GetClientGameObject(evt.PublicID);
+			var localClientObject = clientSpawnManager?.GetClientGameObject(evt.PublicID);
 			cachedLocalMovementController = localClientObject?.GetComponent<LocalMovementController>();
 		}
 	}
@@ -208,9 +208,9 @@ public class NetworkMovementManager : MonoBehaviour
 
 	private GameObject FindClientObject(string clientId)
 	{
-		if (clientSpawner == null) return null;
+		if (clientSpawnManager == null) return null;
 
-		var clientObject = clientSpawner.GetClientGameObject(clientId);
+		var clientObject = clientSpawnManager.GetClientGameObject(clientId);
 		if (clientObject == null)
 		{
 			Debug.LogWarning($"Could not find GameObject for client: {clientId}");

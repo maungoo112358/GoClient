@@ -1,16 +1,15 @@
 ﻿using Gamepacket;
+using System.Linq;
 using UnityEngine;
 
 public class ModularNetworkManager : MonoBehaviour
 {
 	[Header("Module Management")]
 	public bool enableModuleSystem = true;
-
 	public bool autoInitializeModules = true;
 
 	[Header("Connection Settings - Same as NetworkClient")]
 	public string serverIP = "127.0.0.1";
-
 	public int serverPort = 9999;
 	public float handshakeTimeout = 3f;
 	public float heartbeatInterval = 5f;
@@ -18,19 +17,19 @@ public class ModularNetworkManager : MonoBehaviour
 
 	[Header("Reconnection Settings - Same as NetworkClient")]
 	public float[] reconnectDelays = { 5f, 10f, 15f, 20f, 25f, 30f };
-
 	public bool enableAutoReconnect = true;
 
 	private NetworkClient _networkClient;
-
 	private ModuleRegistry _moduleRegistry;
-
 	private bool _modulesInitialized = false;
 
 	public System.Action<string, string> OnConnected;
-
 	public System.Action OnDisconnected;
 	public System.Action<string> OnServerMessage;
+	public System.Action<string> OnUsernamePromptReceived;
+
+	private string desiredUsername;
+	private string sessionToken;
 
 	private void Awake()
 	{
@@ -63,6 +62,7 @@ public class ModularNetworkManager : MonoBehaviour
 		_networkClient.OnConnected += HandleNetworkClientConnected;
 		_networkClient.OnDisconnected += HandleNetworkClientDisconnected;
 		_networkClient.OnServerMessage += HandleNetworkClientServerMessage;
+		_networkClient.OnUsernamePromptReceived += HandleNetworkClientUsernamePrompt; // New event subscription
 		_networkClient.OnPacketReceived += HandleNetworkClientPacketReceived;
 	}
 
@@ -74,18 +74,34 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 	}
 
+	public void SetDesiredUsername(string username)
+	{
+		desiredUsername = username;
+		Debug.Log($"ModularNetworkManager: Desired username set to '{username}'");
+	}
+
+	public string GetDesiredUsername()
+	{
+		return desiredUsername;
+	}
+
+	public void AttemptReconnection(string username, string sessionToken)
+	{
+		this.sessionToken = sessionToken;
+		_networkClient?.SendReconnectionRequest(username, sessionToken);
+	}
+
 	#region NetworkClient Event Bridging
 
 	private void HandleNetworkClientConnected(string privateId, string publicId)
 	{
-		//Debug.Log($"Connection established - bridging to event system: {publicId}");
+		Debug.Log($"ModularNetworkManager: Connection established - Private: {privateId}, Public: {publicId}");
 
 		OnConnected?.Invoke(privateId, publicId);
 
 		if (enableModuleSystem)
 		{
 			ModularEventSystem.Instance.Publish(new PlayerConnectedEvent(privateId, publicId));
-			Debug.Log("HandleNetworkClientConnected");
 		}
 
 		if (enableModuleSystem && _modulesInitialized)
@@ -96,13 +112,13 @@ public class ModularNetworkManager : MonoBehaviour
 
 	private void HandleNetworkClientDisconnected()
 	{
-		//Debug.Log("Disconnected - bridging to event system");
+		Debug.Log("ModularNetworkManager: Disconnected from server");
 
 		OnDisconnected?.Invoke();
 
 		if (enableModuleSystem)
 		{
-			ModularEventSystem.Instance.Publish(new PlayerDisconnectedEvent("Connection lost"));
+			ModularEventSystem.Instance.Publish(new PlayerDisconnectedEvent("", "Connection lost"));
 
 			if (_modulesInitialized)
 			{
@@ -113,7 +129,7 @@ public class ModularNetworkManager : MonoBehaviour
 
 	private void HandleNetworkClientServerMessage(string message)
 	{
-		//Debug.Log($"Server message - bridging to event system: {message}");
+		Debug.Log($"ModularNetworkManager: Server message - {message}");
 
 		OnServerMessage?.Invoke(message);
 
@@ -123,42 +139,99 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 	}
 
+	private void HandleNetworkClientUsernamePrompt(string promptMessage)
+	{
+		Debug.Log($"ModularNetworkManager: Username prompt received - {promptMessage}");
+
+		OnUsernamePromptReceived?.Invoke(promptMessage);
+
+		if (enableModuleSystem)
+		{
+			ModularEventSystem.Instance.Publish(new UsernamePromptEvent(promptMessage));
+		}
+	}
+
 	private void HandleNetworkClientPacketReceived(GamePacket packet)
 	{
 		if (!enableModuleSystem) return;
 
+		// Handle heartbeat acknowledgments
 		if (packet.HeartbeatAck != null)
 		{
 			ModularEventSystem.Instance.Publish(new HeartbeatAckReceivedEvent(packet.HeartbeatAck.ClientId));
 		}
-		if (packet.ChatMessage != null)
+
+		// Handle username validation responses
+		if (packet.UsernameResponse != null)
 		{
-			ModularEventSystem.Instance.Publish(new ChatMessageReceivedEvent(packet.ChatMessage.ClientId, packet.ChatMessage.Message));
+			var response = packet.UsernameResponse;
+			Debug.Log($"ModularNetworkManager: Username response - {response.Username}, Accepted: {response.IsAccepted}, Message: {response.Message}");
+
+			ModularEventSystem.Instance.Publish(new UsernameResponseEvent(
+				response.Username,
+				response.IsAccepted,
+				response.Message,
+				response.Suggestions.ToArray()
+			));
 		}
+
+		// Handle username prompts (also published here for consistency)
+		if (packet.UsernamePrompt != null)
+		{
+			Debug.Log($"ModularNetworkManager: Username prompt packet - {packet.UsernamePrompt.Message}");
+			// Already handled in HandleNetworkClientUsernamePrompt, but logging here for packet tracking
+		}
+
+		// Handle reconnection responses
+		if (packet.ReconnectionResponse != null)
+		{
+			var response = packet.ReconnectionResponse;
+			Debug.Log($"ModularNetworkManager: Reconnection response - Success: {response.IsSuccessful}, Message: {response.Message}");
+
+			ModularEventSystem.Instance.Publish(new ReconnectionResponseEvent(
+				response.IsSuccessful,
+				response.Message,
+				response.PrivateId,
+				response.PublicId
+			));
+		}
+
+		// Handle lobby join broadcasts
 		if (packet.LobbyJoinBroadcast != null)
 		{
 			var data = packet.LobbyJoinBroadcast;
-			ModularEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(data.PublicId, data.Colorhex, data.Position.PosToVector3(),data.IsLocalPlayer));
+			Debug.Log($"ModularNetworkManager: Lobby join broadcast - Player: {data.PublicId}, Color: {data.Colorhex}, IsLocal: {data.IsLocalPlayer}");
+
+			ModularEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(
+				data.PublicId,
+				data.Colorhex,
+				data.Position.PosToVector3(),
+				data.IsLocalPlayer
+			));
 		}
+
+		// Handle player movement
 		if (packet.ClientPosition != null)
 		{
 			var pos = packet.ClientPosition;
-			ModularEventSystem.Instance.Publish(new PlayerMovementEvent(pos.ClientId, pos.PosToVector3(), pos.VelocityToVector3(), pos.Timestamp));
+			ModularEventSystem.Instance.Publish(new PlayerMovementEvent(
+				pos.ClientId,
+				pos.PosToVector3(),
+				pos.VelocityToVector3(),
+				pos.Timestamp
+			));
 		}
+
+		// Handle server status messages that indicate player disconnections
 		if (packet.ServerStatus != null && packet.ServerStatus.Message.Contains("left the lobby"))
 		{
 			string playerWhoLeft = packet.ServerStatus.ClientId;
 			if (!string.IsNullOrEmpty(playerWhoLeft))
 			{
-				ModularEventSystem.Instance.Publish(new PlayerDisconnectedEvent(playerWhoLeft));
+				Debug.Log($"ModularNetworkManager: Player {playerWhoLeft} left the lobby");
+				ModularEventSystem.Instance.Publish(new PlayerDisconnectedEvent(playerWhoLeft, "Left lobby"));
 			}
 		}
-	}
-
-	private string ExtractPlayerIdFromMessage(string message)
-	{
-		var match = System.Text.RegularExpressions.Regex.Match(message, @"Player (.+?) left the lobby");
-		return match.Success ? match.Groups[1].Value : string.Empty;
 	}
 
 	#endregion NetworkClient Event Bridging
@@ -220,15 +293,19 @@ public class ModularNetworkManager : MonoBehaviour
 
 	#region NetworkClient Passthrough Methods
 
-	public void SendChatMessage(string message) => _networkClient?.SendChatMessage(message);
-
 	public void SendLobbyJoin(string colorHex) => _networkClient?.SendLobbyJoin(colorHex);
 
 	public void SendPosition(Vector3 position, Vector3 velocity) => _networkClient?.SendPosition(position, velocity);
 
+	public void SendUsernameSubmission(string username) => _networkClient?.SendUsernameSubmission(username);
+
 	public void SendPacket(GamePacket packet) => _networkClient?.SendPacket(packet);
 
-	public void ManualConnect() => _networkClient?.ManualConnect();
+	public void ManualConnect()
+	{
+		Debug.Log($"ModularNetworkManager: Manual connect requested");
+		_networkClient?.ManualConnect();
+	}
 
 	public void ManualDisconnect() => _networkClient?.ManualDisconnect();
 
@@ -242,7 +319,7 @@ public class ModularNetworkManager : MonoBehaviour
 
 	public string GetPublicId() => _networkClient?.GetPublicId();
 
-	public NetworkClient.ConnectionState GetConnectionState() => _networkClient?.GetConnectionState() ?? NetworkClient.ConnectionState.Disconnected;
+	public NetworkClient.ConnectionState? GetConnectionState() => _networkClient?.GetConnectionState();
 
 	#endregion NetworkClient Passthrough Methods
 

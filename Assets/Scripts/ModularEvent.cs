@@ -14,6 +14,69 @@ public class ServerMessageEvent : IModularEvent
 	}
 }
 
+public class UsernamePromptEvent : IModularEvent
+{
+	public string PromptMessage { get; }
+
+	public UsernamePromptEvent(string promptMessage)
+	{
+		PromptMessage = promptMessage;
+	}
+}
+
+public class UsernameRequestEvent : IModularEvent
+{
+	public string Username { get; }
+
+	public UsernameRequestEvent(string username)
+	{
+		Username = username;
+	}
+}
+
+public class UsernameResponseEvent : IModularEvent
+{
+	public string Username { get; }
+	public bool IsAccepted { get; }
+	public string Message { get; }
+	public string[] Suggestions { get; }
+
+	public UsernameResponseEvent(string username, bool isAccepted, string message, string[] suggestions = null)
+	{
+		Username = username;
+		IsAccepted = isAccepted;
+		Message = message;
+		Suggestions = suggestions ?? new string[0];
+	}
+}
+
+public class ReconnectionAttemptEvent : IModularEvent
+{
+	public string Username { get; }
+	public string SessionToken { get; }
+
+	public ReconnectionAttemptEvent(string username, string sessionToken)
+	{
+		Username = username;
+		SessionToken = sessionToken;
+	}
+}
+
+public class ReconnectionResponseEvent : IModularEvent
+{
+	public bool IsSuccessful { get; }
+	public string Message { get; }
+	public string PrivateID { get; }
+	public string PublicID { get; }
+
+	public ReconnectionResponseEvent(bool isSuccessful, string message, string privateID = "", string publicID = "")
+	{
+		IsSuccessful = isSuccessful;
+		Message = message;
+		PrivateID = privateID;
+		PublicID = publicID;
+	}
+}
 
 public class PlayerMovementEvent : IModularEvent
 {
@@ -22,7 +85,7 @@ public class PlayerMovementEvent : IModularEvent
 	public Vector3 Velocity { get; }
 	public float Timestamp { get; }
 
-	public PlayerMovementEvent(string clientID, Vector3 position, Vector3 velocity,float timestamp)
+	public PlayerMovementEvent(string clientID, Vector3 position, Vector3 velocity, float timestamp)
 	{
 		ClientID = clientID;
 		Position = position;
@@ -82,7 +145,7 @@ public class PlayerJoinedLobbyEvent : IModularEvent
 	public Vector3 Position { get; }
 	public bool IsLocalPlayer;
 
-	public PlayerJoinedLobbyEvent(string publicID, string colorHex, Vector3 position,bool isLocalPlayer)
+	public PlayerJoinedLobbyEvent(string publicID, string colorHex, Vector3 position, bool isLocalPlayer)
 	{
 		PublicID = publicID;
 		ColorHex = colorHex;

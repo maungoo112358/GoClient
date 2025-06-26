@@ -3,19 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/// <summary>
-/// Manages the lifecycle of all network modules
-/// Handles registration, dependency resolution, and enable/disable operations
-/// </summary>
 public class ModuleRegistry
 {
 	private Dictionary<string, INetworkModule> _modules = new Dictionary<string, INetworkModule>();
 	private List<INetworkModule> _initializationOrder = new List<INetworkModule>();
 	private bool _isInitialized = false;
 
-	/// <summary>
-	/// Register a module with the registry
-	/// </summary>
 	public bool RegisterModule(INetworkModule module)
 	{
 		if (module == null)
@@ -33,14 +26,10 @@ public class ModuleRegistry
 		_modules[module.ModuleId] = module;
 		Debug.Log($"Registered module: {module.ModuleName} (ID: {module.ModuleId})");
 
-		// Rebuild initialization order
 		RebuildInitializationOrder();
 		return true;
 	}
 
-	/// <summary>
-	/// Unregister a module from the registry
-	/// </summary>
 	public bool UnregisterModule(string moduleId)
 	{
 		if (!_modules.ContainsKey(moduleId))
@@ -51,7 +40,6 @@ public class ModuleRegistry
 
 		var module = _modules[moduleId];
 
-		// Check if other modules depend on this one
 		var dependents = GetDependentModules(moduleId);
 		if (dependents.Count > 0)
 		{
@@ -59,7 +47,6 @@ public class ModuleRegistry
 			return false;
 		}
 
-		// Destroy the module
 		module.Destroy();
 		_modules.Remove(moduleId);
 		RebuildInitializationOrder();
@@ -68,9 +55,6 @@ public class ModuleRegistry
 		return true;
 	}
 
-	/// <summary>
-	/// Initialize all registered modules in dependency order
-	/// </summary>
 	public void InitializeAllModules()
 	{
 		if (_isInitialized)
@@ -97,9 +81,6 @@ public class ModuleRegistry
 		Debug.Log("All modules initialized");
 	}
 
-	/// <summary>
-	/// Enable all registered modules
-	/// </summary>
 	public void EnableAllModules()
 	{
 		Debug.Log("Enabling all modules...");
@@ -117,9 +98,6 @@ public class ModuleRegistry
 		}
 	}
 
-	/// <summary>
-	/// Disable all registered modules
-	/// </summary>
 	public void DisableAllModules()
 	{
 		Debug.Log("Disabling all modules...");
@@ -138,9 +116,6 @@ public class ModuleRegistry
 		}
 	}
 
-	/// <summary>
-	/// Enable a specific module by ID
-	/// </summary>
 	public bool EnableModule(string moduleId)
 	{
 		if (!_modules.TryGetValue(moduleId, out var module))
@@ -149,7 +124,6 @@ public class ModuleRegistry
 			return false;
 		}
 
-		// Check dependencies are enabled
 		if (!CheckDependenciesEnabled(module))
 		{
 			Debug.LogError($"Cannot enable {moduleId} - dependencies not met");
@@ -168,9 +142,6 @@ public class ModuleRegistry
 		}
 	}
 
-	/// <summary>
-	/// Disable a specific module by ID
-	/// </summary>
 	public bool DisableModule(string moduleId)
 	{
 		if (!_modules.TryGetValue(moduleId, out var module))
@@ -205,42 +176,27 @@ public class ModuleRegistry
 		}
 	}
 
-	/// <summary>
-	/// Get a module by ID
-	/// </summary>
 	public INetworkModule GetModule(string moduleId)
 	{
 		_modules.TryGetValue(moduleId, out var module);
 		return module;
 	}
 
-	/// <summary>
-	/// Get all registered modules
-	/// </summary>
 	public IEnumerable<INetworkModule> GetAllModules()
 	{
 		return _modules.Values;
 	}
 
-	/// <summary>
-	/// Get enabled modules
-	/// </summary>
 	public IEnumerable<INetworkModule> GetEnabledModules()
 	{
 		return _modules.Values.Where(m => m.IsEnabled);
 	}
 
-	/// <summary>
-	/// Check if a module is registered
-	/// </summary>
 	public bool IsModuleRegistered(string moduleId)
 	{
 		return _modules.ContainsKey(moduleId);
 	}
 
-	/// <summary>
-	/// Destroy all modules and clear registry
-	/// </summary>
 	public void DestroyAllModules()
 	{
 		Debug.Log("Destroying all modules...");
@@ -320,8 +276,6 @@ public class ModuleRegistry
 
 	private List<INetworkModule> GetDependentModules(string moduleId)
 	{
-		return _modules.Values
-			.Where(m => m.Dependencies.Contains(moduleId))
-			.ToList();
+		return _modules.Values.Where(m => m.Dependencies.Contains(moduleId)).ToList();
 	}
 }
