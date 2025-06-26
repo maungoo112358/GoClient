@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class ClientSpawner : MonoBehaviour
@@ -7,7 +6,8 @@ public class ClientSpawner : MonoBehaviour
 	public GameObject clientPrefab;
 	public Transform plane;
 
-	PlayerJoinedLobbyEvent playerLobbyEvt;
+	private PlayerJoinedLobbyEvent playerLobbyEvt;
+	private string localClientID;
 
 	private Dictionary<string, GameObject> spawnedClients = new();
 
@@ -15,18 +15,18 @@ public class ClientSpawner : MonoBehaviour
 	{
 		clientPrefab.SetActive(false);
 
-		GameEventSystem.Instance.Subscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
-		GameEventSystem.Instance.Subscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinLobby);
-	}
+		ModularEventSystem.Instance.Subscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
+		ModularEventSystem.Instance.Subscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinLobby);
 
-	
+		localClientID = GetLocalClientID();
+	}
 
 	private void OnDestroy()
 	{
-		if (GameEventSystem.Instance != null)
+		if (ModularEventSystem.Instance != null)
 		{
-			GameEventSystem.Instance.Unsubscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
-			GameEventSystem.Instance.Unsubscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinLobby);
+			ModularEventSystem.Instance.Unsubscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
+			ModularEventSystem.Instance.Unsubscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinLobby);
 		}
 	}
 
@@ -34,7 +34,6 @@ public class ClientSpawner : MonoBehaviour
 	{
 		if (evt == null) return;
 		ClientSpawn(evt);
-
 	}
 
 	private void OnPlayerDisconnected(PlayerDisconnectedEvent evt)
@@ -49,21 +48,60 @@ public class ClientSpawner : MonoBehaviour
 		}
 	}
 
-
 	private void ClientSpawn(PlayerJoinedLobbyEvent evt)
 	{
-		if (spawnedClients.ContainsKey(evt.PublicId)) return;
+		if (spawnedClients.ContainsKey(evt.PublicID)) return;
 
 		Vector3 pos = evt.Position;
 		var go = Instantiate(clientPrefab, pos, Quaternion.identity);
 		var client = go.GetComponent<Client>();
-		client.label.text = evt.PublicId;
+		client.label.text = evt.PublicID;
+
 		Color bodyColor;
 		ColorUtility.TryParseHtmlString(evt.ColorHex, out bodyColor);
 		client.prefabBody.GetComponent<Renderer>().materials[0].color = bodyColor;
-		go.SetActive(true);
 
-		spawnedClients[evt.PublicId] = go;
+		bool isLocalClient = evt.IsLocalPlayer;
+		if (isLocalClient)
+		{
+			localClientID = evt.PublicID;
+			client.label.color = Color.green;
+			SetupLocalClient(go);
+		}
+
+		go.SetActive(true);
+		spawnedClients[evt.PublicID] = go;
+		Debug.Log($"Spawned {(isLocalClient ? "LOCAL" : "REMOTE")} client: {evt.PublicID}");
 	}
 
+	private void SetupLocalClient(GameObject localClient)
+	{
+		var movementController = localClient.AddComponent<LocalMovementController>();
+
+		movementController.movementSpeed = 5f;
+		movementController.networkSendRate = 20f;
+		movementController.followLocalPlayer = true;
+		movementController.cameraTransform = Camera.main.transform;
+		movementController.cameraOffset = new Vector3(0, 20, -15);
+		movementController.cameraFollowSpeed = 5f;
+		movementController.allowInputSwitching = true;
+		movementController.networkManager = GetComponent<ModularNetworkManager>();
+		NetworkMovementManager networkMovementManager = GetComponent<NetworkMovementManager>();
+		if (networkMovementManager != null)
+		{
+			networkMovementManager.SetLocalClientId(localClientID);
+		}
+
+		Debug.Log($"✅ Local client setup complete for: {localClientID}");
+	}
+
+	private string GetLocalClientID()
+	{
+		return localClientID ?? "";
+	}
+
+	public GameObject GetClientGameObject(string clientId)
+	{
+		return spawnedClients.TryGetValue(clientId, out GameObject client) ? client : null;
+	}
 }

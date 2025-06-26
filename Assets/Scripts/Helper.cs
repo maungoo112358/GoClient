@@ -2,12 +2,18 @@ using UnityEngine;
 
 public static class Helper
 {
-	public static Vector3 FormatPosToVector3(this Gamepacket.ClientLobbyPosition lobbyPos)
+	public static Vector3 PosToVector3(this Gamepacket.ClientLobbyPosition lobbyPos)
 	{
-		var pos = new Vector3();
-		pos.x = (float)lobbyPos.X;
-		pos.y = (float)lobbyPos.Y;
-		pos.z = (float)lobbyPos.Z;
-		return pos;
+		return new Vector3((float)lobbyPos.Position.X, (float)lobbyPos.Position.Y, (float)lobbyPos.Position.Z);
+	}
+
+	public static Vector3 PosToVector3(this Gamepacket.ClientPosition clientPos)
+	{
+		return new Vector3((float)clientPos.Position.X, (float)clientPos.Position.Y, (float)clientPos.Position.Z);
+	}
+
+	public static Vector3 VelocityToVector3(this Gamepacket.ClientPosition lobbyPos)
+	{
+		return new Vector3((float)lobbyPos.Velocity.X, (float)lobbyPos.Velocity.Y, (float)lobbyPos.Velocity.Z);
 	}
 }

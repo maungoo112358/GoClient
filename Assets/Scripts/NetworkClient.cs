@@ -21,9 +21,9 @@ public class NetworkClient : MonoBehaviour
 	[HideInInspector] public int serverPort = 9999;
 	[HideInInspector] public float handshakeTimeout = 3f;
 	[HideInInspector] public float heartbeatInterval = 5f;
-	[HideInInspector] public float connectionTimeout = 15f; // Consider disconnected if no ack for this long
+	[HideInInspector] public float connectionTimeout = 15f; 
 
-	[HideInInspector] public float[] reconnectDelays = { 5f, 10f, 15f, 20f, 25f, 30f }; // Progressive delays
+	[HideInInspector] public float[] reconnectDelays = { 5f, 10f, 15f, 20f, 25f, 30f };
 
 	[HideInInspector] public bool enableAutoReconnect = true;
 
@@ -46,8 +46,7 @@ public class NetworkClient : MonoBehaviour
 
 	private ConcurrentQueue<byte[]> _receivedPackets = new ConcurrentQueue<byte[]>();
 
-	// Events for other scripts to subscribe to
-	public System.Action<string, string> OnConnected; // privateId, publicId
+	public System.Action<string, string> OnConnected; 
 
 	public System.Action OnDisconnected;
 	public System.Action<string> OnServerMessage;
@@ -64,7 +63,6 @@ public class NetworkClient : MonoBehaviour
 			_client = new UdpClient();
 			_client.Client.ReceiveTimeout = 3000;
 
-			// Parse IP address
 			if (!IPAddress.TryParse(serverIP, out IPAddress ipAddress))
 			{
 				ipAddress = IPAddress.Loopback;
@@ -106,7 +104,7 @@ public class NetworkClient : MonoBehaviour
 				}
 				else if (_handshakeSentTime >= 0f && Time.time - _handshakeSentTime > handshakeTimeout)
 				{
-					_connectionAttemptInProgress = false; // Reset flag on timeout
+					_connectionAttemptInProgress = false; 
 					ScheduleNextReconnect();
 				}
 				break;
@@ -114,14 +112,13 @@ public class NetworkClient : MonoBehaviour
 			case ConnectionState.Connecting:
 				if (_handshakeSentTime >= 0f && Time.time - _handshakeSentTime > handshakeTimeout)
 				{
-					_connectionAttemptInProgress = false; // Reset flag on timeout
+					_connectionAttemptInProgress = false; 
 					_connectionState = ConnectionState.Reconnecting;
 					ScheduleNextReconnect();
 				}
 				break;
 
 			case ConnectionState.Connected:
-				// Check for connection timeout
 				if (_lastHeartbeatAckTime > 0 && Time.time - _lastHeartbeatAckTime > connectionTimeout)
 				{
 					Debug.LogWarning("Connection timed out - no heartbeat ack received");
@@ -133,13 +130,11 @@ public class NetworkClient : MonoBehaviour
 
 	private bool CanAttemptReconnect()
 	{
-		// For initial connection
 		if (_connectionState == ConnectionState.Disconnected)
 		{
 			return _handshakeSentTime < 0f || Time.time - _handshakeSentTime > handshakeTimeout;
 		}
 
-		// For reconnection attempts
 		return _nextReconnectTime > 0f && Time.time >= _nextReconnectTime;
 	}
 
@@ -149,9 +144,8 @@ public class NetworkClient : MonoBehaviour
 
 		float delay = reconnectDelays[_currentReconnectIndex];
 		_nextReconnectTime = Time.time + delay;
-		_handshakeSentTime = -1f; // Reset handshake timer
+		_handshakeSentTime = -1f; 
 
-		// Move to next delay, loop back to start if at end
 		_currentReconnectIndex = (_currentReconnectIndex + 1) % reconnectDelays.Length;
 
 		Debug.Log($"⏰ Next reconnection attempt in {delay}s (attempt pattern: {string.Join("s, ", reconnectDelays)}s)");
@@ -195,11 +189,9 @@ public class NetworkClient : MonoBehaviour
 			_handshakeSentTime = -1f;
 			_lastHeartbeatAckTime = Time.time;
 
-			// Reset reconnection state on successful connection
 			_currentReconnectIndex = 0;
 			_nextReconnectTime = -1f;
 
-			// Start heartbeat
 			CancelInvoke(nameof(SendHeartBeat));
 			InvokeRepeating(nameof(SendHeartBeat), heartbeatInterval, heartbeatInterval);
 
@@ -234,7 +226,6 @@ public class NetworkClient : MonoBehaviour
 
 			Debug.Log($"Attempting to connect to {_remoteEndPoint}...");
 
-			// Set handshake time BEFORE sending to ensure timeout logic works
 			_handshakeSentTime = Time.time;
 
 			var handshake = new GamePacket
@@ -248,7 +239,6 @@ public class NetworkClient : MonoBehaviour
 		catch (Exception ex)
 		{
 			Debug.LogWarning($"Connection attempt failed: {ex.Message}");
-			// _handshakeSentTime is already set, so timeout logic will work
 		}
 	}
 
@@ -268,7 +258,6 @@ public class NetworkClient : MonoBehaviour
 
 		if (wasConnected)
 		{
-			// Reset reconnect pattern when coming from a successful connection
 			_currentReconnectIndex = 0;
 			if (enableAutoReconnect)
 			{
@@ -287,7 +276,6 @@ public class NetworkClient : MonoBehaviour
 			IPEndPoint from = null;
 			byte[] data = _client.EndReceive(ar, ref from);
 
-			// Verify packet is from our server
 			if (from.Equals(_remoteEndPoint))
 			{
 				_receivedPackets.Enqueue(data);
@@ -295,7 +283,6 @@ public class NetworkClient : MonoBehaviour
 		}
 		catch (ObjectDisposedException)
 		{
-			// Client was disposed, normal during shutdown
 			return;
 		}
 		catch (Exception ex)
@@ -304,7 +291,6 @@ public class NetworkClient : MonoBehaviour
 		}
 		finally
 		{
-			// Continue receiving if client is still active
 			try
 			{
 				_client?.BeginReceive(OnReceive, null);
@@ -331,7 +317,6 @@ public class NetworkClient : MonoBehaviour
 		Debug.Log($"❤️ Heartbeat sent: {_myPrivateId}");
 	}
 
-	// Public methods for sending different packet types
 	public void SendChatMessage(string message)
 	{
 		if (!IsConnected()) return;
@@ -341,7 +326,7 @@ public class NetworkClient : MonoBehaviour
 			Seq = ++_seq,
 			ChatMessage = new ChatMessage
 			{
-				ClientId = _myPublicId, // Use public ID for chat
+				ClientId = _myPublicId,
 				Message = message
 			}
 		};
@@ -366,7 +351,7 @@ public class NetworkClient : MonoBehaviour
 		SendPacket(packet);
 	}
 
-	public void SendPosition(Vector3 position)
+	public void SendPosition(Vector3 position,Vector3 velocity)
 	{
 		if (!IsConnected()) return;
 
@@ -376,10 +361,17 @@ public class NetworkClient : MonoBehaviour
 			ClientPosition = new ClientPosition
 			{
 				ClientId = _myPublicId,
-				X = position.x,
-				Y = position.y,
-				Z = position.z
+				Position = new Position
+				{
+					X = position.x, Y = position.y, Z = position.z
+				},
+
+				Velocity = new Velocity
+				{
+					X = velocity.x,Y = velocity.y, Z = velocity.z
+				},
 			}
+			
 		};
 
 		SendPacket(packet);
@@ -399,7 +391,6 @@ public class NetworkClient : MonoBehaviour
 		}
 	}
 
-	// Public methods for connection control
 	public void ManualConnect()
 	{
 		if (_connectionState == ConnectionState.Disconnected)
@@ -431,7 +422,6 @@ public class NetworkClient : MonoBehaviour
 		return _nextReconnectTime > 0f ? Mathf.Max(0f, _nextReconnectTime - Time.time) : 0f;
 	}
 
-	// Public getters
 	public bool IsConnected() => _connectionState == ConnectionState.Connected;
 
 	public string GetPrivateId() => _myPrivateId;
@@ -444,7 +434,7 @@ public class NetworkClient : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		enableAutoReconnect = false; // Stop any pending reconnections
+		enableAutoReconnect = false; 
 		CancelInvoke();
 		_client?.Close();
 		_client?.Dispose();
@@ -454,12 +444,10 @@ public class NetworkClient : MonoBehaviour
 	{
 		if (pauseStatus)
 		{
-			// Pause heartbeats when app is paused
 			CancelInvoke(nameof(SendHeartBeat));
 		}
 		else if (IsConnected())
 		{
-			// Resume heartbeats when app is unpaused
 			InvokeRepeating(nameof(SendHeartBeat), 0f, heartbeatInterval);
 		}
 	}

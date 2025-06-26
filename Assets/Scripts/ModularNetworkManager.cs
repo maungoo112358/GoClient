@@ -64,7 +64,6 @@ public class ModularNetworkManager : MonoBehaviour
 		_networkClient.OnDisconnected += HandleNetworkClientDisconnected;
 		_networkClient.OnServerMessage += HandleNetworkClientServerMessage;
 		_networkClient.OnPacketReceived += HandleNetworkClientPacketReceived;
-
 	}
 
 	private void Start()
@@ -85,7 +84,7 @@ public class ModularNetworkManager : MonoBehaviour
 
 		if (enableModuleSystem)
 		{
-			GameEventSystem.Instance.Publish(new PlayerConnectedEvent(privateId, publicId));
+			ModularEventSystem.Instance.Publish(new PlayerConnectedEvent(privateId, publicId));
 			Debug.Log("HandleNetworkClientConnected");
 		}
 
@@ -103,7 +102,7 @@ public class ModularNetworkManager : MonoBehaviour
 
 		if (enableModuleSystem)
 		{
-			GameEventSystem.Instance.Publish(new PlayerDisconnectedEvent("Connection lost"));
+			ModularEventSystem.Instance.Publish(new PlayerDisconnectedEvent("Connection lost"));
 
 			if (_modulesInitialized)
 			{
@@ -120,7 +119,7 @@ public class ModularNetworkManager : MonoBehaviour
 
 		if (enableModuleSystem)
 		{
-			GameEventSystem.Instance.Publish(new ServerMessageEvent(message));
+			ModularEventSystem.Instance.Publish(new ServerMessageEvent(message));
 		}
 	}
 
@@ -130,27 +129,28 @@ public class ModularNetworkManager : MonoBehaviour
 
 		if (packet.HeartbeatAck != null)
 		{
-			GameEventSystem.Instance.Publish(new HeartbeatAckReceivedEvent(packet.HeartbeatAck.ClientId));
+			ModularEventSystem.Instance.Publish(new HeartbeatAckReceivedEvent(packet.HeartbeatAck.ClientId));
 		}
 		if (packet.ChatMessage != null)
 		{
-			GameEventSystem.Instance.Publish(new ChatMessageReceivedEvent(packet.ChatMessage.ClientId, packet.ChatMessage.Message));
+			ModularEventSystem.Instance.Publish(new ChatMessageReceivedEvent(packet.ChatMessage.ClientId, packet.ChatMessage.Message));
 		}
 		if (packet.LobbyJoinBroadcast != null)
 		{
 			var data = packet.LobbyJoinBroadcast;
-			GameEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(data.PublicId, data.Colorhex, data.Position.FormatPosToVector3()));
+			ModularEventSystem.Instance.Publish(new PlayerJoinedLobbyEvent(data.PublicId, data.Colorhex, data.Position.PosToVector3(),data.IsLocalPlayer));
 		}
 		if (packet.ClientPosition != null)
 		{
-			GameEventSystem.Instance.Publish(new OtherPlayerMovedEvent(packet.ClientPosition.ClientId,new Vector3(packet.ClientPosition.X, packet.ClientPosition.Y, packet.ClientPosition.Z)));
+			var pos = packet.ClientPosition;
+			ModularEventSystem.Instance.Publish(new PlayerMovementEvent(pos.ClientId, pos.PosToVector3(), pos.VelocityToVector3(), pos.Timestamp));
 		}
 		if (packet.ServerStatus != null && packet.ServerStatus.Message.Contains("left the lobby"))
 		{
-			string playerWhoLeft = packet.ServerStatus.ClientId; 
+			string playerWhoLeft = packet.ServerStatus.ClientId;
 			if (!string.IsNullOrEmpty(playerWhoLeft))
 			{
-				GameEventSystem.Instance.Publish(new PlayerDisconnectedEvent(playerWhoLeft));
+				ModularEventSystem.Instance.Publish(new PlayerDisconnectedEvent(playerWhoLeft));
 			}
 		}
 	}
@@ -224,7 +224,7 @@ public class ModularNetworkManager : MonoBehaviour
 
 	public void SendLobbyJoin(string colorHex) => _networkClient?.SendLobbyJoin(colorHex);
 
-	public void SendPosition(Vector3 position) => _networkClient?.SendPosition(position);
+	public void SendPosition(Vector3 position, Vector3 velocity) => _networkClient?.SendPosition(position, velocity);
 
 	public void SendPacket(GamePacket packet) => _networkClient?.SendPacket(packet);
 

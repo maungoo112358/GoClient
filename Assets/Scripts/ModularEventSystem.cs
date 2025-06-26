@@ -5,20 +5,20 @@ using UnityEngine;
 /// <summary>
 /// Centralized event system for decoupled communication between modules
 /// </summary>
-public class GameEventSystem : MonoBehaviour
+public class ModularEventSystem : MonoBehaviour
 {
-	private static GameEventSystem _instance;
-	public static GameEventSystem Instance
+	private static ModularEventSystem _instance;
+	public static ModularEventSystem Instance
 	{
 		get
 		{
 			if (_instance == null)
 			{
-				_instance = FindObjectOfType<GameEventSystem>();
+				_instance = FindObjectOfType<ModularEventSystem>();
 				if (_instance == null)
 				{
 					var go = new GameObject("GameEventSystem");
-					_instance = go.AddComponent<GameEventSystem>();
+					_instance = go.AddComponent<ModularEventSystem>();
 					DontDestroyOnLoad(go);
 				}
 			}
@@ -42,10 +42,7 @@ public class GameEventSystem : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Subscribe to an event
-	/// </summary>
-	public void Subscribe<T>(Action<T> callback) where T : IGameEvent
+	public void Subscribe<T>(Action<T> callback) where T : IModularEvent
 	{
 		Type eventType = typeof(T);
 
@@ -58,10 +55,7 @@ public class GameEventSystem : MonoBehaviour
 		Debug.Log($"Subscribed to event: {eventType.Name}");
 	}
 
-	/// <summary>
-	/// Unsubscribe from an event
-	/// </summary>
-	public void Unsubscribe<T>(Action<T> callback) where T : IGameEvent
+	public void Unsubscribe<T>(Action<T> callback) where T : IModularEvent
 	{
 		Type eventType = typeof(T);
 
@@ -72,10 +66,7 @@ public class GameEventSystem : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Publish an event to all subscribers
-	/// </summary>
-	public void Publish<T>(T gameEvent) where T : IGameEvent
+	public void Publish<T>(T gameEvent) where T : IModularEvent
 	{
 		Type eventType = typeof(T);
 
@@ -103,18 +94,12 @@ public class GameEventSystem : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Get subscriber count for debugging
-	/// </summary>
-	public int GetSubscriberCount<T>() where T : IGameEvent
+	public int GetSubscriberCount<T>() where T : IModularEvent
 	{
 		Type eventType = typeof(T);
 		return _eventSubscribers.ContainsKey(eventType) ? _eventSubscribers[eventType].Count : 0;
 	}
 
-	/// <summary>
-	/// Clear all subscribers (useful for scene changes)
-	/// </summary>
 	public void ClearAllSubscribers()
 	{
 		_eventSubscribers.Clear();

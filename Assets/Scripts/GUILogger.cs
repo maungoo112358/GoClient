@@ -4,10 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// In-game logger with tabs for different message types
-/// Replaces Debug.Log for player-visible messages
-/// </summary>
+
 public class GUILogger : MonoBehaviour
 {
 	[Header("UI References")]
@@ -22,7 +19,7 @@ public class GUILogger : MonoBehaviour
 	[Header("Logger Settings")]
 	public int maxMessages = 100;
 
-	public bool startVisible = true;
+	public bool startVisible = false;
 	public KeyCode toggleKey = KeyCode.F1;
 
 	[Header("Tab Settings")]
@@ -88,11 +85,11 @@ public class GUILogger : MonoBehaviour
 	private void Start()
 	{
 		// Subscribe to game events
-		GameEventSystem.Instance.Subscribe<PlayerConnectedEvent>(OnPlayerConnected);
-		GameEventSystem.Instance.Subscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
+		ModularEventSystem.Instance.Subscribe<PlayerConnectedEvent>(OnPlayerConnected);
+		ModularEventSystem.Instance.Subscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
 		//GameEventSystem.Instance.Subscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinedLobby);
-		GameEventSystem.Instance.Subscribe<ServerMessageEvent>(OnServerMessage);
-		GameEventSystem.Instance.Subscribe<ChatMessageReceivedEvent>(OnChatMessage);
+		ModularEventSystem.Instance.Subscribe<ServerMessageEvent>(OnServerMessage);
+		ModularEventSystem.Instance.Subscribe<ChatMessageReceivedEvent>(OnChatMessage);
 
 		SetVisible(startVisible);
 	}
@@ -309,7 +306,7 @@ public class GUILogger : MonoBehaviour
 	// Event handlers
 	private void OnPlayerConnected(PlayerConnectedEvent evt)
 	{
-		LogConnection($"Connected to server! Player ID: {evt.PublicId}");
+		LogConnection($"Connected to server! Player ID: {evt.PublicID}");
 	}
 
 	private void OnPlayerDisconnected(PlayerDisconnectedEvent evt)
@@ -334,13 +331,13 @@ public class GUILogger : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		if (GameEventSystem.Instance != null)
+		if (ModularEventSystem.Instance != null)
 		{
-			GameEventSystem.Instance.Unsubscribe<PlayerConnectedEvent>(OnPlayerConnected);
-			GameEventSystem.Instance.Unsubscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
+			ModularEventSystem.Instance.Unsubscribe<PlayerConnectedEvent>(OnPlayerConnected);
+			ModularEventSystem.Instance.Unsubscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
 			//GameEventSystem.Instance.Unsubscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinedLobby);
-			GameEventSystem.Instance.Unsubscribe<ServerMessageEvent>(OnServerMessage);
-			GameEventSystem.Instance.Unsubscribe<ChatMessageReceivedEvent>(OnChatMessage);
+			ModularEventSystem.Instance.Unsubscribe<ServerMessageEvent>(OnServerMessage);
+			ModularEventSystem.Instance.Unsubscribe<ChatMessageReceivedEvent>(OnChatMessage);
 		}
 	}
 }

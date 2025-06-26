@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Manages lobby interactions - automatically joins lobby on connection
-/// and handles lobby-related events
-/// </summary>
 public class LobbyManager : MonoBehaviour
 {
 	[Header("Lobby Settings")]
@@ -23,10 +19,9 @@ public class LobbyManager : MonoBehaviour
 
 	private void Start()
 	{
-		// Find network manager if not assigned
 		if (networkManager == null)
 		{
-			networkManager = FindObjectOfType<ModularNetworkManager>();
+			networkManager = GetComponent<ModularNetworkManager>();
 		}
 
 		if (networkManager == null)
@@ -35,19 +30,17 @@ public class LobbyManager : MonoBehaviour
 			return;
 		}
 
-		// Subscribe to connection events
-		GameEventSystem.Instance.Subscribe<PlayerConnectedEvent>(OnPlayerConnected);
-		GameEventSystem.Instance.Subscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
-		GameEventSystem.Instance.Subscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinedLobby);
+		ModularEventSystem.Instance.Subscribe<PlayerConnectedEvent>(OnPlayerConnected);
+		ModularEventSystem.Instance.Subscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
+		ModularEventSystem.Instance.Subscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinedLobby);
 	}
 
 	private void OnPlayerConnected(PlayerConnectedEvent evt)
 	{
-		Debug.Log($"LobbyManager: Connected to server as {evt.PublicId}");
+		Debug.Log($"LobbyManager: Connected to server as {evt.PublicID}");
 
 		if (autoJoinOnConnect && !_hasJoinedLobby)
 		{
-			// Wait a moment for connection to stabilize, then join lobby
 			Invoke(nameof(JoinLobby), 1f);
 		}
 	}
@@ -61,17 +54,14 @@ public class LobbyManager : MonoBehaviour
 
 	private void OnPlayerJoinedLobby(PlayerJoinedLobbyEvent evt)
 	{
-		// Check if this is our own join event
 		string myPublicId = networkManager?.GetPublicId();
 
-		if (evt.PublicId == myPublicId)
+		if (evt.PublicID == myPublicId)
 		{
-			// This is us joining
 			Debug.Log($"LobbyManager: Successfully joined lobby with color {evt.ColorHex}");
 			_hasJoinedLobby = true;
 			_myColor = evt.ColorHex;
 
-			// Log to GUI Logger
 			if (GUILogger.Instance != null)
 			{
 				GUILogger.Instance.LogLobby($"You joined the lobby with color {evt.ColorHex} and pos {evt.Position}");
@@ -79,13 +69,11 @@ public class LobbyManager : MonoBehaviour
 		}
 		else
 		{
-			// Someone else joined
-			Debug.Log($"LobbyManager: Player {evt.PublicId} joined lobby with color {evt.ColorHex}");
+			Debug.Log($"LobbyManager: Player {evt.PublicID} joined lobby with color {evt.ColorHex}");
 
-			// Log to GUI Logger
 			if (GUILogger.Instance != null)
 			{
-				GUILogger.Instance.LogLobby($"Player {evt.PublicId} joined with color {evt.ColorHex}");
+				GUILogger.Instance.LogLobby($"Player {evt.PublicID} joined with color {evt.ColorHex}");
 			}
 		}
 	}
@@ -105,7 +93,6 @@ public class LobbyManager : MonoBehaviour
 			return;
 		}
 
-		// Pick a random color
 		string colorHex = availableColors[Random.Range(0, availableColors.Length)];
 
 		Debug.Log($"LobbyManager: Joining lobby with color {colorHex}");
@@ -115,8 +102,6 @@ public class LobbyManager : MonoBehaviour
 	[ContextMenu("Leave Lobby")]
 	public void LeaveLobby()
 	{
-		// For now, leaving lobby means disconnecting
-		// You could extend this to send a specific "leave lobby" message
 		if (networkManager != null && _hasJoinedLobby)
 		{
 			Debug.Log("LobbyManager: Leaving lobby");
@@ -136,11 +121,11 @@ public class LobbyManager : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		if (GameEventSystem.Instance != null)
+		if (ModularEventSystem.Instance != null)
 		{
-			GameEventSystem.Instance.Unsubscribe<PlayerConnectedEvent>(OnPlayerConnected);
-			GameEventSystem.Instance.Unsubscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
-			GameEventSystem.Instance.Unsubscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinedLobby);
+			ModularEventSystem.Instance.Unsubscribe<PlayerConnectedEvent>(OnPlayerConnected);
+			ModularEventSystem.Instance.Unsubscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
+			ModularEventSystem.Instance.Unsubscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinedLobby);
 		}
 	}
 }

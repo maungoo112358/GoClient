@@ -8,6 +8,10 @@ public class Client : MonoBehaviour
 	public TMP_Text label;
 	public Vector3 offset = new Vector3(0, 1, 0);
 	public Quaternion fixedRotation = Quaternion.identity;
+	[HideInInspector]
+	public string PublicID = string.Empty;
+	[HideInInspector]
+	public bool IsLocalPlayer = false;
 
 	private void LateUpdate()
 	{
