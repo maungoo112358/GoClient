@@ -159,13 +159,6 @@ public class UsernameManager : MonoBehaviour
 		{
 			UpdateStatusText($"Username rejected: {eventData.Message}", Color.red);
 
-			// Show suggestions if available
-			if (eventData.Suggestions != null && eventData.Suggestions.Length > 0)
-			{
-				string suggestions = string.Join(", ", eventData.Suggestions);
-				UpdateStatusText($"Username rejected: {eventData.Message}\nSuggestions: {suggestions}", Color.red);
-			}
-
 			// Re-enable UI for another attempt
 			UpdateUI();
 
@@ -288,21 +281,18 @@ public class UsernameManager : MonoBehaviour
 				_isWaitingForPrompt ? "Connecting..." : "Connect";
 		}
 
-		// Enable/disable submit button based on connection state
 		if (submitButton != null)
 		{
-			bool canSubmitUsername = connectionState == ConnectionState.HandshakeComplete &&
-									!_isValidatingUsername &&
-									!isConnected;
+			bool canSubmitUsername = connectionState == ConnectionState.HandshakeComplete && !isConnected;
 
 			submitButton.interactable = canSubmitUsername;
 			submitButton.GetComponentInChildren<TMP_Text>().text = _isValidatingUsername ? "Validating..." : "Submit";
 		}
 
-		// Enable/disable username input
+		// Enable/disable username input - allow changes during validation for quick retry
 		if (usernameInput != null)
 		{
-			usernameInput.interactable = !_isValidatingUsername && !isConnected && !_isWaitingForPrompt;
+			usernameInput.interactable = !isConnected && !_isWaitingForPrompt;
 		}
 	}
 

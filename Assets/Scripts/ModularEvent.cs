@@ -39,14 +39,12 @@ public class UsernameResponseEvent : IModularEvent
 	public string Username { get; }
 	public bool IsAccepted { get; }
 	public string Message { get; }
-	public string[] Suggestions { get; }
 
-	public UsernameResponseEvent(string username, bool isAccepted, string message, string[] suggestions = null)
+	public UsernameResponseEvent(string username, bool isAccepted, string message)
 	{
 		Username = username;
 		IsAccepted = isAccepted;
 		Message = message;
-		Suggestions = suggestions ?? new string[0];
 	}
 }
 

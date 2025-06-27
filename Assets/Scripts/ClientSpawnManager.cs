@@ -11,9 +11,15 @@ public class ClientSpawnManager : MonoBehaviour
 
 	private Dictionary<string, GameObject> spawnedClients = new();
 
+	private ModularNetworkManager _networkManager;
+
 	private void Start()
 	{
-		clientPrefab.SetActive(false);
+		clientPrefab.SetActive(false); 
+
+		_networkManager =GetComponent<ModularNetworkManager>();
+
+		_networkManager.OnDisconnected += OnNetworkDisconnected;
 
 		ModularEventSystem.Instance.Subscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
 		ModularEventSystem.Instance.Subscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinLobby);
@@ -25,6 +31,7 @@ public class ClientSpawnManager : MonoBehaviour
 	{
 		if (ModularEventSystem.Instance != null)
 		{
+			_networkManager.OnDisconnected -= OnNetworkDisconnected;
 			ModularEventSystem.Instance.Unsubscribe<PlayerDisconnectedEvent>(OnPlayerDisconnected);
 			ModularEventSystem.Instance.Unsubscribe<PlayerJoinedLobbyEvent>(OnPlayerJoinLobby);
 		}
@@ -103,5 +110,16 @@ public class ClientSpawnManager : MonoBehaviour
 	public GameObject GetClientGameObject(string clientId)
 	{
 		return spawnedClients.TryGetValue(clientId, out GameObject client) ? client : null;
+	}
+
+	private void OnNetworkDisconnected()
+	{
+		foreach (var client in spawnedClients.Values)
+		{
+			if (client != null)
+				Destroy(client);
+		}
+		spawnedClients.Clear();
+		Debug.Log("Cleared all clients on network disconnect");
 	}
 }

@@ -1,7 +1,6 @@
 ﻿using Gamepacket;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ModularNetworkManager : MonoBehaviour
@@ -57,13 +56,13 @@ public class ModularNetworkManager : MonoBehaviour
 	{
 		_packetHandlers = new Dictionary<PacketType, Action<GamePacket>>
 		{
-			{ PacketType.HeartbeatAck, HandleHeartbeatAck },
-			{ PacketType.UsernameResponse, HandleUsernameResponse },
-			{ PacketType.UsernamePrompt, HandleUsernamePrompt },
 			{ PacketType.ReconnectionResponse, HandleReconnectionResponse },
+			{ PacketType.ServerStatus, HandleServerStatus },
+			{ PacketType.HeartbeatAck, HandleHeartbeatAck },
+			{ PacketType.UsernamePrompt, HandleUsernamePrompt },
+			{ PacketType.UsernameResponse, HandleUsernameResponse },
 			{ PacketType.LobbyJoinBroadcast, HandleLobbyJoinBroadcast },
-			{ PacketType.ClientPosition, HandleClientPosition },
-			{ PacketType.ServerStatus, HandleServerStatus }
+			{ PacketType.ClientPosition, HandleClientPosition }
 		};
 	}
 
@@ -138,6 +137,13 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 	}
 
+	private void HandleReconnectionResponse(GamePacket packet)
+	{
+		var response = packet.ReconnectionResponse;
+		Debug.Log($"ModularNetworkManager: Reconnection response - Success: {response.IsSuccessful}, Message: {response.Message}");
+		ModularEventSystem.Instance.Publish(new ReconnectionResponseEvent(response.IsSuccessful, response.Message, response.PrivateId, response.PublicId));
+	}
+
 	private void HandleNetworkClientServerMessage(string message)
 	{
 		Debug.Log($"ModularNetworkManager: Server message - {message}");
@@ -182,20 +188,13 @@ public class ModularNetworkManager : MonoBehaviour
 	{
 		var response = packet.UsernameResponse;
 		Debug.Log($"ModularNetworkManager: Username response - {response.Username}, Accepted: {response.IsAccepted}, Message: {response.Message}");
-		ModularEventSystem.Instance.Publish(new UsernameResponseEvent(response.Username, response.IsAccepted, response.Message, response.Suggestions.ToArray()));
+		ModularEventSystem.Instance.Publish(new UsernameResponseEvent(response.Username, response.IsAccepted, response.Message));
 	}
 
 	private void HandleUsernamePrompt(GamePacket packet)
 	{
 		Debug.Log($"ModularNetworkManager: Username prompt packet - {packet.UsernamePrompt.Message}");
 		// Already handled in HandleNetworkClientUsernamePrompt, but logging here for packet tracking
-	}
-
-	private void HandleReconnectionResponse(GamePacket packet)
-	{
-		var response = packet.ReconnectionResponse;
-		Debug.Log($"ModularNetworkManager: Reconnection response - Success: {response.IsSuccessful}, Message: {response.Message}");
-		ModularEventSystem.Instance.Publish(new ReconnectionResponseEvent(response.IsSuccessful, response.Message, response.PrivateId, response.PublicId));
 	}
 
 	private void HandleLobbyJoinBroadcast(GamePacket packet)
@@ -287,7 +286,7 @@ public class ModularNetworkManager : MonoBehaviour
 		return _moduleRegistry.GetModule(moduleId) as T;
 	}
 
-	public bool IsModuleSystemEnabled()=> enableModuleSystem;
+	public bool IsModuleSystemEnabled() => enableModuleSystem;
 
 	public void SetDesiredUsername(string username) => desiredUsername = username;
 
@@ -305,7 +304,7 @@ public class ModularNetworkManager : MonoBehaviour
 
 	public void SendPacket(GamePacket packet) => _networkClient?.SendPacket(packet);
 
-	public void ManualConnect()=> _networkClient?.ManualConnect();
+	public void ManualConnect() => _networkClient?.ManualConnect();
 
 	public void ManualDisconnect() => _networkClient?.ManualDisconnect();
 
@@ -319,7 +318,7 @@ public class ModularNetworkManager : MonoBehaviour
 
 	public string GetPublicId() => _networkClient?.GetPublicId();
 
-public ConnectionState? GetConnectionState() => _networkClient?.GetConnectionState();
+	public ConnectionState? GetConnectionState() => _networkClient?.GetConnectionState();
 
 	#endregion NetworkClient Passthrough Methods
 

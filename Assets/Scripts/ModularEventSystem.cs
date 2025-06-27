@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Centralized event system for decoupled communication between modules
-/// </summary>
+//Centralized event system for decoupled communication between modules
 public class ModularEventSystem : MonoBehaviour
 {
 	private static ModularEventSystem _instance;

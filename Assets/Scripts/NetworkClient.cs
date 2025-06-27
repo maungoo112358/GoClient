@@ -11,6 +11,7 @@ public class NetworkClient : MonoBehaviour
 {
 	[Header("Connection Settings")]
 	[HideInInspector] public string serverIP = "127.0.0.1";
+
 	[HideInInspector] public int serverPort = 9999;
 	[HideInInspector] public float handshakeTimeout = 3f;
 	[HideInInspector] public float heartbeatInterval = 5f;
@@ -18,12 +19,14 @@ public class NetworkClient : MonoBehaviour
 
 	[Header("Reconnection Settings")]
 	[HideInInspector] public float[] reconnectDelays = { 5f, 10f, 15f, 20f, 25f, 30f };
+
 	[HideInInspector] public bool enableAutoReconnect = true;
 	[HideInInspector] public bool enableSessionReconnect = true;
 	[HideInInspector] public float sessionTimeout = 30f;
 
 	// Network state
 	private int _currentReconnectIndex = 0;
+
 	private float _nextReconnectTime = -1f;
 	private UdpClient _client;
 	private IPEndPoint _remoteEndPoint;
@@ -31,6 +34,7 @@ public class NetworkClient : MonoBehaviour
 
 	// Connection state
 	private string _myPrivateId;
+
 	private string _myPublicId;
 	private float _handshakeSentTime = -1f;
 	private float _usernameSentTime = -1f;
@@ -41,6 +45,7 @@ public class NetworkClient : MonoBehaviour
 
 	// Session management
 	private string _storedUsername;
+
 	private string _storedSessionToken;
 	private bool _hasValidSession = false;
 	private bool _isAttemptingSessionReconnect = false;
@@ -50,9 +55,11 @@ public class NetworkClient : MonoBehaviour
 
 	// Events
 	public Action<string, string> OnConnected;
+
 	public Action OnDisconnected;
 	public Action<string> OnServerMessage;
-	public Action<string> OnUsernamePromptReceived; 
+	public Action<string> OnUsernamePromptReceived;
+
 	public event Action<GamePacket> OnPacketReceived;
 
 	private Dictionary<ConnectionState, Action> _connectionStateHandlers;
@@ -72,19 +79,18 @@ public class NetworkClient : MonoBehaviour
 	private void Update()
 	{
 		HandleConnectionLogic();
-		ProcessReceivedPackets();
+		HandleServerPacket();
 	}
 
 	private void InitializePacketHandlers()
 	{
 		_packetHandlers = new Dictionary<PacketType, Action<GamePacket>>
 		{
+			{ PacketType.ReconnectionResponse, HandleReconnectionResponsePacket },
 			{ PacketType.ServerStatus, HandleServerStatusPacket },
 			{ PacketType.HandshakeResponse, HandleHandshakeResponsePacket },
 			{ PacketType.UsernamePrompt, HandleUsernamePromptPacket },
-			{ PacketType.ReconnectionResponse, HandleReconnectionResponsePacket },
 			{ PacketType.HeartbeatAck, HandleHeartbeatAckPacket },
-			{ PacketType.LobbyJoinBroadcast, HandleLobbyJoinBroadcastPacket }
 		};
 	}
 
@@ -189,19 +195,6 @@ public class NetworkClient : MonoBehaviour
 		}
 	}
 
-	private void HandleReconnectingLogic()
-	{
-		if (CanAttemptReconnect() && !_connectionAttemptInProgress)
-		{
-			TryToConnect();
-		}
-		else if (ShouldTimeoutCurrentAttempt())
-		{
-			_connectionAttemptInProgress = false;
-			ScheduleNextReconnect();
-		}
-	}
-
 	private bool HasHandshakeTimedOut()
 	{
 		return _handshakeSentTime >= 0f && Time.time - _handshakeSentTime > handshakeTimeout;
@@ -250,30 +243,25 @@ public class NetworkClient : MonoBehaviour
 		Debug.Log($"NetworkClient: ⏰ Next reconnection attempt in {delay}s");
 	}
 
-	private void ProcessReceivedPackets()
+	private void HandleServerPacket()
 	{
 		while (_receivedPackets.TryDequeue(out var data))
 		{
 			try
 			{
 				var response = GamePacket.Parser.ParseFrom(data);
-				HandleServerPacket(response);
+				OnPacketReceived?.Invoke(response);
+
+				var packetType = GetPacketType(response);
+				if (packetType.HasValue && _packetHandlers.TryGetValue(packetType.Value, out var handler))
+				{
+					handler(response);
+				}
 			}
 			catch (Exception ex)
 			{
 				Debug.LogWarning($"NetworkClient: Failed to parse packet: {ex.Message}");
 			}
-		}
-	}
-
-	private void HandleServerPacket(GamePacket packet)
-	{
-		OnPacketReceived?.Invoke(packet);
-
-		var packetType = GetPacketType(packet);
-		if (packetType.HasValue && _packetHandlers.TryGetValue(packetType.Value, out var handler))
-		{
-			handler(packet);
 		}
 	}
 
@@ -308,11 +296,6 @@ public class NetworkClient : MonoBehaviour
 	{
 		_lastHeartbeatAckTime = Time.time;
 		Debug.Log($"NetworkClient: ❤️ Heartbeat acknowledged: {packet.HeartbeatAck.ClientId}");
-	}
-
-	private void HandleLobbyJoinBroadcastPacket(GamePacket packet)
-	{
-		Debug.Log($"NetworkClient: Player {packet.LobbyJoinBroadcast.PublicId} joined lobby");
 	}
 
 	private PacketType? GetPacketType(GamePacket packet)
@@ -507,9 +490,10 @@ public class NetworkClient : MonoBehaviour
 	}
 
 	public bool HasValidSession() => _hasValidSession;
+
 	public string GetStoredUsername() => _storedUsername;
 
-	#endregion
+	#endregion Session Management
 
 	#region Network Communication
 
@@ -647,7 +631,7 @@ public class NetworkClient : MonoBehaviour
 		}
 	}
 
-	#endregion
+	#endregion Network Communication
 
 	#region Public API
 
@@ -684,12 +668,16 @@ public class NetworkClient : MonoBehaviour
 	}
 
 	public bool IsConnected() => _connectionState == ConnectionState.Connected;
+
 	public string GetPrivateId() => _myPrivateId;
+
 	public string GetPublicId() => _myPublicId;
+
 	public ConnectionState GetConnectionState() => _connectionState;
+
 	public float GetNextReconnectTime() => _nextReconnectTime > 0f ? Mathf.Max(0f, _nextReconnectTime - Time.time) : 0f;
 
-	#endregion
+	#endregion Public API
 
 	private void OnDestroy()
 	{

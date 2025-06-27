@@ -45,25 +45,25 @@ namespace Gamepacket {
             "bWUYASABKAkiOAoRSGFuZHNoYWtlUmVzcG9uc2USEQoJcHJpdmF0ZUlkGAEg",
             "ASgJEhAKCHB1YmxpY0lkGAIgASgJIiEKDlVzZXJuYW1lUHJvbXB0Eg8KB21l",
             "c3NhZ2UYASABKAkiJgoSVXNlcm5hbWVTdWJtaXNzaW9uEhAKCHVzZXJuYW1l",
-            "GAEgASgJIl4KEFVzZXJuYW1lUmVzcG9uc2USEAoIdXNlcm5hbWUYASABKAkS",
-            "EgoKaXNBY2NlcHRlZBgCIAEoCBIPCgdtZXNzYWdlGAMgASgJEhMKC3N1Z2dl",
-            "c3Rpb25zGAQgAygJIj0KE1JlY29ubmVjdGlvblJlcXVlc3QSEAoIdXNlcm5h",
-            "bWUYASABKAkSFAoMc2Vzc2lvblRva2VuGAIgASgJImIKFFJlY29ubmVjdGlv",
-            "blJlc3BvbnNlEhQKDGlzU3VjY2Vzc2Z1bBgBIAEoCBIPCgdtZXNzYWdlGAIg",
-            "ASgJEhEKCXByaXZhdGVJZBgDIAEoCRIQCghwdWJsaWNJZBgEIAEoCSKCAQoS",
-            "TG9iYnlKb2luQnJvYWRjYXN0EhAKCHB1YmxpY0lkGAEgASgJEhAKCGNvbG9y",
-            "aGV4GAIgASgJEjEKCHBvc2l0aW9uGAMgASgLMh8uZ2FtZXBhY2tldC5DbGll",
-            "bnRMb2JieVBvc2l0aW9uEhUKDWlzTG9jYWxQbGF5ZXIYBCABKAgihQEKDkNs",
-            "aWVudFBvc2l0aW9uEhAKCGNsaWVudElkGAEgASgJEhEKCXRpbWVzdGFtcBgC",
-            "IAEoAhImCghwb3NpdGlvbhgDIAEoCzIULmdhbWVwYWNrZXQuUG9zaXRpb24S",
-            "JgoIdmVsb2NpdHkYBCABKAsyFC5nYW1lcGFja2V0LlZlbG9jaXR5Ij0KE0Ns",
-            "aWVudExvYmJ5UG9zaXRpb24SJgoIcG9zaXRpb24YASABKAsyFC5nYW1lcGFj",
-            "a2V0LlBvc2l0aW9uIh0KCUhlYXJ0YmVhdBIQCghjbGllbnRJZBgBIAEoCSIg",
-            "CgxIZWFydGJlYXRBY2sSEAoIY2xpZW50SWQYASABKAkiMQoMU2VydmVyU3Rh",
-            "dHVzEg8KB21lc3NhZ2UYASABKAkSEAoIY2xpZW50SWQYAiABKAkiKwoIUG9z",
-            "aXRpb24SCQoBeBgBIAEoARIJCgF5GAIgASgBEgkKAXoYAyABKAEiKwoIVmVs",
-            "b2NpdHkSCQoBeBgBIAEoARIJCgF5GAIgASgBEgkKAXoYAyABKAFCFVoTZ29z",
-            "b2NrZXQvZ2FtZXBhY2tldGIGcHJvdG8z"));
+            "GAEgASgJIkkKEFVzZXJuYW1lUmVzcG9uc2USEAoIdXNlcm5hbWUYASABKAkS",
+            "EgoKaXNBY2NlcHRlZBgCIAEoCBIPCgdtZXNzYWdlGAMgASgJIj0KE1JlY29u",
+            "bmVjdGlvblJlcXVlc3QSEAoIdXNlcm5hbWUYASABKAkSFAoMc2Vzc2lvblRv",
+            "a2VuGAIgASgJImIKFFJlY29ubmVjdGlvblJlc3BvbnNlEhQKDGlzU3VjY2Vz",
+            "c2Z1bBgBIAEoCBIPCgdtZXNzYWdlGAIgASgJEhEKCXByaXZhdGVJZBgDIAEo",
+            "CRIQCghwdWJsaWNJZBgEIAEoCSKCAQoSTG9iYnlKb2luQnJvYWRjYXN0EhAK",
+            "CHB1YmxpY0lkGAEgASgJEhAKCGNvbG9yaGV4GAIgASgJEjEKCHBvc2l0aW9u",
+            "GAMgASgLMh8uZ2FtZXBhY2tldC5DbGllbnRMb2JieVBvc2l0aW9uEhUKDWlz",
+            "TG9jYWxQbGF5ZXIYBCABKAgihQEKDkNsaWVudFBvc2l0aW9uEhAKCGNsaWVu",
+            "dElkGAEgASgJEhEKCXRpbWVzdGFtcBgCIAEoAhImCghwb3NpdGlvbhgDIAEo",
+            "CzIULmdhbWVwYWNrZXQuUG9zaXRpb24SJgoIdmVsb2NpdHkYBCABKAsyFC5n",
+            "YW1lcGFja2V0LlZlbG9jaXR5Ij0KE0NsaWVudExvYmJ5UG9zaXRpb24SJgoI",
+            "cG9zaXRpb24YASABKAsyFC5nYW1lcGFja2V0LlBvc2l0aW9uIh0KCUhlYXJ0",
+            "YmVhdBIQCghjbGllbnRJZBgBIAEoCSIgCgxIZWFydGJlYXRBY2sSEAoIY2xp",
+            "ZW50SWQYASABKAkiMQoMU2VydmVyU3RhdHVzEg8KB21lc3NhZ2UYASABKAkS",
+            "EAoIY2xpZW50SWQYAiABKAkiKwoIUG9zaXRpb24SCQoBeBgBIAEoARIJCgF5",
+            "GAIgASgBEgkKAXoYAyABKAEiKwoIVmVsb2NpdHkSCQoBeBgBIAEoARIJCgF5",
+            "GAIgASgBEgkKAXoYAyABKAFCFVoTZ29zb2NrZXQvZ2FtZXBhY2tldGIGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -72,7 +72,7 @@ namespace Gamepacket {
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HandshakeResponse), global::Gamepacket.HandshakeResponse.Parser, new[]{ "PrivateId", "PublicId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.UsernamePrompt), global::Gamepacket.UsernamePrompt.Parser, new[]{ "Message" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.UsernameSubmission), global::Gamepacket.UsernameSubmission.Parser, new[]{ "Username" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.UsernameResponse), global::Gamepacket.UsernameResponse.Parser, new[]{ "Username", "IsAccepted", "Message", "Suggestions" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.UsernameResponse), global::Gamepacket.UsernameResponse.Parser, new[]{ "Username", "IsAccepted", "Message" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ReconnectionRequest), global::Gamepacket.ReconnectionRequest.Parser, new[]{ "Username", "SessionToken" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ReconnectionResponse), global::Gamepacket.ReconnectionResponse.Parser, new[]{ "IsSuccessful", "Message", "PrivateId", "PublicId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.LobbyJoinBroadcast), global::Gamepacket.LobbyJoinBroadcast.Parser, new[]{ "PublicId", "Colorhex", "Position", "IsLocalPlayer" }, null, null, null, null),
@@ -1752,7 +1752,6 @@ namespace Gamepacket {
       username_ = other.username_;
       isAccepted_ = other.isAccepted_;
       message_ = other.message_;
-      suggestions_ = other.suggestions_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1798,17 +1797,6 @@ namespace Gamepacket {
       }
     }
 
-    /// <summary>Field number for the "suggestions" field.</summary>
-    public const int SuggestionsFieldNumber = 4;
-    private static readonly pb::FieldCodec<string> _repeated_suggestions_codec
-        = pb::FieldCodec.ForString(34);
-    private readonly pbc::RepeatedField<string> suggestions_ = new pbc::RepeatedField<string>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<string> Suggestions {
-      get { return suggestions_; }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1827,7 +1815,6 @@ namespace Gamepacket {
       if (Username != other.Username) return false;
       if (IsAccepted != other.IsAccepted) return false;
       if (Message != other.Message) return false;
-      if(!suggestions_.Equals(other.suggestions_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1838,7 +1825,6 @@ namespace Gamepacket {
       if (Username.Length != 0) hash ^= Username.GetHashCode();
       if (IsAccepted != false) hash ^= IsAccepted.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
-      hash ^= suggestions_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1869,7 +1855,6 @@ namespace Gamepacket {
         output.WriteRawTag(26);
         output.WriteString(Message);
       }
-      suggestions_.WriteTo(output, _repeated_suggestions_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1892,7 +1877,6 @@ namespace Gamepacket {
         output.WriteRawTag(26);
         output.WriteString(Message);
       }
-      suggestions_.WriteTo(ref output, _repeated_suggestions_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1912,7 +1896,6 @@ namespace Gamepacket {
       if (Message.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
       }
-      size += suggestions_.CalculateSize(_repeated_suggestions_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1934,7 +1917,6 @@ namespace Gamepacket {
       if (other.Message.Length != 0) {
         Message = other.Message;
       }
-      suggestions_.Add(other.suggestions_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1966,10 +1948,6 @@ namespace Gamepacket {
             Message = input.ReadString();
             break;
           }
-          case 34: {
-            suggestions_.AddEntriesFrom(input, _repeated_suggestions_codec);
-            break;
-          }
         }
       }
     #endif
@@ -1999,10 +1977,6 @@ namespace Gamepacket {
           }
           case 26: {
             Message = input.ReadString();
-            break;
-          }
-          case 34: {
-            suggestions_.AddEntriesFrom(ref input, _repeated_suggestions_codec);
             break;
           }
         }
