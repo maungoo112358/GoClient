@@ -259,7 +259,7 @@ public class UsernameManager : MonoBehaviour
 
 		// Check connection state
 		var connectionState = _networkManager.GetConnectionState();
-		if (connectionState != NetworkClient.ConnectionState.HandshakeComplete)
+		if (connectionState != ConnectionState.HandshakeComplete)
 		{
 			UpdateStatusText("Not ready for username submission. Please connect first.", Color.yellow);
 			return;
@@ -291,7 +291,7 @@ public class UsernameManager : MonoBehaviour
 		// Enable/disable submit button based on connection state
 		if (submitButton != null)
 		{
-			bool canSubmitUsername = connectionState == NetworkClient.ConnectionState.HandshakeComplete &&
+			bool canSubmitUsername = connectionState == ConnectionState.HandshakeComplete &&
 									!_isValidatingUsername &&
 									!isConnected;
 

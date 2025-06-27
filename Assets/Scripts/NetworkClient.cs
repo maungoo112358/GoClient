@@ -2,24 +2,13 @@
 using Google.Protobuf;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 
 public class NetworkClient : MonoBehaviour
 {
-	public enum ConnectionState
-	{
-		Disconnected,
-		Connecting,
-		HandshakeComplete,
-		WaitingForUsernamePrompt,
-		UsernameValidating,
-		Connected,
-		Reconnecting,
-		ReconnectingWithSession
-	}
-
 	[Header("Connection Settings")]
 	[HideInInspector] public string serverIP = "127.0.0.1";
 	[HideInInspector] public int serverPort = 9999;
@@ -60,15 +49,43 @@ public class NetworkClient : MonoBehaviour
 	private ConcurrentQueue<byte[]> _receivedPackets = new ConcurrentQueue<byte[]>();
 
 	// Events
-	public System.Action<string, string> OnConnected;
-	public System.Action OnDisconnected;
-	public System.Action<string> OnServerMessage;
-	public System.Action<string> OnUsernamePromptReceived; // New event for username prompt
+	public Action<string, string> OnConnected;
+	public Action OnDisconnected;
+	public Action<string> OnServerMessage;
+	public Action<string> OnUsernamePromptReceived; 
 	public event Action<GamePacket> OnPacketReceived;
+
+	private Dictionary<ConnectionState, Action> _connectionStateHandlers;
+	private Dictionary<PacketType, Action<GamePacket>> _packetHandlers;
+
+	private void Awake()
+	{
+		InitializePacketHandlers();
+	}
 
 	private void Start()
 	{
 		InitializeClient();
+		InitializeConnectionStateHandlers();
+	}
+
+	private void Update()
+	{
+		HandleConnectionLogic();
+		ProcessReceivedPackets();
+	}
+
+	private void InitializePacketHandlers()
+	{
+		_packetHandlers = new Dictionary<PacketType, Action<GamePacket>>
+		{
+			{ PacketType.ServerStatus, HandleServerStatusPacket },
+			{ PacketType.HandshakeResponse, HandleHandshakeResponsePacket },
+			{ PacketType.UsernamePrompt, HandleUsernamePromptPacket },
+			{ PacketType.ReconnectionResponse, HandleReconnectionResponsePacket },
+			{ PacketType.HeartbeatAck, HandleHeartbeatAckPacket },
+			{ PacketType.LobbyJoinBroadcast, HandleLobbyJoinBroadcastPacket }
+		};
 	}
 
 	private void InitializeClient()
@@ -95,72 +112,114 @@ public class NetworkClient : MonoBehaviour
 		}
 	}
 
-	private void Update()
+	private void InitializeConnectionStateHandlers()
 	{
-		HandleConnectionLogic();
-		ProcessReceivedPackets();
+		_connectionStateHandlers = new Dictionary<ConnectionState, Action>
+		{
+			{ ConnectionState.Disconnected, HandleDisconnectedState },
+			{ ConnectionState.Reconnecting, HandleReconnectingState },
+			{ ConnectionState.Connecting, HandleConnectingState },
+			{ ConnectionState.WaitingForUsernamePrompt, HandleWaitingForUsernamePromptState },
+			{ ConnectionState.UsernameValidating, HandleUsernameValidatingState },
+			{ ConnectionState.Connected, HandleConnectedState }
+		};
 	}
 
 	private void HandleConnectionLogic()
 	{
-		switch (_connectionState)
+		if (_connectionStateHandlers.TryGetValue(_connectionState, out var handler))
 		{
-			case ConnectionState.Disconnected:
-				if (enableAutoReconnect && CanAttemptReconnect() && !_connectionAttemptInProgress)
-				{
-					TryToConnect();
-				}
-				break;
-
-			case ConnectionState.Reconnecting:
-			case ConnectionState.ReconnectingWithSession:
-				if (CanAttemptReconnect() && !_connectionAttemptInProgress)
-				{
-					TryToConnect();
-				}
-				else if (ShouldTimeoutCurrentAttempt())
-				{
-					_connectionAttemptInProgress = false;
-					ScheduleNextReconnect();
-				}
-				break;
-
-			case ConnectionState.Connecting:
-				if (_handshakeSentTime >= 0f && Time.time - _handshakeSentTime > handshakeTimeout)
-				{
-					_connectionAttemptInProgress = false;
-					_connectionState = enableAutoReconnect ? ConnectionState.Reconnecting : ConnectionState.Disconnected;
-					ScheduleNextReconnect();
-				}
-				break;
-
-			case ConnectionState.WaitingForUsernamePrompt:
-				// Wait for server to send username prompt (no timeout needed)
-				break;
-
-			case ConnectionState.UsernameValidating:
-				if (_usernameSentTime >= 0f && Time.time - _usernameSentTime > handshakeTimeout)
-				{
-					Debug.LogWarning("NetworkClient: Username validation timed out");
-					_connectionState = enableAutoReconnect ? ConnectionState.Reconnecting : ConnectionState.Disconnected;
-					_connectionAttemptInProgress = false;
-					ScheduleNextReconnect();
-				}
-				break;
-
-			case ConnectionState.Connected:
-				if (_lastHeartbeatAckTime > 0 && Time.time - _lastHeartbeatAckTime > connectionTimeout)
-				{
-					Debug.LogWarning("NetworkClient: Connection timed out - no heartbeat ack received");
-					HandleDisconnection();
-				}
-				break;
+			handler();
 		}
+	}
+
+	private void HandleDisconnectedState()
+	{
+		if (enableAutoReconnect && CanAttemptReconnect() && !_connectionAttemptInProgress)
+		{
+			TryToConnect();
+		}
+	}
+
+	private void HandleReconnectingState()
+	{
+		if (CanAttemptReconnect() && !_connectionAttemptInProgress)
+		{
+			TryToConnect();
+		}
+		else if (ShouldTimeoutCurrentAttempt())
+		{
+			_connectionAttemptInProgress = false;
+			ScheduleNextReconnect();
+		}
+	}
+
+	private void HandleConnectingState()
+	{
+		if (HasHandshakeTimedOut())
+		{
+			_connectionAttemptInProgress = false;
+			_connectionState = enableAutoReconnect ? ConnectionState.Reconnecting : ConnectionState.Disconnected;
+			ScheduleNextReconnect();
+		}
+	}
+
+	private void HandleWaitingForUsernamePromptState()
+	{
+		// Wait for server to send username prompt (no timeout needed)
+	}
+
+	private void HandleUsernameValidatingState()
+	{
+		if (HasUsernameValidationTimedOut())
+		{
+			Debug.LogWarning("NetworkClient: Username validation timed out");
+			_connectionState = enableAutoReconnect ? ConnectionState.Reconnecting : ConnectionState.Disconnected;
+			_connectionAttemptInProgress = false;
+			ScheduleNextReconnect();
+		}
+	}
+
+	private void HandleConnectedState()
+	{
+		if (HasConnectionTimedOut())
+		{
+			Debug.LogWarning("NetworkClient: Connection timed out - no heartbeat ack received");
+			HandleDisconnection();
+		}
+	}
+
+	private void HandleReconnectingLogic()
+	{
+		if (CanAttemptReconnect() && !_connectionAttemptInProgress)
+		{
+			TryToConnect();
+		}
+		else if (ShouldTimeoutCurrentAttempt())
+		{
+			_connectionAttemptInProgress = false;
+			ScheduleNextReconnect();
+		}
+	}
+
+	private bool HasHandshakeTimedOut()
+	{
+		return _handshakeSentTime >= 0f && Time.time - _handshakeSentTime > handshakeTimeout;
+	}
+
+	private bool HasUsernameValidationTimedOut()
+	{
+		return _usernameSentTime >= 0f && Time.time - _usernameSentTime > handshakeTimeout;
+	}
+
+	private bool HasConnectionTimedOut()
+	{
+		return _lastHeartbeatAckTime > 0 && Time.time - _lastHeartbeatAckTime > connectionTimeout;
 	}
 
 	private bool ShouldTimeoutCurrentAttempt()
 	{
-		if (_connectionState == ConnectionState.ReconnectingWithSession)
+		if (_isAttemptingSessionReconnect)
 		{
 			return _reconnectionSentTime >= 0f && Time.time - _reconnectionSentTime > sessionTimeout;
 		}
@@ -211,46 +270,61 @@ public class NetworkClient : MonoBehaviour
 	{
 		OnPacketReceived?.Invoke(packet);
 
-		if (packet.ServerStatus != null)
+		var packetType = GetPacketType(packet);
+		if (packetType.HasValue && _packetHandlers.TryGetValue(packetType.Value, out var handler))
 		{
-			Debug.LogWarning($"NetworkClient: Server message: {packet.ServerStatus.Message}");
-			OnServerMessage?.Invoke(packet.ServerStatus.Message);
-
-			if (packet.ServerStatus.Message.Contains("shutting down"))
-			{
-				HandleDisconnection();
-			}
+			handler(packet);
 		}
+	}
 
-		// Handle handshake responses
-		if (packet.HandshakeResponse != null)
+	private void HandleServerStatusPacket(GamePacket packet)
+	{
+		var status = packet.ServerStatus;
+		Debug.LogWarning($"NetworkClient: Server message: {status.Message}");
+		OnServerMessage?.Invoke(status.Message);
+
+		if (status.Message.Contains("shutting down"))
 		{
-			HandleHandshakeResponse(packet.HandshakeResponse);
+			HandleDisconnection();
 		}
+	}
 
-		// Handle username prompts from server
-		if (packet.UsernamePrompt != null)
-		{
-			HandleUsernamePrompt(packet.UsernamePrompt);
-		}
+	private void HandleHandshakeResponsePacket(GamePacket packet)
+	{
+		HandleHandshakeResponse(packet.HandshakeResponse);
+	}
 
-		// Handle reconnection responses
-		if (packet.ReconnectionResponse != null)
-		{
-			HandleReconnectionResponse(packet.ReconnectionResponse);
-		}
+	private void HandleUsernamePromptPacket(GamePacket packet)
+	{
+		HandleUsernamePrompt(packet.UsernamePrompt);
+	}
 
-		// Handle heartbeat acknowledgments
-		if (packet.HeartbeatAck != null)
-		{
-			_lastHeartbeatAckTime = Time.time;
-			Debug.Log($"NetworkClient: ❤️ Heartbeat acknowledged: {packet.HeartbeatAck.ClientId}");
-		}
+	private void HandleReconnectionResponsePacket(GamePacket packet)
+	{
+		HandleReconnectionResponse(packet.ReconnectionResponse);
+	}
 
-		if (packet.LobbyJoinBroadcast != null)
-		{
-			Debug.Log($"NetworkClient: Player {packet.LobbyJoinBroadcast.PublicId} joined lobby");
-		}
+	private void HandleHeartbeatAckPacket(GamePacket packet)
+	{
+		_lastHeartbeatAckTime = Time.time;
+		Debug.Log($"NetworkClient: ❤️ Heartbeat acknowledged: {packet.HeartbeatAck.ClientId}");
+	}
+
+	private void HandleLobbyJoinBroadcastPacket(GamePacket packet)
+	{
+		Debug.Log($"NetworkClient: Player {packet.LobbyJoinBroadcast.PublicId} joined lobby");
+	}
+
+	private PacketType? GetPacketType(GamePacket packet)
+	{
+		if (packet.ServerStatus != null) return PacketType.ServerStatus;
+		if (packet.HandshakeResponse != null) return PacketType.HandshakeResponse;
+		if (packet.UsernamePrompt != null) return PacketType.UsernamePrompt;
+		if (packet.ReconnectionResponse != null) return PacketType.ReconnectionResponse;
+		if (packet.HeartbeatAck != null) return PacketType.HeartbeatAck;
+		if (packet.LobbyJoinBroadcast != null) return PacketType.LobbyJoinBroadcast;
+
+		return null;
 	}
 
 	private void HandleHandshakeResponse(HandshakeResponse response)
@@ -335,14 +409,10 @@ public class NetworkClient : MonoBehaviour
 		{
 			_connectionAttemptInProgress = true;
 
-			// Determine connection type
-			bool shouldTrySessionReconnect = enableSessionReconnect && _hasValidSession &&
-				(_connectionState == ConnectionState.Disconnected || _connectionState == ConnectionState.ReconnectingWithSession);
-
-			if (shouldTrySessionReconnect && !_isAttemptingSessionReconnect)
+			// Always try session reconnection first if available
+			if (enableSessionReconnect && _hasValidSession && !_isAttemptingSessionReconnect)
 			{
-				// Try session reconnection first
-				_connectionState = ConnectionState.ReconnectingWithSession;
+				_connectionState = ConnectionState.Reconnecting;
 				_isAttemptingSessionReconnect = true;
 				_reconnectionSentTime = Time.time;
 
@@ -351,9 +421,8 @@ public class NetworkClient : MonoBehaviour
 			}
 			else
 			{
-				// Normal connection flow
-				_connectionState = (_connectionState == ConnectionState.Disconnected) ?
-					ConnectionState.Connecting : ConnectionState.Reconnecting;
+				// Fall back to normal connection flow only if no session available
+				_connectionState = ConnectionState.Connecting;
 				_handshakeSentTime = Time.time;
 
 				Debug.Log($"NetworkClient: 🔌 Attempting normal connection to {_remoteEndPoint}");
@@ -376,9 +445,7 @@ public class NetworkClient : MonoBehaviour
 	{
 		bool wasConnected = _connectionState == ConnectionState.Connected;
 
-		_connectionState = enableAutoReconnect ?
-			(enableSessionReconnect && _hasValidSession ? ConnectionState.ReconnectingWithSession : ConnectionState.Reconnecting) :
-			ConnectionState.Disconnected;
+		_connectionState = enableAutoReconnect ? ConnectionState.Reconnecting : ConnectionState.Disconnected;
 
 		_myPrivateId = null;
 		_myPublicId = null;
@@ -430,10 +497,10 @@ public class NetworkClient : MonoBehaviour
 	{
 		if (string.IsNullOrEmpty(privateId))
 		{
-			return System.Guid.NewGuid().ToString();
+			return Guid.NewGuid().ToString();
 		}
 
-		long timestamp = System.DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+		long timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 		string tokenData = $"{privateId}_{timestamp}";
 		int hash = tokenData.GetHashCode();
 		return $"session_{hash:X8}";
