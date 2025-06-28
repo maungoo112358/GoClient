@@ -112,6 +112,22 @@ public class ClientSpawnManager : MonoBehaviour
 		return spawnedClients.TryGetValue(clientId, out GameObject client) ? client : null;
 	}
 
+	public List<ClientData> GetAllActiveClients()
+	{
+		List<ClientData> clients = new List<ClientData>();
+
+		foreach (var kvp in spawnedClients)
+		{
+			clients.Add(new ClientData
+			{
+				clientID = kvp.Key,
+				gameObject = kvp.Value
+			});
+		}
+
+		return clients;
+	}
+
 	private void OnNetworkDisconnected()
 	{
 		foreach (var client in spawnedClients.Values)
@@ -122,4 +138,10 @@ public class ClientSpawnManager : MonoBehaviour
 		spawnedClients.Clear();
 		Debug.Log("Cleared all clients on network disconnect");
 	}
+}
+
+public struct ClientData
+{
+	public string clientID;
+	public GameObject gameObject;
 }

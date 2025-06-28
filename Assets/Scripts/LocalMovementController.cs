@@ -6,6 +6,9 @@ public class LocalMovementController : MonoBehaviour
 	[Header("Movement Settings")]
 	public float movementSpeed = 5f;
 
+	[Header("Collision Settings")]
+	public float playerRadius = 0.5f;
+
 	//send position updates to the server 20 times per second.
 	public float networkSendRate = 20f;
 
@@ -134,31 +137,38 @@ public class LocalMovementController : MonoBehaviour
 		{
 			Vector3 oldPosition = transform.position;
 			Vector3 movement = new Vector3(input.x, 0, input.y) * movementSpeed * Time.deltaTime;
-			targetPosition = transform.position + movement;
+			Vector3 targetPosition = transform.position + movement;
 
-			transform.position = targetPosition;
-
-			currentVelocity = (transform.position - oldPosition) / Time.deltaTime;
-
-			MovementState state = new MovementState
+			if (CanMoveToPosition(targetPosition))
 			{
-				position = transform.position,
-				timestamp = Time.time,
-				input = input
-			};
+				transform.position = targetPosition;
+				currentVelocity = (transform.position - oldPosition) / Time.deltaTime;
 
-			movementHistory.Enqueue(state);
+				MovementState state = new MovementState
+				{
+					position = transform.position,
+					timestamp = Time.time,
+					input = input
+				};
 
-			while (movementHistory.Count > maxHistorySize)
+				movementHistory.Enqueue(state);
+
+				while (movementHistory.Count > maxHistorySize)
+				{
+					movementHistory.Dequeue();
+				}
+			}
+			else
 			{
-				movementHistory.Dequeue();
+				currentVelocity = Vector3.zero;
 			}
 		}
 		else
 		{
-			currentVelocity = Vector3.zero; // No movement, no velocity
+			currentVelocity = Vector3.zero;
 		}
 	}
+
 
 	private void HandleCameraFollow()
 	{
@@ -223,6 +233,63 @@ public class LocalMovementController : MonoBehaviour
 				movementHistory.Clear();
 			}
 		}
+	}
+
+	private bool CanMoveToPosition(Vector3 targetPosition)
+	{
+		var otherPlayerPositions = GetOtherPlayerPositions();
+
+		foreach (var otherPos in otherPlayerPositions)
+		{
+			float dx = targetPosition.x - otherPos.x;
+			float dz = targetPosition.z - otherPos.z;
+			float distance = Mathf.Sqrt(dx * dx + dz * dz);
+
+			float minDistance = playerRadius + playerRadius;
+			if (distance < minDistance)
+			{
+				return false; // collide with this player
+			}
+		}
+
+		return true; // No collision detected
+	}
+
+	private List<Vector3> GetOtherPlayerPositions()
+	{
+		List<Vector3> positions = new List<Vector3>();
+
+		// Get all spawned clients except ourselves
+		var clientSpawnManager = FindObjectOfType<ClientSpawnManager>();
+		if (clientSpawnManager == null) return positions;
+
+		var networkManager = FindObjectOfType<ModularNetworkManager>();
+		string myClientID = networkManager?.GetPublicId() ?? "";
+
+		// Get all active clients and their positions
+		var allClients = GetAllActiveClients();
+		foreach (var clientData in allClients)
+		{
+			if (clientData.clientID != myClientID && clientData.gameObject != null)
+			{
+				positions.Add(clientData.gameObject.transform.position);
+			}
+		}
+
+		return positions;
+	}
+
+	private List<ClientData> GetAllActiveClients()
+	{
+		List<ClientData> clients = new List<ClientData>();
+
+		var clientSpawnManager = FindObjectOfType<ClientSpawnManager>();
+		if (clientSpawnManager != null)
+		{
+			clients = clientSpawnManager.GetAllActiveClients();
+		}
+
+		return clients;
 	}
 
 	private void OnDestroy()
