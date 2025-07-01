@@ -2,18 +2,18 @@ using UnityEngine;
 
 public static class Helper
 {
-	public static Vector3 PosToVector3(this Gamepacket.ClientLobbyPosition lobbyPos)
+	public static Vector3 PosToVector3(this Gamepacket.ClientLobbyPosition lobby)
 	{
-		return new Vector3((float)lobbyPos.Position.X, (float)lobbyPos.Position.Y, (float)lobbyPos.Position.Z);
+		return new Vector3(lobby.Position.X, lobby.Position.Y, lobby.Position.Z);
 	}
 
-	public static Vector3 PosToVector3(this Gamepacket.ClientPosition clientPos)
+	public static Vector3 PosToVector3(this Gamepacket.ClientPosition client)
 	{
-		return new Vector3((float)clientPos.Position.X, (float)clientPos.Position.Y, (float)clientPos.Position.Z);
+		return new Vector3(client.Position.X, client.Position.Y, client.Position.Z);
 	}
 
-	public static Vector3 VelocityToVector3(this Gamepacket.ClientPosition lobbyPos)
+	public static Vector3 VelocityToVector3(this Gamepacket.ClientPosition client)
 	{
-		return new Vector3((float)lobbyPos.Velocity.X, (float)lobbyPos.Velocity.Y, (float)lobbyPos.Velocity.Z);
+		return new Vector3(client.Velocity.X, client.Velocity.Y, client.Velocity.Z);
 	}
 }

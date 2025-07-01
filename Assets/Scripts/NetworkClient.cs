@@ -609,8 +609,8 @@ public class NetworkClient : MonoBehaviour
 			ClientPosition = new ClientPosition
 			{
 				ClientId = _myPublicId,
-				Position = new Position { X = position.x, Y = position.y, Z = position.z },
-				Velocity = new Velocity { X = velocity.x, Y = velocity.y, Z = velocity.z },
+				Position = new Vector_3 { X = position.x, Y = position.y, Z = position.z },
+				Velocity = new Vector_3 { X = velocity.x, Y = velocity.y, Z = velocity.z },
 			}
 		};
 

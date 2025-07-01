@@ -24,7 +24,6 @@ public class ModularEventSystem : MonoBehaviour
 		}
 	}
 
-	// Dictionary to store event subscribers
 	private Dictionary<Type, List<Delegate>> _eventSubscribers = new Dictionary<Type, List<Delegate>>();
 
 	private void Awake()
