@@ -62,7 +62,8 @@ public class ModularNetworkManager : MonoBehaviour
 			{ PacketType.UsernamePrompt, HandleUsernamePrompt },
 			{ PacketType.UsernameResponse, HandleUsernameResponse },
 			{ PacketType.LobbyJoinBroadcast, HandleLobbyJoinBroadcast },
-			{ PacketType.ClientPosition, HandleClientPosition }
+			{ PacketType.ClientPosition, HandleClientPosition },
+			{ PacketType.TileSet,HandleTileSet }
 		};
 	}
 
@@ -223,6 +224,15 @@ public class ModularNetworkManager : MonoBehaviour
 		}
 	}
 
+	private void HandleTileSet(GamePacket packet)
+	{
+		var tileSet = packet.TileSet.GetTileSet();
+		if (tileSet == null ||tileSet.Count <= 0) {
+			return;
+		}
+		ModularEventSystem.Instance.Publish(new TileGenerationEvent(tileSet));
+	}
+
 	private PacketType? GetPacketType(GamePacket packet)
 	{
 		if (packet.HeartbeatAck != null) return PacketType.HeartbeatAck;
@@ -232,6 +242,7 @@ public class ModularNetworkManager : MonoBehaviour
 		if (packet.LobbyJoinBroadcast != null) return PacketType.LobbyJoinBroadcast;
 		if (packet.ClientPosition != null) return PacketType.ClientPosition;
 		if (packet.ServerStatus != null) return PacketType.ServerStatus;
+		if(packet.TileSet != null) return PacketType.TileSet;
 
 		return null;
 	}

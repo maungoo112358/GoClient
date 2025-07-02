@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: e69b0c8482ea6eb439bfdcbbecd1b1a6
+  m_SerializeEntries:
+  - m_GUID: 06ff6ad0c4b59964dbecfcc2b9822364
+    m_Address: grass
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - grass
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39f651e340882304fa6f21b321d3bea5
+    m_Address: Assets/SimplePoly City - Low Poly Assets/Materials/Natures.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 81d65baaef914cb428e3e90a2697560e
+    m_Address: cross_section
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - cross_section
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9ba6e8e860bf3543bef4a4333032b09
+    m_Address: road_lane
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - road_lane
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: faa0cd7e7e1757945a22cce35d7069cd
+    m_Address: Assets/SimplePoly City - Low Poly Assets/Materials/Road.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 907370ceb3f244142b9384d2c5208b97, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0dddcb159275e734498a4c73a4541e4c, type: 2}
+    - {fileID: 11400000, guid: 83b79815f8ce61c4395b7414165ec7e7, type: 2}

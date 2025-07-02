@@ -1,3 +1,5 @@
+using Gamepacket;
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface IModularEvent
@@ -152,26 +154,42 @@ public class PlayerMovementEvent : IModularEvent
 	}
 }
 
-public class BuildingSpawnedEvent : IModularEvent
+public class TileGenerationEvent : IModularEvent
 {
-	public string BuildingId { get; }
-	public Vector3 Position { get; }
-	public string BuildingType { get; }
+	List<Tile> TileSet = new ();
 
-	public BuildingSpawnedEvent(string buildingId, Vector3 position, string buildingType)
+	public TileGenerationEvent(List<Tile> tileSet)
 	{
-		BuildingId = buildingId;
-		Position = position;
-		BuildingType = buildingType;
+		TileSet = tileSet;
 	}
 }
 
-public class BuildingDestroyedEvent : IModularEvent
+public class Tile
 {
-	public string BuildingId { get; }
+	public string TileId { get; }
+	public Vector3 Position { get; }
+	public Vector3 Rotation { get; }
+	public Vector3 Scale { get; }
+	public TileType TileType { get; }
+	public bool IsScalable { get; }
 
-	public BuildingDestroyedEvent(string buildingId)
+	public Tile(string tileId, Vector3 position, Vector3 rotation, Vector3 scale, TileType tileType, bool isScalable)
 	{
-		BuildingId = buildingId;
+		TileId = tileId;
+		Position = position;
+		Rotation = rotation;
+		Scale = scale;
+		TileType = tileType;
+		IsScalable = isScalable;
+	}
+}
+
+public class TileDestroyedEvent : IModularEvent
+{
+	public string TileId { get; }
+
+	public TileDestroyedEvent(string tileId)
+	{
+		TileId = tileId;
 	}
 }

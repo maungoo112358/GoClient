@@ -24,7 +24,7 @@ namespace Gamepacket {
     static GamepacketReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBnYW1lcGFja2V0LnByb3RvEgpnYW1lcGFja2V0Ir0GCgpHYW1lUGFja2V0",
+            "ChBnYW1lcGFja2V0LnByb3RvEgpnYW1lcGFja2V0Iq8GCgpHYW1lUGFja2V0",
             "EgsKA1NlcRgBIAEoDRI2ChBIYW5kc2hha2VSZXF1ZXN0GAIgASgLMhwuZ2Ft",
             "ZXBhY2tldC5IYW5kc2hha2VSZXF1ZXN0EjgKEUhhbmRzaGFrZVJlc3BvbnNl",
             "GAMgASgLMh0uZ2FtZXBhY2tldC5IYW5kc2hha2VSZXNwb25zZRIoCglIZWFy",
@@ -40,41 +40,41 @@ namespace Gamepacket {
             "ZXQuVXNlcm5hbWVSZXNwb25zZRI8ChNSZWNvbm5lY3Rpb25SZXF1ZXN0GAwg",
             "ASgLMh8uZ2FtZXBhY2tldC5SZWNvbm5lY3Rpb25SZXF1ZXN0Ej4KFFJlY29u",
             "bmVjdGlvblJlc3BvbnNlGA0gASgLMiAuZ2FtZXBhY2tldC5SZWNvbm5lY3Rp",
-            "b25SZXNwb25zZRIoCglXb3JsZFRpbGUYDiABKAsyFS5nYW1lcGFja2V0Lldv",
-            "cmxkVGlsZRIoCglXb3JsZERhdGEYDyABKAsyFS5nYW1lcGFja2V0Lldvcmxk",
-            "RGF0YRIuCgxTZXJ2ZXJTdGF0dXMYYyABKAsyGC5nYW1lcGFja2V0LlNlcnZl",
-            "clN0YXR1cyImChBIYW5kc2hha2VSZXF1ZXN0EhIKCmNsaWVudE5hbWUYASAB",
-            "KAkiOAoRSGFuZHNoYWtlUmVzcG9uc2USEQoJcHJpdmF0ZUlkGAEgASgJEhAK",
-            "CHB1YmxpY0lkGAIgASgJIiEKDlVzZXJuYW1lUHJvbXB0Eg8KB21lc3NhZ2UY",
-            "ASABKAkiJgoSVXNlcm5hbWVTdWJtaXNzaW9uEhAKCHVzZXJuYW1lGAEgASgJ",
-            "IkkKEFVzZXJuYW1lUmVzcG9uc2USEAoIdXNlcm5hbWUYASABKAkSEgoKaXNB",
-            "Y2NlcHRlZBgCIAEoCBIPCgdtZXNzYWdlGAMgASgJIj0KE1JlY29ubmVjdGlv",
-            "blJlcXVlc3QSEAoIdXNlcm5hbWUYASABKAkSFAoMc2Vzc2lvblRva2VuGAIg",
-            "ASgJImIKFFJlY29ubmVjdGlvblJlc3BvbnNlEhQKDGlzU3VjY2Vzc2Z1bBgB",
-            "IAEoCBIPCgdtZXNzYWdlGAIgASgJEhEKCXByaXZhdGVJZBgDIAEoCRIQCghw",
-            "dWJsaWNJZBgEIAEoCSKCAQoSTG9iYnlKb2luQnJvYWRjYXN0EhAKCHB1Ymxp",
-            "Y0lkGAEgASgJEhAKCGNvbG9yaGV4GAIgASgJEjEKCHBvc2l0aW9uGAMgASgL",
-            "Mh8uZ2FtZXBhY2tldC5DbGllbnRMb2JieVBvc2l0aW9uEhUKDWlzTG9jYWxQ",
-            "bGF5ZXIYBCABKAgihQEKDkNsaWVudFBvc2l0aW9uEhAKCGNsaWVudElkGAEg",
-            "ASgJEhEKCXRpbWVzdGFtcBgCIAEoAhImCghwb3NpdGlvbhgDIAEoCzIULmdh",
-            "bWVwYWNrZXQuVmVjdG9yXzMSJgoIdmVsb2NpdHkYBCABKAsyFC5nYW1lcGFj",
-            "a2V0LlZlY3Rvcl8zIj0KE0NsaWVudExvYmJ5UG9zaXRpb24SJgoIcG9zaXRp",
-            "b24YASABKAsyFC5nYW1lcGFja2V0LlZlY3Rvcl8zIh0KCUhlYXJ0YmVhdBIQ",
-            "CghjbGllbnRJZBgBIAEoCSIgCgxIZWFydGJlYXRBY2sSEAoIY2xpZW50SWQY",
-            "ASABKAkiMQoMU2VydmVyU3RhdHVzEg8KB21lc3NhZ2UYASABKAkSEAoIY2xp",
-            "ZW50SWQYAiABKAkiRQoJV29ybGREYXRhEiQKBXRpbGVzGAEgAygLMhUuZ2Ft",
-            "ZXBhY2tldC5Xb3JsZFRpbGUSEgoKd29ybGRfc2l6ZRgCIAEoBSIrCghWZWN0",
-            "b3JfMxIJCgF4GAEgASgCEgkKAXkYAiABKAISCQoBehgDIAEoAiK4AQoJV29y",
-            "bGRUaWxlEiYKCHBvc2l0aW9uGAEgASgLMhQuZ2FtZXBhY2tldC5WZWN0b3Jf",
-            "MxImCghyb3RhdGlvbhgCIAEoCzIULmdhbWVwYWNrZXQuVmVjdG9yXzMSIwoF",
-            "c2NhbGUYAyABKAsyFC5nYW1lcGFja2V0LlZlY3Rvcl8zEiIKBHR5cGUYBCAB",
-            "KA4yFC5nYW1lcGFja2V0LlRpbGVUeXBlEhIKCmlzU2NhbGFibGUYBSABKAgq",
-            "NwoIVGlsZVR5cGUSDQoJUk9BRF9MQU5FEAASEQoNQ1JPU1NfU0VDVElPThAB",
-            "EgkKBUdSQVNTEAJCFVoTZ29zb2NrZXQvZ2FtZXBhY2tldGIGcHJvdG8z"));
+            "b25SZXNwb25zZRIeCgRUaWxlGA4gASgLMhAuZ2FtZXBhY2tldC5UaWxlEiQK",
+            "B1RpbGVTZXQYDyABKAsyEy5nYW1lcGFja2V0LlRpbGVTZXQSLgoMU2VydmVy",
+            "U3RhdHVzGGMgASgLMhguZ2FtZXBhY2tldC5TZXJ2ZXJTdGF0dXMiJgoQSGFu",
+            "ZHNoYWtlUmVxdWVzdBISCgpjbGllbnROYW1lGAEgASgJIjgKEUhhbmRzaGFr",
+            "ZVJlc3BvbnNlEhEKCXByaXZhdGVJZBgBIAEoCRIQCghwdWJsaWNJZBgCIAEo",
+            "CSIhCg5Vc2VybmFtZVByb21wdBIPCgdtZXNzYWdlGAEgASgJIiYKElVzZXJu",
+            "YW1lU3VibWlzc2lvbhIQCgh1c2VybmFtZRgBIAEoCSJJChBVc2VybmFtZVJl",
+            "c3BvbnNlEhAKCHVzZXJuYW1lGAEgASgJEhIKCmlzQWNjZXB0ZWQYAiABKAgS",
+            "DwoHbWVzc2FnZRgDIAEoCSI9ChNSZWNvbm5lY3Rpb25SZXF1ZXN0EhAKCHVz",
+            "ZXJuYW1lGAEgASgJEhQKDHNlc3Npb25Ub2tlbhgCIAEoCSJiChRSZWNvbm5l",
+            "Y3Rpb25SZXNwb25zZRIUCgxpc1N1Y2Nlc3NmdWwYASABKAgSDwoHbWVzc2Fn",
+            "ZRgCIAEoCRIRCglwcml2YXRlSWQYAyABKAkSEAoIcHVibGljSWQYBCABKAki",
+            "ggEKEkxvYmJ5Sm9pbkJyb2FkY2FzdBIQCghwdWJsaWNJZBgBIAEoCRIQCghj",
+            "b2xvcmhleBgCIAEoCRIxCghwb3NpdGlvbhgDIAEoCzIfLmdhbWVwYWNrZXQu",
+            "Q2xpZW50TG9iYnlQb3NpdGlvbhIVCg1pc0xvY2FsUGxheWVyGAQgASgIIoUB",
+            "Cg5DbGllbnRQb3NpdGlvbhIQCghjbGllbnRJZBgBIAEoCRIRCgl0aW1lc3Rh",
+            "bXAYAiABKAISJgoIcG9zaXRpb24YAyABKAsyFC5nYW1lcGFja2V0LlZlY3Rv",
+            "cl8zEiYKCHZlbG9jaXR5GAQgASgLMhQuZ2FtZXBhY2tldC5WZWN0b3JfMyI9",
+            "ChNDbGllbnRMb2JieVBvc2l0aW9uEiYKCHBvc2l0aW9uGAEgASgLMhQuZ2Ft",
+            "ZXBhY2tldC5WZWN0b3JfMyIdCglIZWFydGJlYXQSEAoIY2xpZW50SWQYASAB",
+            "KAkiIAoMSGVhcnRiZWF0QWNrEhAKCGNsaWVudElkGAEgASgJIjEKDFNlcnZl",
+            "clN0YXR1cxIPCgdtZXNzYWdlGAEgASgJEhAKCGNsaWVudElkGAIgASgJIj4K",
+            "B1RpbGVTZXQSHwoFdGlsZXMYAiADKAsyEC5nYW1lcGFja2V0LlRpbGUSEgoK",
+            "d29ybGRfc2l6ZRgDIAEoBSLDAQoEVGlsZRIOCgZ0aWxlSWQYASABKAkSJgoI",
+            "cG9zaXRpb24YAiABKAsyFC5nYW1lcGFja2V0LlZlY3Rvcl8zEiYKCHJvdGF0",
+            "aW9uGAMgASgLMhQuZ2FtZXBhY2tldC5WZWN0b3JfMxIjCgVzY2FsZRgEIAEo",
+            "CzIULmdhbWVwYWNrZXQuVmVjdG9yXzMSIgoEdHlwZRgFIAEoDjIULmdhbWVw",
+            "YWNrZXQuVGlsZVR5cGUSEgoKaXNTY2FsYWJsZRgGIAEoCCIrCghWZWN0b3Jf",
+            "MxIJCgF4GAEgASgCEgkKAXkYAiABKAISCQoBehgDIAEoAipBCghUaWxlVHlw",
+            "ZRIICgROb25lEAASDQoJUk9BRF9MQU5FEAESEQoNQ1JPU1NfU0VDVElPThAC",
+            "EgkKBUdSQVNTEANCFVoTZ29zb2NrZXQvZ2FtZXBhY2tldGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Gamepacket.TileType), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.GamePacket), global::Gamepacket.GamePacket.Parser, new[]{ "Seq", "HandshakeRequest", "HandshakeResponse", "Heartbeat", "HeartbeatAck", "ClientPosition", "LobbyJoinBroadcast", "ClientLobbyPosition", "UsernamePrompt", "UsernameSubmission", "UsernameResponse", "ReconnectionRequest", "ReconnectionResponse", "WorldTile", "WorldData", "ServerStatus" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.GamePacket), global::Gamepacket.GamePacket.Parser, new[]{ "Seq", "HandshakeRequest", "HandshakeResponse", "Heartbeat", "HeartbeatAck", "ClientPosition", "LobbyJoinBroadcast", "ClientLobbyPosition", "UsernamePrompt", "UsernameSubmission", "UsernameResponse", "ReconnectionRequest", "ReconnectionResponse", "Tile", "TileSet", "ServerStatus" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HandshakeRequest), global::Gamepacket.HandshakeRequest.Parser, new[]{ "ClientName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HandshakeResponse), global::Gamepacket.HandshakeResponse.Parser, new[]{ "PrivateId", "PublicId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.UsernamePrompt), global::Gamepacket.UsernamePrompt.Parser, new[]{ "Message" }, null, null, null, null),
@@ -88,9 +88,9 @@ namespace Gamepacket {
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.Heartbeat), global::Gamepacket.Heartbeat.Parser, new[]{ "ClientId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.HeartbeatAck), global::Gamepacket.HeartbeatAck.Parser, new[]{ "ClientId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.ServerStatus), global::Gamepacket.ServerStatus.Parser, new[]{ "Message", "ClientId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.WorldData), global::Gamepacket.WorldData.Parser, new[]{ "Tiles", "WorldSize" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.Vector_3), global::Gamepacket.Vector_3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.WorldTile), global::Gamepacket.WorldTile.Parser, new[]{ "Position", "Rotation", "Scale", "Type", "IsScalable" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.TileSet), global::Gamepacket.TileSet.Parser, new[]{ "Tiles", "WorldSize" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.Tile), global::Gamepacket.Tile.Parser, new[]{ "TileId", "Position", "Rotation", "Scale", "Type", "IsScalable" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Gamepacket.Vector_3), global::Gamepacket.Vector_3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null)
           }));
     }
     #endregion
@@ -98,9 +98,10 @@ namespace Gamepacket {
   }
   #region Enums
   public enum TileType {
-    [pbr::OriginalName("ROAD_LANE")] RoadLane = 0,
-    [pbr::OriginalName("CROSS_SECTION")] CrossSection = 1,
-    [pbr::OriginalName("GRASS")] Grass = 2,
+    [pbr::OriginalName("None")] None = 0,
+    [pbr::OriginalName("ROAD_LANE")] RoadLane = 1,
+    [pbr::OriginalName("CROSS_SECTION")] CrossSection = 2,
+    [pbr::OriginalName("GRASS")] Grass = 3,
   }
 
   #endregion
@@ -154,8 +155,8 @@ namespace Gamepacket {
       usernameResponse_ = other.usernameResponse_ != null ? other.usernameResponse_.Clone() : null;
       reconnectionRequest_ = other.reconnectionRequest_ != null ? other.reconnectionRequest_.Clone() : null;
       reconnectionResponse_ = other.reconnectionResponse_ != null ? other.reconnectionResponse_.Clone() : null;
-      worldTile_ = other.worldTile_ != null ? other.worldTile_.Clone() : null;
-      worldData_ = other.worldData_ != null ? other.worldData_.Clone() : null;
+      tile_ = other.tile_ != null ? other.tile_.Clone() : null;
+      tileSet_ = other.tileSet_ != null ? other.tileSet_.Clone() : null;
       serverStatus_ = other.serverStatus_ != null ? other.serverStatus_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -322,27 +323,27 @@ namespace Gamepacket {
       }
     }
 
-    /// <summary>Field number for the "WorldTile" field.</summary>
-    public const int WorldTileFieldNumber = 14;
-    private global::Gamepacket.WorldTile worldTile_;
+    /// <summary>Field number for the "Tile" field.</summary>
+    public const int TileFieldNumber = 14;
+    private global::Gamepacket.Tile tile_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Gamepacket.WorldTile WorldTile {
-      get { return worldTile_; }
+    public global::Gamepacket.Tile Tile {
+      get { return tile_; }
       set {
-        worldTile_ = value;
+        tile_ = value;
       }
     }
 
-    /// <summary>Field number for the "WorldData" field.</summary>
-    public const int WorldDataFieldNumber = 15;
-    private global::Gamepacket.WorldData worldData_;
+    /// <summary>Field number for the "TileSet" field.</summary>
+    public const int TileSetFieldNumber = 15;
+    private global::Gamepacket.TileSet tileSet_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Gamepacket.WorldData WorldData {
-      get { return worldData_; }
+    public global::Gamepacket.TileSet TileSet {
+      get { return tileSet_; }
       set {
-        worldData_ = value;
+        tileSet_ = value;
       }
     }
 
@@ -386,8 +387,8 @@ namespace Gamepacket {
       if (!object.Equals(UsernameResponse, other.UsernameResponse)) return false;
       if (!object.Equals(ReconnectionRequest, other.ReconnectionRequest)) return false;
       if (!object.Equals(ReconnectionResponse, other.ReconnectionResponse)) return false;
-      if (!object.Equals(WorldTile, other.WorldTile)) return false;
-      if (!object.Equals(WorldData, other.WorldData)) return false;
+      if (!object.Equals(Tile, other.Tile)) return false;
+      if (!object.Equals(TileSet, other.TileSet)) return false;
       if (!object.Equals(ServerStatus, other.ServerStatus)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -409,8 +410,8 @@ namespace Gamepacket {
       if (usernameResponse_ != null) hash ^= UsernameResponse.GetHashCode();
       if (reconnectionRequest_ != null) hash ^= ReconnectionRequest.GetHashCode();
       if (reconnectionResponse_ != null) hash ^= ReconnectionResponse.GetHashCode();
-      if (worldTile_ != null) hash ^= WorldTile.GetHashCode();
-      if (worldData_ != null) hash ^= WorldData.GetHashCode();
+      if (tile_ != null) hash ^= Tile.GetHashCode();
+      if (tileSet_ != null) hash ^= TileSet.GetHashCode();
       if (serverStatus_ != null) hash ^= ServerStatus.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -482,13 +483,13 @@ namespace Gamepacket {
         output.WriteRawTag(106);
         output.WriteMessage(ReconnectionResponse);
       }
-      if (worldTile_ != null) {
+      if (tile_ != null) {
         output.WriteRawTag(114);
-        output.WriteMessage(WorldTile);
+        output.WriteMessage(Tile);
       }
-      if (worldData_ != null) {
+      if (tileSet_ != null) {
         output.WriteRawTag(122);
-        output.WriteMessage(WorldData);
+        output.WriteMessage(TileSet);
       }
       if (serverStatus_ != null) {
         output.WriteRawTag(154, 6);
@@ -556,13 +557,13 @@ namespace Gamepacket {
         output.WriteRawTag(106);
         output.WriteMessage(ReconnectionResponse);
       }
-      if (worldTile_ != null) {
+      if (tile_ != null) {
         output.WriteRawTag(114);
-        output.WriteMessage(WorldTile);
+        output.WriteMessage(Tile);
       }
-      if (worldData_ != null) {
+      if (tileSet_ != null) {
         output.WriteRawTag(122);
-        output.WriteMessage(WorldData);
+        output.WriteMessage(TileSet);
       }
       if (serverStatus_ != null) {
         output.WriteRawTag(154, 6);
@@ -617,11 +618,11 @@ namespace Gamepacket {
       if (reconnectionResponse_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(ReconnectionResponse);
       }
-      if (worldTile_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(WorldTile);
+      if (tile_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Tile);
       }
-      if (worldData_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(WorldData);
+      if (tileSet_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(TileSet);
       }
       if (serverStatus_ != null) {
         size += 2 + pb::CodedOutputStream.ComputeMessageSize(ServerStatus);
@@ -713,17 +714,17 @@ namespace Gamepacket {
         }
         ReconnectionResponse.MergeFrom(other.ReconnectionResponse);
       }
-      if (other.worldTile_ != null) {
-        if (worldTile_ == null) {
-          WorldTile = new global::Gamepacket.WorldTile();
+      if (other.tile_ != null) {
+        if (tile_ == null) {
+          Tile = new global::Gamepacket.Tile();
         }
-        WorldTile.MergeFrom(other.WorldTile);
+        Tile.MergeFrom(other.Tile);
       }
-      if (other.worldData_ != null) {
-        if (worldData_ == null) {
-          WorldData = new global::Gamepacket.WorldData();
+      if (other.tileSet_ != null) {
+        if (tileSet_ == null) {
+          TileSet = new global::Gamepacket.TileSet();
         }
-        WorldData.MergeFrom(other.WorldData);
+        TileSet.MergeFrom(other.TileSet);
       }
       if (other.serverStatus_ != null) {
         if (serverStatus_ == null) {
@@ -839,17 +840,17 @@ namespace Gamepacket {
             break;
           }
           case 114: {
-            if (worldTile_ == null) {
-              WorldTile = new global::Gamepacket.WorldTile();
+            if (tile_ == null) {
+              Tile = new global::Gamepacket.Tile();
             }
-            input.ReadMessage(WorldTile);
+            input.ReadMessage(Tile);
             break;
           }
           case 122: {
-            if (worldData_ == null) {
-              WorldData = new global::Gamepacket.WorldData();
+            if (tileSet_ == null) {
+              TileSet = new global::Gamepacket.TileSet();
             }
-            input.ReadMessage(WorldData);
+            input.ReadMessage(TileSet);
             break;
           }
           case 794: {
@@ -967,17 +968,17 @@ namespace Gamepacket {
             break;
           }
           case 114: {
-            if (worldTile_ == null) {
-              WorldTile = new global::Gamepacket.WorldTile();
+            if (tile_ == null) {
+              Tile = new global::Gamepacket.Tile();
             }
-            input.ReadMessage(WorldTile);
+            input.ReadMessage(Tile);
             break;
           }
           case 122: {
-            if (worldData_ == null) {
-              WorldData = new global::Gamepacket.WorldData();
+            if (tileSet_ == null) {
+              TileSet = new global::Gamepacket.TileSet();
             }
-            input.ReadMessage(WorldData);
+            input.ReadMessage(TileSet);
             break;
           }
           case 794: {
@@ -4123,16 +4124,16 @@ namespace Gamepacket {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class WorldData : pb::IMessage<WorldData>
+  public sealed partial class TileSet : pb::IMessage<TileSet>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<WorldData> _parser = new pb::MessageParser<WorldData>(() => new WorldData());
+    private static readonly pb::MessageParser<TileSet> _parser = new pb::MessageParser<TileSet>(() => new TileSet());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<WorldData> Parser { get { return _parser; } }
+    public static pb::MessageParser<TileSet> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -4148,7 +4149,7 @@ namespace Gamepacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public WorldData() {
+    public TileSet() {
       OnConstruction();
     }
 
@@ -4156,7 +4157,7 @@ namespace Gamepacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public WorldData(WorldData other) : this() {
+    public TileSet(TileSet other) : this() {
       tiles_ = other.tiles_.Clone();
       worldSize_ = other.worldSize_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -4164,23 +4165,23 @@ namespace Gamepacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public WorldData Clone() {
-      return new WorldData(this);
+    public TileSet Clone() {
+      return new TileSet(this);
     }
 
     /// <summary>Field number for the "tiles" field.</summary>
-    public const int TilesFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Gamepacket.WorldTile> _repeated_tiles_codec
-        = pb::FieldCodec.ForMessage(10, global::Gamepacket.WorldTile.Parser);
-    private readonly pbc::RepeatedField<global::Gamepacket.WorldTile> tiles_ = new pbc::RepeatedField<global::Gamepacket.WorldTile>();
+    public const int TilesFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Gamepacket.Tile> _repeated_tiles_codec
+        = pb::FieldCodec.ForMessage(18, global::Gamepacket.Tile.Parser);
+    private readonly pbc::RepeatedField<global::Gamepacket.Tile> tiles_ = new pbc::RepeatedField<global::Gamepacket.Tile>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Gamepacket.WorldTile> Tiles {
+    public pbc::RepeatedField<global::Gamepacket.Tile> Tiles {
       get { return tiles_; }
     }
 
     /// <summary>Field number for the "world_size" field.</summary>
-    public const int WorldSizeFieldNumber = 2;
+    public const int WorldSizeFieldNumber = 3;
     private int worldSize_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -4194,12 +4195,12 @@ namespace Gamepacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as WorldData);
+      return Equals(other as TileSet);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(WorldData other) {
+    public bool Equals(TileSet other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -4237,7 +4238,7 @@ namespace Gamepacket {
     #else
       tiles_.WriteTo(output, _repeated_tiles_codec);
       if (WorldSize != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteInt32(WorldSize);
       }
       if (_unknownFields != null) {
@@ -4252,7 +4253,7 @@ namespace Gamepacket {
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
       tiles_.WriteTo(ref output, _repeated_tiles_codec);
       if (WorldSize != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteInt32(WorldSize);
       }
       if (_unknownFields != null) {
@@ -4277,7 +4278,7 @@ namespace Gamepacket {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(WorldData other) {
+    public void MergeFrom(TileSet other) {
       if (other == null) {
         return;
       }
@@ -4304,11 +4305,11 @@ namespace Gamepacket {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
+          case 18: {
             tiles_.AddEntriesFrom(input, _repeated_tiles_codec);
             break;
           }
-          case 16: {
+          case 24: {
             WorldSize = input.ReadInt32();
             break;
           }
@@ -4331,12 +4332,422 @@ namespace Gamepacket {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
+          case 18: {
             tiles_.AddEntriesFrom(ref input, _repeated_tiles_codec);
             break;
           }
-          case 16: {
+          case 24: {
             WorldSize = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class Tile : pb::IMessage<Tile>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<Tile> _parser = new pb::MessageParser<Tile>(() => new Tile());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<Tile> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Gamepacket.GamepacketReflection.Descriptor.MessageTypes[15]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Tile() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Tile(Tile other) : this() {
+      tileId_ = other.tileId_;
+      position_ = other.position_ != null ? other.position_.Clone() : null;
+      rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
+      scale_ = other.scale_ != null ? other.scale_.Clone() : null;
+      type_ = other.type_;
+      isScalable_ = other.isScalable_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public Tile Clone() {
+      return new Tile(this);
+    }
+
+    /// <summary>Field number for the "tileId" field.</summary>
+    public const int TileIdFieldNumber = 1;
+    private string tileId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string TileId {
+      get { return tileId_; }
+      set {
+        tileId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "position" field.</summary>
+    public const int PositionFieldNumber = 2;
+    private global::Gamepacket.Vector_3 position_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Gamepacket.Vector_3 Position {
+      get { return position_; }
+      set {
+        position_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "rotation" field.</summary>
+    public const int RotationFieldNumber = 3;
+    private global::Gamepacket.Vector_3 rotation_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Gamepacket.Vector_3 Rotation {
+      get { return rotation_; }
+      set {
+        rotation_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "scale" field.</summary>
+    public const int ScaleFieldNumber = 4;
+    private global::Gamepacket.Vector_3 scale_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Gamepacket.Vector_3 Scale {
+      get { return scale_; }
+      set {
+        scale_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "type" field.</summary>
+    public const int TypeFieldNumber = 5;
+    private global::Gamepacket.TileType type_ = global::Gamepacket.TileType.None;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Gamepacket.TileType Type {
+      get { return type_; }
+      set {
+        type_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "isScalable" field.</summary>
+    public const int IsScalableFieldNumber = 6;
+    private bool isScalable_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsScalable {
+      get { return isScalable_; }
+      set {
+        isScalable_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as Tile);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(Tile other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (TileId != other.TileId) return false;
+      if (!object.Equals(Position, other.Position)) return false;
+      if (!object.Equals(Rotation, other.Rotation)) return false;
+      if (!object.Equals(Scale, other.Scale)) return false;
+      if (Type != other.Type) return false;
+      if (IsScalable != other.IsScalable) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (TileId.Length != 0) hash ^= TileId.GetHashCode();
+      if (position_ != null) hash ^= Position.GetHashCode();
+      if (rotation_ != null) hash ^= Rotation.GetHashCode();
+      if (scale_ != null) hash ^= Scale.GetHashCode();
+      if (Type != global::Gamepacket.TileType.None) hash ^= Type.GetHashCode();
+      if (IsScalable != false) hash ^= IsScalable.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (TileId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(TileId);
+      }
+      if (position_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Position);
+      }
+      if (rotation_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Rotation);
+      }
+      if (scale_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Scale);
+      }
+      if (Type != global::Gamepacket.TileType.None) {
+        output.WriteRawTag(40);
+        output.WriteEnum((int) Type);
+      }
+      if (IsScalable != false) {
+        output.WriteRawTag(48);
+        output.WriteBool(IsScalable);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (TileId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(TileId);
+      }
+      if (position_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Position);
+      }
+      if (rotation_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(Rotation);
+      }
+      if (scale_ != null) {
+        output.WriteRawTag(34);
+        output.WriteMessage(Scale);
+      }
+      if (Type != global::Gamepacket.TileType.None) {
+        output.WriteRawTag(40);
+        output.WriteEnum((int) Type);
+      }
+      if (IsScalable != false) {
+        output.WriteRawTag(48);
+        output.WriteBool(IsScalable);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (TileId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(TileId);
+      }
+      if (position_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
+      }
+      if (rotation_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
+      }
+      if (scale_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Scale);
+      }
+      if (Type != global::Gamepacket.TileType.None) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
+      }
+      if (IsScalable != false) {
+        size += 1 + 1;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(Tile other) {
+      if (other == null) {
+        return;
+      }
+      if (other.TileId.Length != 0) {
+        TileId = other.TileId;
+      }
+      if (other.position_ != null) {
+        if (position_ == null) {
+          Position = new global::Gamepacket.Vector_3();
+        }
+        Position.MergeFrom(other.Position);
+      }
+      if (other.rotation_ != null) {
+        if (rotation_ == null) {
+          Rotation = new global::Gamepacket.Vector_3();
+        }
+        Rotation.MergeFrom(other.Rotation);
+      }
+      if (other.scale_ != null) {
+        if (scale_ == null) {
+          Scale = new global::Gamepacket.Vector_3();
+        }
+        Scale.MergeFrom(other.Scale);
+      }
+      if (other.Type != global::Gamepacket.TileType.None) {
+        Type = other.Type;
+      }
+      if (other.IsScalable != false) {
+        IsScalable = other.IsScalable;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            TileId = input.ReadString();
+            break;
+          }
+          case 18: {
+            if (position_ == null) {
+              Position = new global::Gamepacket.Vector_3();
+            }
+            input.ReadMessage(Position);
+            break;
+          }
+          case 26: {
+            if (rotation_ == null) {
+              Rotation = new global::Gamepacket.Vector_3();
+            }
+            input.ReadMessage(Rotation);
+            break;
+          }
+          case 34: {
+            if (scale_ == null) {
+              Scale = new global::Gamepacket.Vector_3();
+            }
+            input.ReadMessage(Scale);
+            break;
+          }
+          case 40: {
+            Type = (global::Gamepacket.TileType) input.ReadEnum();
+            break;
+          }
+          case 48: {
+            IsScalable = input.ReadBool();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            TileId = input.ReadString();
+            break;
+          }
+          case 18: {
+            if (position_ == null) {
+              Position = new global::Gamepacket.Vector_3();
+            }
+            input.ReadMessage(Position);
+            break;
+          }
+          case 26: {
+            if (rotation_ == null) {
+              Rotation = new global::Gamepacket.Vector_3();
+            }
+            input.ReadMessage(Rotation);
+            break;
+          }
+          case 34: {
+            if (scale_ == null) {
+              Scale = new global::Gamepacket.Vector_3();
+            }
+            input.ReadMessage(Scale);
+            break;
+          }
+          case 40: {
+            Type = (global::Gamepacket.TileType) input.ReadEnum();
+            break;
+          }
+          case 48: {
+            IsScalable = input.ReadBool();
             break;
           }
         }
@@ -4361,7 +4772,7 @@ namespace Gamepacket {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Gamepacket.GamepacketReflection.Descriptor.MessageTypes[15]; }
+      get { return global::Gamepacket.GamepacketReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4609,379 +5020,6 @@ namespace Gamepacket {
           }
           case 29: {
             Z = input.ReadFloat();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class WorldTile : pb::IMessage<WorldTile>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<WorldTile> _parser = new pb::MessageParser<WorldTile>(() => new WorldTile());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<WorldTile> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Gamepacket.GamepacketReflection.Descriptor.MessageTypes[16]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public WorldTile() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public WorldTile(WorldTile other) : this() {
-      position_ = other.position_ != null ? other.position_.Clone() : null;
-      rotation_ = other.rotation_ != null ? other.rotation_.Clone() : null;
-      scale_ = other.scale_ != null ? other.scale_.Clone() : null;
-      type_ = other.type_;
-      isScalable_ = other.isScalable_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public WorldTile Clone() {
-      return new WorldTile(this);
-    }
-
-    /// <summary>Field number for the "position" field.</summary>
-    public const int PositionFieldNumber = 1;
-    private global::Gamepacket.Vector_3 position_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Gamepacket.Vector_3 Position {
-      get { return position_; }
-      set {
-        position_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "rotation" field.</summary>
-    public const int RotationFieldNumber = 2;
-    private global::Gamepacket.Vector_3 rotation_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Gamepacket.Vector_3 Rotation {
-      get { return rotation_; }
-      set {
-        rotation_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "scale" field.</summary>
-    public const int ScaleFieldNumber = 3;
-    private global::Gamepacket.Vector_3 scale_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Gamepacket.Vector_3 Scale {
-      get { return scale_; }
-      set {
-        scale_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "type" field.</summary>
-    public const int TypeFieldNumber = 4;
-    private global::Gamepacket.TileType type_ = global::Gamepacket.TileType.RoadLane;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Gamepacket.TileType Type {
-      get { return type_; }
-      set {
-        type_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "isScalable" field.</summary>
-    public const int IsScalableFieldNumber = 5;
-    private bool isScalable_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsScalable {
-      get { return isScalable_; }
-      set {
-        isScalable_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as WorldTile);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(WorldTile other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(Position, other.Position)) return false;
-      if (!object.Equals(Rotation, other.Rotation)) return false;
-      if (!object.Equals(Scale, other.Scale)) return false;
-      if (Type != other.Type) return false;
-      if (IsScalable != other.IsScalable) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (position_ != null) hash ^= Position.GetHashCode();
-      if (rotation_ != null) hash ^= Rotation.GetHashCode();
-      if (scale_ != null) hash ^= Scale.GetHashCode();
-      if (Type != global::Gamepacket.TileType.RoadLane) hash ^= Type.GetHashCode();
-      if (IsScalable != false) hash ^= IsScalable.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (position_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Position);
-      }
-      if (rotation_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Rotation);
-      }
-      if (scale_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(Scale);
-      }
-      if (Type != global::Gamepacket.TileType.RoadLane) {
-        output.WriteRawTag(32);
-        output.WriteEnum((int) Type);
-      }
-      if (IsScalable != false) {
-        output.WriteRawTag(40);
-        output.WriteBool(IsScalable);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (position_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(Position);
-      }
-      if (rotation_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(Rotation);
-      }
-      if (scale_ != null) {
-        output.WriteRawTag(26);
-        output.WriteMessage(Scale);
-      }
-      if (Type != global::Gamepacket.TileType.RoadLane) {
-        output.WriteRawTag(32);
-        output.WriteEnum((int) Type);
-      }
-      if (IsScalable != false) {
-        output.WriteRawTag(40);
-        output.WriteBool(IsScalable);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (position_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Position);
-      }
-      if (rotation_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Rotation);
-      }
-      if (scale_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Scale);
-      }
-      if (Type != global::Gamepacket.TileType.RoadLane) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Type);
-      }
-      if (IsScalable != false) {
-        size += 1 + 1;
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(WorldTile other) {
-      if (other == null) {
-        return;
-      }
-      if (other.position_ != null) {
-        if (position_ == null) {
-          Position = new global::Gamepacket.Vector_3();
-        }
-        Position.MergeFrom(other.Position);
-      }
-      if (other.rotation_ != null) {
-        if (rotation_ == null) {
-          Rotation = new global::Gamepacket.Vector_3();
-        }
-        Rotation.MergeFrom(other.Rotation);
-      }
-      if (other.scale_ != null) {
-        if (scale_ == null) {
-          Scale = new global::Gamepacket.Vector_3();
-        }
-        Scale.MergeFrom(other.Scale);
-      }
-      if (other.Type != global::Gamepacket.TileType.RoadLane) {
-        Type = other.Type;
-      }
-      if (other.IsScalable != false) {
-        IsScalable = other.IsScalable;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-      if ((tag & 7) == 4) {
-        // Abort on any end group tag.
-        return;
-      }
-      switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (position_ == null) {
-              Position = new global::Gamepacket.Vector_3();
-            }
-            input.ReadMessage(Position);
-            break;
-          }
-          case 18: {
-            if (rotation_ == null) {
-              Rotation = new global::Gamepacket.Vector_3();
-            }
-            input.ReadMessage(Rotation);
-            break;
-          }
-          case 26: {
-            if (scale_ == null) {
-              Scale = new global::Gamepacket.Vector_3();
-            }
-            input.ReadMessage(Scale);
-            break;
-          }
-          case 32: {
-            Type = (global::Gamepacket.TileType) input.ReadEnum();
-            break;
-          }
-          case 40: {
-            IsScalable = input.ReadBool();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-      if ((tag & 7) == 4) {
-        // Abort on any end group tag.
-        return;
-      }
-      switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (position_ == null) {
-              Position = new global::Gamepacket.Vector_3();
-            }
-            input.ReadMessage(Position);
-            break;
-          }
-          case 18: {
-            if (rotation_ == null) {
-              Rotation = new global::Gamepacket.Vector_3();
-            }
-            input.ReadMessage(Rotation);
-            break;
-          }
-          case 26: {
-            if (scale_ == null) {
-              Scale = new global::Gamepacket.Vector_3();
-            }
-            input.ReadMessage(Scale);
-            break;
-          }
-          case 32: {
-            Type = (global::Gamepacket.TileType) input.ReadEnum();
-            break;
-          }
-          case 40: {
-            IsScalable = input.ReadBool();
             break;
           }
         }

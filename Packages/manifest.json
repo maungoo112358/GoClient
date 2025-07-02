@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.gameworkstore.googleprotobufunity": "https://github.com/GameWorkstore/google-protobuf-unity.git",
+    "com.unity.addressables": "1.22.3",
     "com.unity.ide.visualstudio": "2.0.23",
     "com.unity.render-pipelines.universal": "14.0.11",
     "com.unity.textmeshpro": "3.0.9",

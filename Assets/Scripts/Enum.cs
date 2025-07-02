@@ -18,5 +18,14 @@ public enum PacketType
 	LobbyJoinBroadcast,
 	ClientPosition,
 	ServerStatus,
-	HandshakeResponse
+	HandshakeResponse,
+	TileSet,
+}
+
+public enum TileType
+{
+	None = 0,
+	ROAD_LANE = 1,
+	CROSS_SECTION = 2,
+	GRASS = 3
 }
