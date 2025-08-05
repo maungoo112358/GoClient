@@ -68,9 +68,10 @@ namespace Gamepacket {
             "aW9uGAMgASgLMhQuZ2FtZXBhY2tldC5WZWN0b3JfMxIjCgVzY2FsZRgEIAEo",
             "CzIULmdhbWVwYWNrZXQuVmVjdG9yXzMSIgoEdHlwZRgFIAEoDjIULmdhbWVw",
             "YWNrZXQuVGlsZVR5cGUSEgoKaXNTY2FsYWJsZRgGIAEoCCIrCghWZWN0b3Jf",
-            "MxIJCgF4GAEgASgCEgkKAXkYAiABKAISCQoBehgDIAEoAipBCghUaWxlVHlw",
-            "ZRIICgROb25lEAASDQoJUk9BRF9MQU5FEAESEQoNQ1JPU1NfU0VDVElPThAC",
-            "EgkKBUdSQVNTEANCFVoTZ29zb2NrZXQvZ2FtZXBhY2tldGIGcHJvdG8z"));
+            "MxIJCgF4GAEgASgCEgkKAXkYAiABKAISCQoBehgDIAEoAipGCghUaWxlVHlw",
+            "ZRIICgROb25lEAASDQoJUk9BRF9MQU5FEAESFgoSQ1JPU1NfSU5URVJTRUNU",
+            "SU9OEAISCQoFR1JBU1MQA0IVWhNnb3NvY2tldC9nYW1lcGFja2V0YgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Gamepacket.TileType), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -100,7 +101,7 @@ namespace Gamepacket {
   public enum TileType {
     [pbr::OriginalName("None")] None = 0,
     [pbr::OriginalName("ROAD_LANE")] RoadLane = 1,
-    [pbr::OriginalName("CROSS_SECTION")] CrossSection = 2,
+    [pbr::OriginalName("CROSS_INTERSECTION")] CrossIntersection = 2,
     [pbr::OriginalName("GRASS")] Grass = 3,
   }
 

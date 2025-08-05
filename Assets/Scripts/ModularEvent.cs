@@ -156,7 +156,7 @@ public class PlayerMovementEvent : IModularEvent
 
 public class TileGenerationEvent : IModularEvent
 {
-	List<Tile> TileSet = new ();
+	public List<Tile> TileSet = new ();
 
 	public TileGenerationEvent(List<Tile> tileSet)
 	{
