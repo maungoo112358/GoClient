@@ -26,8 +26,10 @@ public static class Helper
 	   (new(tile.Position.X, tile.Position.Y, tile.Position.Z), new(tile.Rotation.X, tile.Rotation.Y, tile.Rotation.Z), new(tile.Scale.X, tile.Scale.Y, tile.Scale.Z), (int)tile.Type switch
 	   {
 		   1 => TileType.ROAD_LANE,
-		   2 => TileType.CROSS_INTERSECTION,
-		   3 => TileType.GRASS,
+		   2 => TileType.CROSS_INTERSECTION_2_WAYS,
+		   3 => TileType.CROSS_INTERSECTION_3_WAYS,
+		   4 => TileType.CROSS_INTERSECTION_4_WAYS,
+		   5 => TileType.GRASS,
 		   _ => TileType.None
 	   });
 
@@ -35,7 +37,9 @@ public static class Helper
 		tileType switch
 		{
 			TileType.ROAD_LANE => "road_lane",
-			TileType.CROSS_INTERSECTION => "cross_intersection",
+			TileType.CROSS_INTERSECTION_2_WAYS => "cross_intersection_2_ways",
+			TileType.CROSS_INTERSECTION_3_WAYS => "cross_intersection_3_ways",
+			TileType.CROSS_INTERSECTION_4_WAYS => "cross_intersection_4_ways",
 			TileType.GRASS => "grass",
 			_ => "grass"
 		};

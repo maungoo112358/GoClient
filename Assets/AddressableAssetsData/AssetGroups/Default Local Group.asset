@@ -23,26 +23,29 @@ MonoBehaviour:
     m_SerializedLabels:
     - grass
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 39f651e340882304fa6f21b321d3bea5
-    m_Address: Assets/SimplePoly City - Low Poly Assets/Materials/Natures.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3a11134ecd7421f4983f2174c05730f2
-    m_Address: Assets/Addressables/Prefabs/Tiles/cross_intersection.prefab
+    m_Address: cross_intersection_4_ways
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - cross_intersaction_4_ways
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a7e1c0a00828fd4196c8cd24886d2ed
+    m_Address: cross_intersection_2_ways
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - cross_intersection_2_ways
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bed8c56598c4b4c4e8912082aa969070
+    m_Address: cross_intersection_3_ways
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - cross_intersection_3_ways
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e9ba6e8e860bf3543bef4a4333032b09
     m_Address: road_lane
     m_ReadOnly: 0
     m_SerializedLabels:
     - road_lane
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: faa0cd7e7e1757945a22cce35d7069cd
-    m_Address: Assets/SimplePoly City - Low Poly Assets/Materials/Road.mat
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 907370ceb3f244142b9384d2c5208b97, type: 2}
